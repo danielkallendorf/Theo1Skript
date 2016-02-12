@@ -1,0 +1,1723 @@
+% !TeX spellcheck = de_frami_dfew
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{tikz,pgf}
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations}
+\usepackage{yfonts}
+\usepackage[arrow, matrix, curve]{xy}
+
+\newcommand{\gdw}{\Leftrightarrow}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\impl}{\Rightarrow}
+\newcommand{\la}{\lambda}
+\newcommand{\al}{\alpha}
+\newcommand{\SeiV}{Sei $V$ ein $K$-Vektorraum }
+\newcommand{\summeA}{\sum_{i\in I}}
+\newcommand{\summeB}{\sum_{i=1}^n}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\dif}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\mdif}[3]{\frac{\partial^#1 #2}{\partial #2^#3}}
+
+
+\theoremstyle{remark}
+\newtheorem*{bem}{Bemerkung}
+
+\theoremstyle{definition}
+\newtheorem*{exm}{Beispiel}
+\newtheorem*{defn}{Definition}
+
+\theoremstyle{plain}
+\newtheorem*{theorem}{Satz}
+\newtheorem*{mth}{Mehtode}
+
+
+\catcode`\"=\active
+\AtBeginDocument{
+	\newcommand{"}[1]{^{(#1)}}
+}
+
+\author{Daniel Kallendorf}
+\title{Theoretische Physik 1}
+\date{}
+
+\begin{document}
+\maketitle
+\begin{center}
+	Mitschrift der Vorlesung Theoretische Physik I \\
+	WS 2015/16 bei Prof. Alber
+\end{center}
+\tableofcontents
+\section{Das Zweikörperproblem im Rahmen der Newtonschen Mechanik}
+
+\subsubsection*{Problemstellung}
+\begin{tikzpicture} %[scale=0.5]
+\coordinate  (m1) at (-3,1);
+\coordinate  (m2) at (0,2);
+\coordinate  (0) at (0,0);
+\draw[fill=black] (0) circle(0.05) node[below]{$0$};
+\draw[fill=black] (m1) circle(0.05) node[below]{$m_1$};
+\draw[fill=black] (m2)circle(0.05) node[above]{$m_2$};
+\draw[->] (0)--(m1);
+\draw[->] (0)--(m2);
+\node[left]  at (0,1) {$\vec x_2(t)$};
+\node[below]  at (-1.5,0.5) {$\vec x_1(t)$};
+\draw[->](m1)--(m2);
+\node[above]  at (-2,2){$\vec r(t)=\vec x_1(t)-\vec x_2(t)$};
+\end{tikzpicture}
+\subsubsection*{Axiome}
+\begin{enumerate}
+\item kräftefreie Massenpunkte bewegen sich geradlinig gleichförmig:\\
+Inertialsystem
+\item $m\ddot{\vec x}(t)=\vec F(t)$
+\item Wechselwirkung:\\
+actio=reactio
+\end{enumerate}
+\subsubsection*{Bemerkungen}
+\begin{itemize}
+\item $\vec F(t)$ Kraftkurve
+\item $\vec x_1(t)$ Bahnkurve (ohne Zeitinformation: Bahnkurve)
+\item Spezielle Kraftfelder:\\
+$\vec K(\vec x,\dot{\vec x},t)\rightarrow \vec F(t)=\vec K(\vec x(t),\dot{\vec x}(t),t)$\\
+\subitem\underline{Newton}: $\vec K(\vec x(t),\dot{\vec x}(t),t)=-\gamma \dfrac{\vec x_1-\vec x_2}{\norm{\vec x_1-x_2}^3}m_1^{(T)}m_2^{(s)}$\\
+\subitem $m^{(s)}$: schwere Masse
+\subitem $m^{(t)}$: träge Masse
+\subitem \fbox{$m^{(T)}\equiv m^{(s)}$}
+\end{itemize}
+\begin{align*}
+\vec K(\vec x_1,\vec x_2)=\dfrac{\vec r(t)}{\norm{\vec r(t)}}f(\norm{\vec r(t)})&=-\vec{\nabla}_{\vec x_1}U(\norm{\vec x_1-\vec x_2})\\
+\Rightarrow \int_{\xi_1|\vec x_1^A}^{\vec x_1^B}\vec K(\vec x_1,\vec x_2)\left(\dfrac{d\vec x_1}{d\lambda}\right)d\lambda&=-U(\norm{\vec x_1^B-\vec x_2})-U(\norm{\vec x_1^A-\vec x_2})
+\end{align*}
+mit  Weg $\xi:\la\rightarrow \vec x_1(\la)$ und wegunabhängiger konservativer Kraft
+\subsection{Erhaltungssätze}
+\begin{itemize}
+\item abgeschlossenes System: (action=reactio)\\
+\begin{align*}
+\left. {m_1\ddot{\vec x}_1(t)=\vec F_{12}(t)}\atop{m_1\ddot{\vec x}_1(t)=\vec F_{12}(t)}\right\}&\dfrac{d}{dt}\underbrace{(m_1\dot{\vec x}_1+m_2\dot{\vec x}_2)(t)}_{:=\vec P(t)\text{ Impuls }=M\dot{\vec{R}}(t)}=0\\
+\underbrace{(m_1+m_2)}_{:=M}\vec R(t)&:=m_1\vec x_1
+(t)+m_2\vec x_2(t)
+\end{align*}
+\begin{align*}
+\begin{array}{cc}
+\vec x_1(t)&=\vec R(t)+\frac{m_2}{M}\vec r\\
+\vec x_2(t)&=\vec R(t)+\frac{m_1}{M}\vec r\\
+\end{array}\Leftrightarrow\begin{array}{cc}
+\vec R(t)&=\dfrac{m_1\vec x_1(t+m_1\vec x_2(t))}{M}\\
+\vec r(t)&=x_1(t)-x_2(t)
+\end{array}
+\end{align*}
+\item Zentralkraftfeld\\
+$\mu\ddot{\vec r}(t)=-\dfrac{\vec r(t)}{\vec r(t)}f(r(t)):$ allgemeine Zentralkraft (z.B. Gravitation)\\
+$\rightarrow $ Drehimpulserhaltung\\
+\begin{align*}
+\vec L&:=m_1\vec x_1(t)\times \dot{\vec x}_1(t)+m_1\vec x_2(t)\times\dot{\vec x}_2(t)&\text{ zu Zeigen: }\dot{\vec L}(t)=0\\
+&=\vec R\times \vec P+\mu\vec r\times\dot\vec r\\
+\dot\vec L(t)&=\underbrace{\dot\vec R\times\vec P}_{=0}+\underbrace{\vec R\times\dot\vec P}_{=0}\mu\vec r\times\ddot\vec r+\underbrace{\mu\dot\vec r\times\dot\vec r}_{=0}=0
+\end{align*}
+Relativbahndrehimpuls $L_{rel}$:
+\subitem $\vec L_{rel}\cdot \vec r(t)=0\rightarrow $ ebene Dynamik
+\subitem $\dfrac{d}{dt}\mu\vec r\times\dot\vec r=0$ Flächensatz
+\item konservative Kraftfelder
+\begin{align*}
+\left.\begin{array}{ccccc}
+\dot{\vec x}_1m_1\ddot{\vec x}_1&=&\vec F_{12}(t)&=&-\vec{\nabla}_{\vec x_1}U(\norm{\vec x_1-\vec x_2})\\
+\dot{\vec x}_2m_2\ddot{\vec x}_2&=&-\vec F_{12}(t)&=&-\vec{\nabla}_{\vec x_2}U(\norm{\vec x_1-\vec x_2})
+\end{array}\right\}t\\
+\end{align*}
+Die Funktion U darf nur durch $x_1$ und $x_2$ von der Zeit abhängen
+\begin{align*}
+m_1\dot{\vec x}_1\ddot{\vec x}_2+m_2\dot{\vec x}_2\ddot{\vec x}_2&=-\dot{\vec x}_1\vec{\nabla}_{\vec x_1}U-\dot{\vec x}_2\vec{\nabla}_{\vec x_2}U\\
+\dfrac{d}{dt}\left(\dfrac{m_1}{2}\dot{\vec x}_1^2+\frac{m_2}{2}\dot{\vec x}_2^2\right)&=-\dfrac{d}{dt}U(\vec x_1(t)-\vec x_2(t))
+\end{align*}
+\begin{equation*}
+\Leftrightarrow \frac{d}{dt}\underbrace{\left(\dfrac{m_1}{2}\dot{\vec x}_1^2+\dfrac{m_2}{2}\dot{\vec x}_2^2+U(\vec x_1(t)-\vec x_2(t))\right)}_{:=E}=0
+\end{equation*}
+\end{itemize}
+\subsection{Bestimmung der Bahnkurven}
+\subsubsection*{Erhaltungsgrößen}
+\begin{itemize}
+\item abgeschlossenes System: \\
+$\dot{\vec P}=0, \vec R(t)=\vec R(t_0)+\dfrac{\vec P}{M}(t-t_0)$
+\item Zentralkraftfeld\\
+$\vec L=m_1\vec x_1\times\dot{\vec x}_1+m_2\vec x_2\times\dot{\vec x}_2=\vec L_{cm}+\vec L_{rel}$\\
+$\vec L_{rel}=\mu\vec r\times\dot{\vec r}$
+\item konservative Kraft: $E$
+\end{itemize}
+\subsubsection*{Ansatz}
+Aus $\vec L_{rel}\cdot \vec r=0$ folgt, dass die Bewegung in einer Ebene stattfindet.
+\begin{itemize}
+\item Wir definieren $\vec L_{rel}\vec e_z$.
+\begin{align*}
+x&=r\cos\varphi&\dot x&=\dot r\cos\varphi-r\sin\varphi\dot{\varphi}\\
+y&=r\sin\varphi&\dot y&=\dot r\sin\varphi+r\cos\varphi\dot{\varphi}
+\end{align*}
+\begin{equation}
+L_{rel}=\mu(x\dot y-\dot xy)=\mu\left[r\cos\varphi\left(\dot r\sin\varphi+r\cos\varphi\dot{\varphi}\right)-\left(\dot r\cos\varphi-r\sin\varphi\dot{\varphi}\right)r\sin\varphi\right]=\mu r^2\dot{\varphi}
+\end{equation}
+Somit erhalten wir
+\begin{align*}
+\dot{\varphi}&=\frac{L_{rel}}{\mu r^2}\\
+\varphi(t)-\varphi_0&=\int_{t_0}^{t}dt'\frac{L_{rel}}{\mu r^2(t')}
+\end{align*}
+\item $E_{rel}=\frac{\mu}{2}\dot{\vec r}^2+U(r)$
+\begin{align*}
+\dot{\vec r}^2&=\dot x^2+\dot y^2=\dot r^2+r^2\dot{\varphi}^2\\
+E_{rel}&=\frac{\mu}{2}\dot r^2\frac{L_{rel}}{\mu^2r^4}+U(r)\\
+&=\frac{\mu}{2}\dot r^2+\underbrace{\frac{L_{rel}^2}{2\mu r^2}+U(r)}_{=U_{eff}(r)}\\
+\dot r&=\sqrt{\frac{2}{\mu}(\underbrace{E_{rel}-U_{eff}(r)}_{\ge 0})}=\frac{dr}{dt}
+\end{align*}
+\begin{equation*}
+t-t_0=\pm\int_{r(t_0)}^{r(t)}dr\sqrt{\frac{\mu}{2}(E_{rel}-U(r))}
+\end{equation*}
+mit $+$ für $r(t)>r(t_0)$, $-$ für $r(t)<r(t_0)$, sonst $0$.
+\end{itemize}
+\subsubsection*{Bestimmung des Orbits}
+\[\dfrac{\dot{\varphi}}{\dot r}=\frac{d\varphi}{dr}=\pm\frac{L_{rel}}{\mu r^2\sqrt{\dfrac{2}{\mu}(E_{rel}-U(r))}}\]
+\[\varphi(r)-\varphi(r_0)=\pm\int_{r_0}^{r}dr'\frac{L_{rel}}{r'^2\sqrt{2\mu(E_{rel}-U(r'))}}\]
+\begin{tikzpicture}
+\coordinate (0) at (0,0) node[left] at (0) {$0$};
+\coordinate (E0) at (-0.15,-2) node[left] at (E0) {$E_0$};
+\coordinate (E1) at (-0.15,-1) node[left] at (E1) {$E_0'$};
+\coordinate (E2) at (-0.15,1) node[left] at (E2) {$E_0''$};
+\draw[thick,->] (-0.15,0)--(4,0) node[right]{$r$};
+\draw[thick,->] (0)--(0,2) node[above] {$U_{eff}$};
+\draw[thick] (0)--(0,-2.3);
+\draw[dashed] (E0)--(4,-2);
+\draw[dashed] (E1)--(4,-1);
+\draw[dashed] (E2)--(4,);
+\draw plot[domain=0:6.5,smooth] ({0.6*\x},{1.5*(3-(\x+1.3)^2))/(e^(1.1*\x)});
+\end{tikzpicture}\\
+Bahnkurven:\\
+\begin{tabular}{|ccc|}
+\hline&
+\begin{tikzpicture}[scale=0.5]
+\coordinate (Z) at (0,0);
+\draw[fill] (Z) circle(0.1) node[above]{$m_1$};
+\draw [dashed](Z) circle(3);
+\draw(Z) ellipse(3 and 1);
+\draw[rotate around={60:(Z)}] (Z) ellipse (3 and 1);
+\draw[rotate around={120:(Z)}] (Z) ellipse (3 and 1);
+\end{tikzpicture}&
+\begin{tikzpicture}[scale=0.5];
+\coordinate (Z) at (0,0);
+\draw[fill] (Z) circle(0.1) node[above]{$m_1$};
+\draw[dashed] (Z) circle (1);
+\draw plot[domain=-1.7:1.4] ({-cosh(\x)+2},{sinh(\x)});
+\draw[dashed](2,0)--(-1,-3) node[right]{Asymptote};
+\end{tikzpicture}\\
+$E_0$ nicht möglich&
+$E_0'$ gebundene Bewegung&$E_0''$ ungebundene Bewegung\\
+\hline
+\end{tabular}
+%VL 20.10.2015
+\subparagraph*{Funktional:} Jeder möglichen Bahnkurve wird eine Zahl zugeordnet.\\
+Man kann also Funktionale finden, sodass die Extrema auf die Newtonschen Bewegungsgleichungen führen.\\
+Es ergibt sich ein Variationsproblem im $\infty$-dimensionalen Raum der Bahnkurve unendlich vieler Punkte.
+\section{Das Hamiltonsche Prinzip der klassischen Mechanik}
+Aus dem Variationsprinzip lassen sich die Newtonschen Bewegungsgleichungen herleiten. Dies ermöglicht
+\begin{itemize}
+\item die Vereinheitlichung mechanischer Prozesse in ihrer Beschreibung
+\item die Beschreibung von Zwangskräften (Wände, Schiene, etc)
+\end{itemize}
+Dabei ``bewerten'' die Funktionale die möglichen Bahnkurven. Ein Extremum des Bewegungsfunktionals liefert also eine Bewegungsgleichung(= Lösung der Newton Gleichungen)
+\subsection{Funktionale und Funktionalableitungen}
+Es gilt $x_1,x_2\in\R^{3N}$, da jeder der N Massenpunkte je 3 Koordinaten hat.\\
+Wir betrachten nun $B_{x_1,x_2}$, die Menge aller stückweise stetigen und differenzierbaren Bahnkurven von $x_1$ (zum Zeitpunkt $t_1$) nach $x_2$ (zu $t_2$).\\
+Und das Funktional $F:B_{x_1,x_2}\rightarrow \R,\gamma\mapsto F[\gamma]$ (Punktweise Auswertung).
+\paragraph*{Stetigkeit}F ist stetig, an $\gamma_0$, wenn das $\delta-\epsilon$-Kriterium gilt:\\
+Für alle $\epsilon>0$ und für alle $h$ mit $\norm{h}<\delta$, existiert ein $\delta>0$, sodass
+\[|F[\gamma_0+h]-F[\gamma_0]|<\epsilon\]
+Wobei man $h$ auch schreiben kann, als
+\[\norm{h}=\max\limits_{t_1\leq t\le t_2}\left(\sum_{i=1}^{N}\sqrt{\vec{h}_i(t)\cdot\vec{h}_i(t)}\right)+\max\limits_{t_1\le t\le t_2}\left(\sum_{i=1}^{N}\sqrt{\dot{\vec{h}}_i(t)\cdot \dot{\vec{h}}_i(t)}\right)\]
+\subsubsection*{Funktionalableitungen}
+Ein Funktional heißt \emph{ableitbar}, wenn eine Beste Lineare Approximation existiert:
+\[\exists F_{\gamma_0}':F[\gamma_0+h]-F[\gamma_0]=F'_{\gamma_0}[h]+O(\norm{h}^2)\]
+\subparagraph*{lokales Funktional}
+\[F_1[\gamma]\sum_{i=1}^{N}\sqrt{\vec x_i(t_0)\cdot\vec c_i(t_0)}\]
+mit festem $t_0$ und $t_1\le t_0\le t_2$ gilt für
+\[S[\gamma]=\int_{t_1}^{t_2}dt\quad L(\{\vec x _i\}(t),\{\dot{\vec x} _i \}(t),t)\]
+dass
+\[S[\gamma+h]-S[\gamma]=S'_\gamma[h]+O(\norm{h^2}^2)\]
+\[\text{mit}\quad S_\gamma'[h]=\sum_{i=1}^{3N}h_i(t)\left.\dif{L}{\dot x_i}\right|_{t_1}^{t_2}+\sum_{i=1}^{3N}\int_{t_1}^{t_2}dt\quad h_i(t)\left\{\dif{L}{x_i}-\frac{d}{dt}\dif{L}{\dot x_i}\right\}_{\gamma(t)}\]
+\begin{proof}[Beweisidee]
+\begin{align*}
+S[\gamma+h]&=\int_{t_1}^{t_2}dt L\big(x_i(t)+h_i(t),\dot x_i(t)+\dot h_i(t),t\big)\\
+&=S[\gamma]+\int_{t_1}^{t_2}dt\left\{\right.\dif{L}{x_i}\left|_\gamma h_i(t)+\left.\dif{L}{\dot x_i}\right|_\gamma\dot h_i(t)\right\}+O(\norm{h}^2)
+\intertext{Wir verwenden die Produktregel: $\left.\dif{L}{\dot x_i}\right|_\gamma\dot h_i(t)=\left.\frac{d}{dt}\dif{L}{\dot x_i}\right|_\gamma h_i(t)-h_i(t)\left.\frac{d}{dt}\left(\dif{L}{\dot x_i}\right)\right|_\gamma$}
+&=S[\gamma]+\left.\sum_{i=1}^{3N}h_i(t)\left.\left(\dif{L}{\dot x_i}\right)\right|_\gamma\right|_{t_1}^{t_2}+\sum_{i=1}^{3N}\int_{t_1}^{t_2}dth_i(t)\left\{\left.\dif{L}{x_i}\right|_\gamma-\frac{d}{dt}\left.\left(\dif{L}{\dot x_i}\right)\right|_\gamma\right\}
+\end{align*}
+\end{proof}
+Da das bei $S'_\gamma=0$ Extrema liege, kann man Bewegungsgleichungen formulieren: Die \emph{Euler-Lagrange-Gleichungen}
+\[\dfrac{d}{dt}\left.\left(\dif{L}{\dot x_i}\right)\right|_\gamma-\left.\dif{L}{x_i}\right|_\gamma=0\]
+%VL 22.10.2015
+\subsection{Das Hamiltonsche Prinzip}
+Für
+\[L\big(\{x_i\},\{\dot x _i\},t\big)=\sum_{i=1}^{N}\left\{\frac{m_i}{2}\dot{\vec x}_i\cdot\dot{\vec x}+\vec F_i(t)\cdot \vec x_i\right\}\]
+wobei $\vec F_i(t)$ vorgegebene Kraftkurven sind, gilt, dass die EL-Gl äquivalent zu den Newtonschen Bewegungsgleichungen ($m_i\ddot{\vec x_i}(t)=\vec F_i(t)$) sind.
+\begin{proof}
+Es gilt:\begin{align*}
+\vec{\nabla}_{x_i}L&=\vec F_i(t)&\vec{\nabla}_{\dot x_i}L&m_i\dot{\vec{ x}}_i
+\end{align*}
+Somit also
+\[\underbrace{\left.\frac{d}{dt}\nabla_{\dot{\vec{x}}_i}L\right|_\gamma}_{\text{(Newton Gleichungen)}}=\underbrace{\left.\nabla_{\vec{x}_i}L\right|_\gamma}_{\text{(Euler-Langrange-Gleichungen)}}\]
+\end{proof}
+\begin{bem}
+\begin{itemize}
+\item Kraftkurven sind vorgegeben.
+\item $S[\gamma]=\int_{t_1}^{t_2}dt L\big(x(t),\dot x(t),t\big)$
+\item $h^2(t)\equiv \delta x_i(t)$, eine Virtuelle Verschiebung.\\
+Es handelt sich nicht um eine physikalische Bewegung sondern um einen rein mathematische infinitesimale Verschiebung eines Teilchens, die ohne verzögerung (instantan) stattfindet.\\
+(Unter beachtung der Zwangsbedingungen)
+\item Die äquivalenz stimmt nicht vollständig, da die Newton-Gleichungen eine Anfangsrandwertproblem darstellen, das Variationsprinzip/ Hamiltonsches Prinzip ein Randwertproblem darstellt:
+\begin{itemize}
+\item Newton: $\vec x_i(t,x_1,\dot x_1)$
+\item Hamilton: $\vec x_i(t,x_1,x_2)$
+\end{itemize}
+Die Äquivalenz gilt also, wenn dem Ziel bijektiv eine Anfangswert zugeordnet werden kann.
+\end{itemize}
+\end{bem}
+Sei nun $S[\gamma]=\int_{t_1}^{t_2}dt L\big(x(t),\dot x(t),t\big)$ mit
+\[\underbrace{\delta\vec x(t_1)}_{\vec h(t_1)}=\delta\vec x(t_2)\]
+Da Hamilton Prinzip selektiert nun $\gamma_0$
+\[\delta S[\gamma_0]=S'_{\gamma_0}[h]=0\]
+ist äquivalent zu den E-L-Gl:
+\[\dfrac{d}{dt}\left.\left(\dif{L}{\dot x_k}\right)\right|_{\gamma_0}-\left.\dif{L}{x_k}\right|_{\gamma_0}=0\]
+und den Newton-Gleichungen:
+\[L=\sum_{i=1}^{N}\frac{m_i}{2}\dot{\vec{x}}^2+\sum_{i=1}^{N}\vec F(t)\vec x\]
+\begin{bem}
+Geschwindigkeitsabhängige Potenziale\\
+Es gilt für:
+\[\vec F_i(t)=-\left(\vec{\nabla}_{\vec x_i}V-\frac{d}{dt}\left(\vec{\nabla}_{\dot{\vec{x}} _i}V\right) \right)(\{x(t)\},\{\dot x(t)\},t)\]
+und es ergibt sich
+\[L=\sum_{i=1}^{N}\frac{m_i}{2}\dot{\vec{x}}_i^2-V(\{x(t)\},\{\dot x(t)\},t)\]
+\end{bem}
+\begin{proof}
+z.Z.: $\delta\int_{t_1}^{t_2}dt\sum_{i=1}^{N}\vec F_i(t)\vec x_i(t)\overset{!}{=}-\delta\int_{t_1}^{t_2}dtV(\{x(t)\},\{\dot x(t)\},t)$\\
+Wir beginnen mit der rechten Seite:
+\begin{align*}
+\delta\int_{t_1}^{t_2}dtV(\{x(t)\},\{\dot x(t)\},t)&=\int_{t_1}^{t_2}dt\left\{V(\delta\int_{t_1}^{t_2}dtV(\{x(t)\},\{\dot x(t)\},t))\right\}\\
+&\quad+\sum_{i=1}^{N}\delta\vec x_i(t)\vec{\nabla}_{x_i}V+\sum_{i=1}^{N}\delta\dot{\vec{x}}_i(t)\vec{\nabla}_{\vec x_i}V+O(\norm{h}^2)\\
+\Rightarrow \delta\vec{x}_i(t)\vec{\nabla}_{\vec x_i}V_i&=\frac{d}{dt}\left(\Delta x_i\vec{\nabla}_{\dot{\vec{x}}_i}V\right)-\delta x_i(t)\frac{d}{dt}\left(\vec{\nabla}_{x_i}V\right)\\
+\Rightarrow \delta\int_{t_1}^{t_2}dtV(\{x(t)\},\{\dot x(t)\},t)&=\int_{t_1}^{t_2}dt\sum_{i=1}^{N}\left(\delta\vec x_i()\cdot\left[\vec{\nabla}_{\vec x_i}V-\frac{d}{dt}\vec{\nabla}_{\dot{\vec{x}}_i}V\right]+\underbrace{\frac{d}{dt}\left[\delta\vec x_i(t)\cdot\nabla_{\vec x_i}V\right]}_{\delta\vec x_i(t_1)=\delta\vec x_i(t_2)=0}\right)\\
+&=-\int_{t_1}^{t_2}dt\quad\vec F_i(t)\cdot\Delta x_i(t)
+&\equiv -\delta\int_{t_1}^{t2}dt\quad\vec F_i(t)\cdot \vec x_i(t)
+\end{align*}
+\end{proof}
+\subsubsection*{Mechanische Eichfreiheit}
+Aus einer Lagrange-Funktion lassen dich die Newtonschen Bewegungsgleichungen ableiten (nicht bijektiv).\\
+\begin{proof}
+	Sei $L_1(\{x(t)\},\{\dot x(t)\},t)$. Und sei
+	\[L_2(\{x(t)\},\{\dot x(t)\},t)=L(\{x(t)\},\{\dot x(t)\},t)+\dif{f}{t}(\{x\},t)+\sum_{i=1}^{N}\dot{\vec{x}}_i\cdot\vec{\nabla}_{\vec x_i}f(\{x\},t)\]
+	mit einer beliebigen (differenzierbaren) Funktion f.\\
+	Dann führe beide Lagrange-Funktionen auf die selben E-L-Gln, denn
+	\begin{align*}
+	S[\gamma]&=\int_{t_1}^{t_2}dtL_2(\{x(t)\},\{\dot x(t)\},t)=\int_{t_1}^{t_2}L_1(\{x(t)\},\{\dot x(t)\},t)+\int_{t_1}^{t_2}dt\frac{d}{dt}f(\{x\},t)\\
+	&=\dif{f}{t}(\{x(t)\},t)+\sum_{i=1}^{N}\dot{\vec x}_i(t)\cdot\left(\vec{\nabla}_{\vec x_i}f\right)(\{x(t)\},t)\\
+	\partial S[\gamma]&\equiv S'_\gamma[h]=\delta\int_{t_1}^{t_2}dt\quad L(\{x(t)\},\{\dot x(t)\},t)\\
+	\frac{d}{dt}f(\{x(t)\},\{\dot x(t)\},t)&=\dif{f}{t}(\{x(t)\},t)+\sum_{i=1}^{N}\dot{\vec{x}}_i(t)\cdot(\vec{\nabla_{\vec{x}_i}}f)(\{x(t)\},t)
+	\end{align*}
+\end{proof}
+Somit hat also $L$ keine ``direkte'' physikalische Relevanz.\\
+Daraus folgt jedoch: die Äquivalenzklasse der Lagrange-Funktionen
+\[[L]=\{L_2|\exists f:L_2=L+f\}\]
+Welche Äquivalent zu den E-L-Gln ist.
+\subsubsection*{Analyse der Extrema von $[\gamma]$}
+Die Frage, ob ein Extremum von $S[\gamma]$ ein Minimum, Maximum oder Sattelpunkt ist gibt uns $\delta^2S[\gamma]$
+\[S[\gamma+\delta x]=S[\gamma]+S'_\gamma[\delta x]+O(\norm{\delta x}^2)\]
+\begin{exm}
+	Eine eindimensionale Dynamik mit geschwindigkeitsunabhängiges Potenzial und $\gamma:t\mapsto \vec x(t)$
+	\[L(x,\dot x,t)=\frac{m}{2}\dot{x}^2-V(x,t)\]
+	\begin{align*}
+	S[\gamma+\delta x]&=\int_{t_1}^{t_2}dt\left(\frac{m}{2}[\vec x(t)+\delta \dot x(t)]^2-V(x(t)+\delta\dot x(t),t)\right)\\
+	&=\underbrace{\int_{t_1}^{t_2}dt\left(\frac{m}{2}\dot{x}(t)^2-V\big(x(t),t\big)\right)}_{S[\gamma]}
+	+\underbrace{\int_{t_1}^{t_2}dt\left(\underbrace{\frac{m}{2}\cdot 2\dot x(t)\delta\dot x(t)}_{=\frac{d}{dt}(\delta x\dot x)-\Delta x\frac{d}{dt}\dot x}-\delta x(t)\dif{V}{x}(x8(t),t)\right)}_{:=S'_\gamma[\delta x]\equiv\delta S[\gamma]}\\
+	&\quad+\underbrace{\int_{t_1}^{t_2}dt\left(\frac{m}{2}\delta\dot x(t)^2-\frac{1}{2}\dif{^2V}{x^2}(x(t),t)\right)}_{:=\delta^2S[\delta x]}+O(\norm{\delta x}^3)
+	\end{align*}
+	wobei $\delta S[\gamma]=0$ da wir ein Extremum betrachten.\\
+	\\
+	Sei $|t_2-t_1|$ klein, dann ist für alle $\delta x$ $\delta^2 S[\delta x]\ge 0$ weil $???>0$.\\
+	Für $|t_2-t_1|$ wachsen, existiert ein anderes Extremum mit $\delta^2 S[\delta x]<0$.
+\end{exm}
+\emph{Hier fehlt etwas}
+%VL 27.10.2015
+\begin{itemize} 
+\item $x^i(q,t)\leftrightarrow q^i(x,t)$ sei angenommen
+\[S\left[\gamma\right]=\int_{t_1}^{t_2}dt L(x(t),\dot c(t),t)=\int_{t_1}^{t_2}dt \underbrace{L\left(x(q,t),\left\{\frac{\partial x^i}{\partial t}+\sum_{j=1}^{N}\dot{\vec q}_j\cdot\vec{\nabla}_{\vec{q}_j}x^i\right\},t\right)}_{:=\tilde{L}(q,\dot q,t)}\]
+$\rightarrow $ Euler-Lagrange Gleichung für $i=1,...,3N$
+\[\dfrac{d}{dt}\frac{\partial\tilde L}{\partial \dot q_i}=\frac{\partial \tilde{L}}{\partial q_i}\]
+\end{itemize}
+\subsection{Symmetrie und Erhaltungsgrößen} %2.3)
+Ausgangspunkt: $\dfrac{d}{dt}\frac{\partial L}{\partial \dot q_i}=\frac{\partial L}{\partial q_i}$ Euler-Lagrange für $L(q,\dot q,t)$.\\
+Sei $\frac{\partial L}{\partial q_1}=0$, d.h.:
+\begin{itemize}
+\item Transformation $\tau\epsilon$
+\item $L$ unabhängig von $q_1$; $\tau_{\epsilon^i} Q^i=q^i+\epsilon\delta_{i1}$
+\item $L$ invariant unter $\tau_\epsilon$
+\item $\tau\epsilon$ transformiert Lösungen der $ELG$ wieder in Lösungen (kontinuierliche Symmetrie)
+\end{itemize}
+Es folgt daraus, dass auch $\dfrac{d}{dt}\dfrac{\partial L}{\partial \dot q_1}=0\Leftrightarrow p_1=\dfrac{\partial L}{\partial \dot q_1}(q(t),\dot q(t),t)$ berechent entlang einer Lösung der E-L-Gleichung ist Zeitlich konstant\\
+$\rightarrow $Erhaltungsgröße\\
+$p_1:=$kanonischer Impuls von $q_i$\\
+Also ``kontinuierliche Symmetrie impliziert Erhaltungsgrößen''
+\subsubsection{Nöther Theorem}
+Betrachte folgende kontinuierliche Transformation:
+\begin{align*}
+Q^m&=q^m+\epsilon\psi^m(q,\dot q,t)+O(\epsilon^2)\\
+T&=t+\epsilon\phi(q\dot q,t)+O(\epsilon^2)
+\end{align*}
+\begin{center}
+mit $\epsilon\in\left[0,\infty\right)$.
+\end{center}
+Es gelte
+\[\int_{T_1}^{T_2}dT_\epsilon L(Q\epsilon(T_\epsilon),\frac{dQ\epsilon}{dt\epsilon}(T\epsilon),T\epsilon){!\atop =}\int_{t_1}^{t_2}dt\left\{L(q(t),\dot q(t),t)+\epsilon\dfrac{df_\epsilon}{dt}(q(t),t)\right\}\]
+Von dynamischer $\tau_\epsilon$-Symmetrie gefordert, mit mechanischem Eichterm $f\epsilon$.\\
+Es ergibt sich eine Erhaltungsgröße $E$ der Form
+\[\left.E=\sum_m\psi^m\dfrac{dL}{\partial\dot q^m}+\phi(L-\sum_m\dot q^m\dfrac{\partial L}{\partial \dot q^m})-f_{\epsilon=0}(q,t)\right|_\gamma\]
+\subsubsection*{Bemerkung}
+\begin{itemize}
+\item mechanische Eichtransformationen sollen in sinnvoller Weise bei dynamischer Symmetrie berücksichtigt werden $(f\epsilon(q,t)\neq 0)$
+\item Symmetrische $\tau\epsilon$ Symmetrie bedeutet:\\
+$Q_{\epsilon=0}^m(T_{\epsilon=0})$ ist Lösung der ELGl$\rightarrow $ $Q_\epsilon^m(T_\epsilon)$ ist Lösung. Sowie $Q^m_{\epsilon=0}=q^m$ und $T_{\epsilon=0}=t$
+\end{itemize}
+\subsubsection*{Bemerkung}
+\begin{itemize}
+\item Sei Transformation $Q_{\epsilon}^m=q^m+\epsilon\psi^m(q,\dot q,t)+O(\epsilon^2)$
+\item Sei $T_\epsilon=0$ gegeben.\\
+Es folgt:
+\[\dfrac{dQ_{\epsilon}}{dT\epsilon}(T_\epsilon)=\underbrace{\dfrac{dq^m}{dt}}_{:=\dot q^m}+\epsilon\dfrac{d\psi^m}{dt}(q(t),\dot q(t),t)+O(\epsilon)\]
+Aus $\tau_\epsilon$ Symmetrie:
+\[\int_{T_1}^{T_2}dT\epsilon L(Q_\epsilon(T_\epsilon),\dfrac{dQ_\epsilon}{dT\epsilon}(T_\epsilon),T_\epsilon)=\int_{t_1}^{t_2}dt\underbrace{L\left(\left\{q^m+\epsilon\psi^m\right\}\dot q^m+\epsilon\dfrac{d\psi^m}{dt},t\right)}_{=L(q(t),\dot q(t),t)+\epsilon\left\{\sum_m \psi^m\dfrac{\partial L}{\partial q^m}+\sum_m\dfrac{d\psi^m}{dt}\dfrac{\partial L}{\partial\dot q ^m}\right\}+O(\epsilon^2)}=^!\int_{t_1}^{t_2}dtL(q(t),\dot q(t),t)\]
+mit $f_\epsilon(q,t)=0$
+\[0=\sum_m\left(\psi^m\dfrac{\partial L}{\partial q^m}+\dfrac{d\psi^m}{dt}\dfrac{\partial L}{ \partial \dot q^m}\right)=\sum_m\psi^m\left(\underbrace{\dfrac{\partial L}{\partial q^m}-\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot q^m}\right)}_{=0\text{für} \gamma \text{Lsg}} \right)+\dfrac{d}{dt}\sum_m\left(\psi^m\dfrac{\partial L}{\partial \dot q^m}\right)\]
+Es folgt
+\[\left.E=\sum_m\psi^m\dfrac{\partial L}{\partial\dot q^m}\right|_\gamma\]
+\item Sei $Q_\epsilon^m=q^m$, $T_\epsilon=t+\epsilon$\\
+$\rightarrow \dfrac{dQ_\epsilon^m}{dT_\epsilon}=\dfrac{dq^m}{dt}\equiv \dot q^m$
+\begin{align*}
+\int_{t_1}^{t_2}dT_\epsilon L(Q_\epsilon(T_\epsilon),\dfrac{dQ_\epsilon}{dT_\epsilon}(T_\epsilon),T_\epsilon)&=\int_{t_1}^{t_2}dt\underbrace{L(q(t),\dot q(t),t+\epsilon)}=^!\int_{t_1}^{t_2}dt L(q(t),\dot q(t),t)\\
+&=L(q(t),\dot q(t),t)+\epsilon\dfrac{\partial L}{\partial t}+O(\epsilon^2)
+\end{align*}
+Aus $\tau_\epsilon$-Symmetrie: $\dfrac{\partial L}{\partial t}=0$
+\begin{align*}
+\dfrac{dL}{dt}=\sum_m(\dot q^m\dfrac{\partial L}{\partial q^m}+&\underbrace{\ddot{q}^m\frac{\partial L}{\dot q^m}})+\dfrac{\partial L}{\dot q^m}=\sum_m\dot q^m\left(\frac{\partial L}{\partial q^m}-\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot q^m}\right)\right)+\dfrac{d}{dt}\sum_m\dot q^m\dfrac{\partial L}{\partial \dot q^m}+\dfrac{\partial L}{\partial t}\\
+&=\dfrac{d}{dt}\left(\dot q^m\dfrac{\partial L}{\partial \dot q^m}\right)-\dot q^m\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot q^m}\right)\\
+\end{align*}
+$=\dfrac{d}{dt}\sum_m\dot q^m\dfrac{\partial L}{\partial \dot q^m}+\dfrac{\partial L}{\partial t}$\\
+$\Leftrightarrow$ für $\gamma$ Lösung der E-L-Gl: $\dfrac{d}{dt}\left.\left(L-\sum_m\dot q^m\dfrac{\partial L}{\partial \dot q^m}\right)\right|_\gamma=\left.\dfrac{\partial L}{\partial t}\right|_\gamma$\\
+$\tau_\epsilon$-Symmetrie: $\dfrac{d}{dt}(L-\sum_m\dot q^m\dfrac{\partial L}{\partial \dot q^m})=0$ (Erhaltungsgröße)
+\end{itemize}
+\subsubsection*{Beispiel: der freie Massenpunkt}
+\[L(x,\dot x,t)=\dfrac{m}{2}\sum_{i=1}^{3}(\dot x_i)^2\]
+\paragraph*{zu Zeigen:} 10-parametrige Symmetriegruppe (eigentliche orthochrone Galilei Gruppe).
+\subparagraph*{Transformationsgesetze}:
+\begin{align*}
+\vec x'&=R(\underbrace{\vec{\omega}}_3)\vec x+\underbrace{\vec a}_3+\underbrace{\vec v}_3 t\\
+T&=t+\underbrace{s}_3
+\end{align*}
+\begin{enumerate}
+\item Translation: $\vec a\neq 0$\\
+$\tau_{trans}:$ $x_k=x_k+a_{k_0}\delta_{kk_0}$, $T=t$\\
+$\rightarrow $L-invariant unter $\tau_\epsilon$; $f,\phi=0$; $\psi_k=\delta_{kk_0}$\\
+$P_{k_0}=\sum_k\psi_k\dfrac{\partial L}{\partial \dot x_k}=\dfrac{\partial L}{\partial \dot x_{k_0}}$ ist Erhaltungsgröße\\
+$\vec P(t)=m\dot{\vec x}(t)$ Impuls ist konstant entlang Lösung.
+\item Translation in der Zeit: $s\neq 0$\\
+$\tau_{tZeit}:$ $X_k=x_k$, $T=t+s$\\
+$-E_{kin}=L-\sum_k\dot x_k\dfrac{\partial L}{\partial \dot x_k}=-\frac{m}{2}\dot{\vec x}^2$ Erhaltungsgröße.
+\item Drehungen $\vec{\omega}=c\vec e_3$, $c\in\R\backslash0$\\
+$\tau_{rot}:$ $\vec X=R(\vec \omega)\vec x$,$T=t$\\
+$\vec X=x+\overbrace{c\vec e_3}^{\equiv\vec\omega}\times\vec x+O(\epsilon^2)$\\
+$\dot{\vec X}=R(\omega)\vec{\dot x}$\\
+Somit $\dot{\vec X}^2=\dot{\vec x}^2$ $\rightarrow $ L-Invarianz mit $f,\phi=0$
+\[X_l=x_l+c\underbrace{\sum_{k=1}^{3}\epsilon_{l3k}x_k}_{:=\psi_l}+O(\epsilon^2)\]
+\[E=\sum_{k,l=1}^{3}\epsilon_{l3k}x_k\dfrac{\partial L}{\partial \dot x_l}=\vec e_3\underbrace{(\vec x\times m\dot{\vec x})}_{:=L}\]
+Sodass $\dfrac{d\vec L}{dt}=0$
+\item eigentliche Galilei Transformation: $\vec v=v\vec e$\\
+$\tau:$ $X_k=x_k+ct\vec e$, $T=t$\\
+$\dot x_k=\dot x_k+c\vec e\rightarrow f_c(x,t)\neq 0$
+\end{enumerate}
+\subsubsection[Wechselwirkende Systeme]{Wechselwirkende Systeme (konservativ, durch Langeragefunktion beschrieben)}
+\[L(x,\dot x,t)=\sum_{i=1}^{N}\dfrac{m_{(i)}}{2}\dot{\vec x}_{(i)}^2+U(x)\]
+für $\vec F_i(t)=-\vec{\nabla}_{\vec x_i}U(x(t))$\\
+Damit eine eigentliche orthochrone Galilei Gruppe eine Symmetriegruppe ist muss für $U(x)$ gelten (hinreichend), \begin{itemize}
+\item $U(x)$ invariant unter $G_{10}$
+\item $U(x)$ muss translationsinvariant sein: z.B. $U(x)=\sum_{1=i<j}^{N}U_{ij}(\vec x_i-\vec x_j)$
+\item $U(x)$ muss rotationsinvariant sein: z.B. $U(x)=\sum_{i,j}U_{ij}(|\vec x_i-\vec x_j|)$
+\end{itemize}
+\subsection{Mechanische Systeme mit Nebenbedingunge} %2.4
+\begin{itemize}
+\item holonome Nebenbedingungen $f( q(t),t)=0$, $y^2+y^2=R^2\Rightarrow f( x(t),y(t))=x^2-y^2-R^2=0$\\
+$\Rightarrow $ globale Einschränkung der Dynamik\\
+\item nicht holonome Nebenbedingungen: Involvieren Ungleichungen, Differentiale\\
+(Schränken die Teilchenbewegung auf einen kleinen Bereich der Dynamikmanigfaltigkeit ein)
+\end{itemize}
+\subsubsection{Holone NB und Lagrange-Gl zweiter Art} %2.4.1
+Gegegben: $L(q,\dot q,t),\left\{q_i,i=1,...,3N\right\}$ mit verallgemeinerten Koordinaten $q_i$\\
+\[F_l(q,t)=0; l=1,...,r\]
+Die Zwangsbedingungen schränken die Teilchendynamik auf einen $f:=(3N-r)$-dinensionale Unterraum (Untermannigfaltigkeit) ein.\\
+Stellen eine Matrix auf:
+$\begin{pmatrix}
+\dfrac{\partial F_l}{\partial q_k}
+\end{pmatrix}_{r_{xk}}$ zwangsbedingungs-Matrix $F_{lk}$ mit Rang $F_{lk}=r^k\forall q\in\R^{3N}$\\
+$\Rightarrow q_l(Q_1,...,Q_{3N-r},t), l=1,...,3N$\\
+$\Rightarrow L(q,\dot q,t)=L\left(q( \hat Q,t),\sum_{k=1}^{3N-r}\dfrac{\partial q}{\partial Q_k}\dot Q_k+\dfrac{\partial q}{\partial t},t\right):=\tilde{L}(\hat Q,\hat{\dot Q},t)$, wobei $\hat Q\equiv(Q_1,...,Q_{3N-r})$\\
+$\Rightarrow$ Euler Lagrange Gl.
+\[\dfrac{d}{dt}\left(\dfrac{\partial\tilde L}{\partial\dot Q_k}\right)=\dfrac{\partial\tilde L}{\partial Q_k}; k=1,...,3N-r\]
+\[\dfrac{d}{dt}\left(\dfrac{\partial \tilde L}{\partial \dot X_i}\right)=F_i(t)+Z_i(t),X( q(Q,t),t)\]
+\begin{itemize}
+\item Für die kinetische Energie gilt: $\dfrac{\partial F}{\partial t}=0$
+\[\sum_j\dfrac{m_j}{2}\dot x_j\dot x_j=\sum_{ljk}\dfrac{m_{(j)}}{2}\dfrac{\partial x_j}{\partial Q_u}\dfrac{\partial x_i}{\partial Q_l}\dot Q_k\dot Q_l:=\sum_{k,l}g_{kl}(Q)\dot Q_k\dot Q_k\]
+$g_{kl}(Q)\equiv \sum_j\dfrac{m_{(j)}}{2}\dfrac{\partial x_j}{\partial Q_k}\dfrac{\partial x_j}{\partial Q_l}$ symmetrisch ($g_{kl}=g_{lk}$), positiv semidefinit
+\end{itemize}
+\begin{exm}
+	Sphärisches Pendel
+	\[L(\vec x,\dot{\vec x},t)=T-V=\dfrac{m_2}{2}\dot\vec{x}^2-(-m\vec g\vec x)=\dfrac{m}{2}\dot{\vec x}^2+m\vec g\vec x\]
+	$\vec g=\begin{pmatrix}
+	0\\0\\-g
+	\end{pmatrix}$, $\vec x=\begin{pmatrix}
+	l\sin\theta\cos\varphi\\l\sin\theta\sin\varphi\\l\cos\theta
+	\end{pmatrix}\Rightarrow\dot{\vec x}=\begin{pmatrix}
+	l(\dot{\theta\cos\theta\cos\varphi-\sin\theta\sin\varphi\dot{\varphi}})\\
+	l(\dot{\theta}\cos\theta\sin\varphi+\sin\theta\cos\varphi\dot{\varphi})\\-l\sin\theta\dot{\theta}
+	\end{pmatrix}$ 
+	\[L=\dfrac{m}{2}l^2(\dot{\theta}^2+\dot \varphi^2\sin^2\theta)-mgl\cos\theta\]
+	Erhaltungsgrößen:\\
+	$\dfrac{\partial L}{\partial \varphi}=0$ $\Rightarrow$ $\dfrac{d}{dt}(m^2\sin^2\theta\dot{\varphi})=0$, $L_z:=,(\vec x\times\dot{\vec x})\vec e_z$\\
+	$\dfrac{\partial L}{\partial t}=0$ $\Rightarrow$ $\dfrac{d}{dt}\underbrace{\left(\sum_l \dot q_l\dfrac{\partial L}{\partial \dot q_l}-L\right)}_{\substack{:=\frac{m}{2}l^2(\dot \theta^2+\dot \varphi^2\sin^2\theta)+mgl\cos\theta\\:=E}}=0$\\
+	(Legendre Transformation von Lagrange zu Hamilton Funktion)
+	\[E=\dfrac{m}{2}l^2\left\{\dot{\theta^2}+\dfrac{L_z^2}{m^2l^4\sin^4\theta}\right\}+mgl\cos\theta?\dfrac{m}{2}l^2\dot\theta^2+U_{eff}(\theta)\]
+	\[U_{eff}(\theta):=\dfrac{L_z^2}{2ml^2\sin^4\theta}+mgl\cos\theta\]
+	Fallunterscheidung
+	\begin{itemize}
+	\item $L_z=0\rightarrow \dot\varphi=0$ (ebenes Pendel)
+	\item $L_z\neq 0\rightarrow$ $U_{eff}$ singulär bei $\theta=0,\pi$
+	\end{itemize}
+	$E_{min}$ bei $L_z\neq 0$, Teilchen vollführt eine Kreisbewegung $\dot\varphi=\dfrac{L_z}{ml^2\sin^2\theta_s}$\\
+\end{exm}
+%VL 3.11.2015
+\subsubsection{Nicht holonome NB und Lagrange-Gl 1. Art}
+Gegeben sei ein System mit $f$ Freiheitsgraden
+\[\sum_{j=1}^{f}a_{kj}(q_j,t)dq_j+b_{(u)}(q,t)dt=0,\quad k=1,...,s\]
+Rang$a_{kj}=A$ (Anzahl der Zwangsbedingungen)
+\[\Rightarrow\sum_{j=1}^{f}a_{kj}(q_j,t)\dfrac{dq_i}{dt}+b_k(q,t)\]
+Mit hilfe virtueller Verrückungen hat man:
+\[\sum_{j=1}^{f}a_{kj}(q_j(t),t)dq_j(t)=0,\quad k=1,...,s\]
+i.A. hat man $(f-s)$ unabhängige virtuelle Verrückungen $\delta q'(t),...,\delta q_{f-s}(t)$\\
+Holone NB: $F_{(k)}(q,t)=0$ für $k=1,...,s$
+\[dF_{(k)}=\sum_{j=1}^{f}\dfrac{\partial F_k}{\partial q_i}+\dfrac{\partial F_k}{\partial t}dt=0\]
+$dF_k$ existieren nur dann wenn Integrabilitätsbedingungen gelten (Satz von Schwarz)
+\[\begin{array}{|ccccc|}
+\hline 1)&\dfrac{\partial^2 F_k}{\partial q_i\partial q_j}&\equiv\dfrac{\partial a_{kj}}{\partial q_i}&=\dfrac{\partial^2 F_k}{\partial q_j\partial q_i}&=\dfrac{\partial a_{kj}}{\partial q_j}\\
+2)&\dfrac{\partial ^2F_k}{\partial q_j \partial t}&=\dfrac{\partial b_k}{\partial q_j}&=\dfrac{\partial ^2 F_k}{\partial t \partial q_j}&=\dfrac{\partial a_{kj}}{\partial t}\\
+\hline
+\end{array}\]
+Eine Zwangsbedingung $F_k$ ist holonom, wenn $dF_k$ existiert und 1) und 2) gelten, sonst ist $F_k$ nicht holonom.
+\paragraph*{Das Hamilton Prinzip}(Optimierung des Wirkungsfunktionals)
+\[NB:\quad \sum_{j=1}^{f}a_{kj}(q(t),t)\dot{q}(t)=0,\quad k=1,...,s\]
+Stationäre Lösungen des Variationsproblems $f+s$ Euler-Lagrange-Gleichungen 1. Art.
+\[\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot q_s}=\dfrac{\partial L}{\partial q_j}\right)+\sum_{k=1}^{s}\la_k(t)a_{kj}(q(t),t)\quad j=1,...,f\]
+\[\sum_{k=1}^{s}\la_k(t)a_{kj}(q(t),t)+\sum_{k=1}^{s}b_k(q(t),t),\quad k=1,...,s\]
+f Bahnkurven $q_j(t)$ und $s$ Lagrange-Multiplikatoren $\la_k(t)$\\
+\\
+Für holone Zwangsbedingungen:
+\[a_{kj}(q,t)=\dfrac{\partial F_k}{\partial q_j}(q,t)\]
+\[\tilde{L}(q,\dot q\la, t)=L(q,\dot q,t)+\sum_{k=1}^{s}\la_k F_k(q,t)\text{Effektive Lagrange Funktion}\]
+\\
+\begin{theorem}
+	Für zeitliche Veränderung der Energie
+	\[E:=\left.\left(\sum_{j=1}^{k}\dot q_j(t)\dfrac{\partial L}{\partial \dot q_j}-L\right)\right|_\gamma\]
+	ist für $\frac{\partial L}{\partial t}=0$ und holonome, Zeitunabhängige $F_k(q,t)=0$ eine Erhaltungsgröße auch für $\tilde{L}$.
+\end{theorem}
+	\begin{proof}
+	\begin{align*}
+		\dfrac{\partial\tilde L}{\partial\dot q_j}&=\dfrac{\partial L}{\partial \dot q_j},\quad \dfrac{\partial\tilde L}{\partial \dot\la_k}=0\\
+		\dfrac{\partial \tilde L}{\partial q_j}&=\dfrac{\partial L}{\partial q_j}+\sum_{k=1}^{s}\la_k\dfrac{\partial F_k}{\partial q_j}\\
+		\dfrac{\partial \tilde L}{\partial \la_k}&=F_k\\
+	\end{align*}
+	\begin{align*}
+		\Rightarrow&\left.\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot q_j}\right)\right|_\gamma=\left.\dfrac{\partial L}{\partial q_j}+\sum_{k=1}^{s}\la_k(t)\dfrac{\partial F}{\partial q_j}\right|_\gamma\\
+		\Rightarrow&F_k=0\\
+		\Rightarrow E:=\left.\sum_{j}\dot q_j-L\right|_\gamma\quad\text{Ist Erhaltungsgröße}
+	\end{align*}
+\end{proof}
+\begin{exm}
+	ebenes Pendel mit bewegtem Aufhängepunkt $f(t)$:\\
+	\[\text{ZB:} (x-f(t))^2+y^2-l^2=F(x,y,t)=0\]
+	ZB ist holonom, rheonom (da Zeitabhängig)
+	\[\dfrac{\partial F}{\partial t}=-2(x-f(t))\dot f(t)\neq 0\]
+	Lagrange-Gl 2. Art:
+	\[\begin{array}{rl}
+	x-f(t)&:=l\sin\varphi\\
+	y&:=-l\cos\varphi
+	\end{array}\Rightarrow
+	\begin{array}{rl}
+	\dot x&=\dot f+l\cos\varphi\\
+	\dot y&=\dot l\dot\varphi \sin\varphi
+	\end{array}\]
+	\[L(\varphi,\dot{\varphi}t)=\dfrac{m}{2}\left\{l^2\dot{\varphi}^2+2l\cos\varphi\dot{\varphi f}\right\}+kgl\cos\varphi\]
+	\[\dfrac{\partial \dot L}{\partial\dot{\varphi}}=ml^2\dot{\varphi}+ml\cos\varphi f\]
+	\[\dfrac{\partial L}{\partial \varphi}=-ml\sin\phi\dot{\varphi}\dot f-mgl\cos\varphi\]
+	Daraus folgt, dass
+	\[\ddot{\varphi}+\dfrac{g}{l}\sin\varphi=-\cos\varphi\dfrac{\ddot f}{l}\]
+\end{exm}
+%VL 10.11.2015
+\section{Lineare Schwingungen} %Kapitel 3.
+Lineare Systeme: einfachste, exakt lösbare Vielteilchensysteme.\\
+Betrachte: mechanisches Vielteilchefsystem (N Massenpunkte) mit holonom-skleronomen Randbedingungen.
+\paragraph*{Koordinaten} $x_\mu(q_i)$ mit $mu_=1,...,3N$  und $i=1,...,f<3N$\\
+Koordinatentransformation, sodass $q_i$ durch Zwangsbedingungen wegfallen.\\
+\paragraph*{Potenzial}: \[T=\sum_{i=1}^{N}m_i\dot{\vec x_i}\dot{\vec x_i}=\sum_{\alpha,\beta=1}^{f}\dot q_\alpha g_{\alpha\beta}(q)\dot q_\beta\]
+mit $g_{\alpha\beta}=\sum_{i=1}^{N}m_i\frac{\partial \vec x_i}{\partial q_\alpha}\dfrac{\partial\vec x_i}{\partial\alpha\beta}>0$
+\paragraph*{Lagrange Gleichung}:
+\[L(q,\dot q)=\sum_{\alpha,\beta=1}^{N}\dot q_\alpha g_{\alpha\beta}(q)\dot q_\beta-U(q)\]
+Wir setzen auch voraus:
+\begin{itemize}
+\item Existenz einer Gleichgewichtskonfiguration
+\item kleine Auslenkung um diese Gleichgewichtskonfiguration
+\end{itemize}
+\subsubsection*{Anwendung}
+\begin{itemize}
+\item Beschreibung von Festkörpern
+\item Elektromagnetisches Strahlungsfeld
+\item Systeme ungekoppelter Harmonischer Oszillatoren
+\end{itemize}
+Beschreibt z.B. nicht: Gase, Schmelzende Körper,...
+\subsection{Lineare Schwingungen um Gleichgewichtskonfigurationen}
+\paragraph*{Gleichgewichtskonfigurationen}: $\{q_{\alpha(0)}(t)$Zeigungabhängig,$\alpha=1,...,f\}$\\
+oder: $\dot q_{\alpha(0)}(t)=\ddot{q}_{\alpha(0)}=\dddot{q}_{\al(0)=...=0}$\\
+Es gilt: $\left.\frac{\partial U}{\partial q_\al}\right|_{q_{(0)}}=0$
+\subparagraph*{Beweisidee}: Euler-Lagrange und Bedingugngen für Gleichgewicht.
+\begin{align*}
+\frac{\partial L}{\partial \dot q_\al}&=\frac{1}{2}\sum_{\beta=1}^{f}g_{\al\beta}(q)\dot q_\beta+\frac{1}{2}\sum_{\beta=1}^{f}\dot q_\beta g_{\beta\al}(q)&\text{da }g_{\al\beta}=g_{\beta \al}\\
+&=\sum_{\beta=1}^{f}g_{\al\beta}(q)\dot q_\beta\\
+\rightarrow \text{E-L:}&\underbrace{\dfrac{d}{dt}\dfrac{\partial L}{\partial\dot q_\al}}_{=0}=\dfrac{\partial L}{\partial q_\al}=-\frac{\partial U}{\partial q_\al}\\
+\dfrac{\partial L}{\partial q_\al}&=-\frac{\partial U}{\partial q_\al}+\frac{1}{2}\sum_{\beta,\gamma=1}^{f}\dot q_\beta\frac{\partial q_{\beta\gamma}}{\partial q_\al}\\
+&=-\frac{\partial U}{\partial q_\al}
+\end{align*}
+Für kleine Auslenkungen nähern wir über Taylor-Polynome:\\
+$q_\al(t)=q_{\al(0)}+\eta_\al(t)$, $\eta_\al(t)$ klein
+\[L=\frac{1}{2}\dot{\eta}^T\underbrace{g(q_{(0)}}_{:=K})\dot{\eta}-U(q_{(0)}-\frac{1}{2}\sum_{\al,\beta=1}^{f})\nu_\alpha\underbrace{\left.\frac{\partial^2U}{\partial q_\al\partial q_\beta}\right|_{q_{(0)}}}_{:=K}\eta\beta+O^3(\eta,\dot{\eta})\]
+\[L(\eta,\dot{\eta})=\dfrac{1}{2}\dot{\eta}^Tq(q_{(0)})\dot{\eta}-\dfrac{1}{2}\eta^TK\eta\]
+$M$ Massenmatrix, symmetrisch positiv definit\\
+$K$ Kopplungsmatrix, symmetrisch positiv definit
+\subsection{Dynamik kleiner Schwingungen -- Normalkoordinaten}:
+\[L(\eta\dot\eta)=\dfrac{1}{2}\dot\eta M\dot \eta-\frac{1}{2}\eta^TK\eta\]
+mit $M>0,M=M^t$ und $K>0,K=K^T$, sodass
+\begin{align*}
+\frac{\partial L}{\partial \dot\eta_\al}&=\sum_{\beta=1}^{f}M_{\al,\beta}\dot\eta_\beta\\
+\frac{\partial L}{\partial \eta_\al}&=-\sum_{\beta=1}^{f}K_{\al,\beta}\eta_\beta\\
+\frac{d}{dt}\frac{\partial L}{\partial \dot\eta_\al}&=\sum_{\beta=1}^{f}M_{\al,\beta}\ddot\eta_\beta=-\sum_{\beta=1}^{f}K_{\al,\beta}\eta_\beta=\frac{\partial L}{\partial \eta_\al}\\
+\end{align*}
+mit Orthogonalmatrix $O$, $Q=O^TM^{\frac{1}{2}}\mu$, $M^{-\frac{1}{2}}KM^{-\frac{1}{2}}=OKO^T$\\
+$M^{1/2}_{ij}$ Verändert die Matrix indem wir $M$ diagonalisieren, die Wurzeln der Diagonalelemente Zeihen und danach die Trasnformationsmatrizen wieder einrechnen. Sei $M=SAS^T$ und $B_{ii}=\sqrt{A_{ii}}$, dann def. $M^{1/2}=SBS^T$.
+\[L(Q,\dot Q)=\frac{1}{2}\dot Q^T\dot Q-\frac{1}{2}Q^TKQ=\frac{1}{2}\sum_{i=1}^{f}\dot Q_i\dot Q_i-\frac{1}{2}\sum_{i=1}^{f}Q_iK_iQ_i\]
+\subparagraph*{Beweisidee}
+\[L(\eta,\dot{\eta})=\frac{1}{2}(M^{\frac{1}{2}}\dot\eta)^T(M^\frac{1}{2}\eta)-\frac{1}{2}\eta^TK\eta=\frac{1}{2}\dot{\ol{Q}}^T\dot{\ol{Q}}-\frac{1}{2}\dot{\ol{Q}}^T\ol{Q}-\dfrac{1}{2}\ol{Q}^TM^{-\frac{1}{2}}KM^{-\frac{1}{2}}\ol Q=\frac{1}{2}\dot Q^T\dot Q-\dfrac{1}{2}Q^TKQ\]
+da $Q=O^TM^{\frac{1}{2}}\eta$, $O^TO=OO^T=1$
+\subparagraph*{Lösungen}
+\begin{itemize}
+\item $K_i>0$: $Q_i(t)=Q_i(0)\cos(\sqrt{K_i}t)+\frac{\dot Q_i(0)}{\sqrt k_i}\sin(\sqrt{K_i}t)$
+\item $K_i=0$: $Q_i(t)=Q_i(0)+\dot Q_i(0)t$
+\item $K_i<0$: $Q_i(t)=Q_i(0)\cosh(\sqrt{K_i}t)+\frac{\dot Q_i(0)}{\sqrt k_i}\sinh(\sqrt{K_i}t)$ 
+\end{itemize}
+\subsubsection{Modell eines lineare dreiatomigen Moleküls}
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+\draw[decorate,decoration=snake](-3,0)--(3,0);
+\draw[fill=black](0,0)circle(0.4);
+\node at(0,-0.3)[below]{$\vec x_2$}; 
+\node at(0,0.3)[above]{$M$};
+\draw[fill=black](-3,0)circle(0.2) node[below]{$\vec x_1$} node[above]{$m$};
+\draw[fill=black](3,0)circle(0.2) 
+node[below]{$\vec x_3$} node[above]{$m$};
+\node at(-1.5,0)[below]{$k$};
+\node at(-1.5,0)[above]{$l_0$};
+\node at(1.5,0)[below]{$k$};
+\node at(1.5,0)[above]{$l_0$};
+\end{tikzpicture}
+\end{center}
+\begin{align*}
+M&=\begin{pmatrix}
+m&0&0\\0&M&0\\0&0&m
+\end{pmatrix}&K&=\begin{pmatrix}
+k&-k&0\\-k&2k&-k\\0&-k&k
+\end{pmatrix}
+\end{align*}
+\[L(\eta\dot{\eta})=\frac{1}{2}m\dot x_1^2+\frac{1}{2}m\dot x_3^2+\frac{1}{2}M\dot x_2^2\underbrace{-\frac{1}{2}k(x_2-x_1-l_0)^2-\frac{1}{2}k(x_3-x_2-l_0)^2}_{:=-U(x)}\]
+Es ergibt sich zusammengefasst:
+%VL 17.11.2015
+\[L(\eta,\dot \eta)=\frac{1}{2}\dot{\eta}^TM\dot{\eta}-\dfrac{1}{2}\eta^TK\eta\]
+Wir bestimmen nu die Massen-Kopplungs-Matrix
+\[M^{-\frac{1}{2}}KM^{-\frac{1}{2}}=\begin{pmatrix}
+\frac{k}{m}&-\frac{k}{\sqrt{mM}}&0\\-\frac{k}{\sqrt{mM}}&\frac{2k}{M}&-\frac{k}{\sqrt{mM}}\\0&-\frac{k}{\sqrt{mM}}&\frac{k}{m}
+\end{pmatrix}\]
+Wir Bestimmen eine Matrix $O$ um $M^{-\frac{1}{2}}KM^{-\frac{1}{2}}$ zu Diagonalisieren, indem wir die Eigenwerte bestimmen:
+\[M^{-\frac{1}{2}}O=\begin{pmatrix}
+\frac{1}{2m}&\frac{1}{\sqrt{2m+M}}&\frac{1}{\sqrt{2m(1+\frac{2m}{M})}}\\
+0&\frac{1}{\sqrt{2m+M}}&-\frac{2m/M}{\sqrt{2m(1+\frac{2m}{M})}}\\
+-\frac{1}{\sqrt{2m}}&\frac{1}{\sqrt{2m+M}}&\frac{1}{\sqrt{2m(1+\frac{2m}{M})}}
+\end{pmatrix}\]
+Jede Spalte stellt dabei eine Mögliche Schwingungsmode (Energieverteilung) dar.
+\paragraph*{Bemerkung}
+\begin{itemize}
+\item Transaktionsmoden im $\R^3$: 3 Freiheitsgrade
+\item Grenzfall: $k\rightarrow \infty$ Relativbewegungen unmöglich
+$\rightarrow $ Starrer Körper; 6 Freiheitsgrade
+\end{itemize}
+\subsubsection*{Zusammenfassung}
+Lagrange Gleichung: $L(\eta,\dot{\eta})=\frac{1}{2}\dot{\eta}^TM\dot\eta-\dfrac{1}{2}\eta^TK\eta$\\
+Mit Massenmatrix M, Kopplungsmatrix K (symmetrisch, positiv definit).\\
+\[M\ddot{\eta}=-K\eta\]
+Die allgemeinen Koordinaten unseres System berechnen sich als $Q=O^TM^{1/2}\eta$\\
+Wobei $O$ definiert ist über $M^{-1/2}KM^{-1/2}=O\kappa O^t$\\
+Es folgt, dass $\dot Q=O^TM^{1/2}\dot{\eta}=\frac{1}{2}\dot Q^T\dot Q-\frac{1}{2}Q^T\kappa Q$
+\newpage
+\subsection{Dynamische Vielteilchensysteme: Der schwingende Ring} %3.3
+\begin{tikzpicture}
+\draw (0,0) circle (2);
+\foreach \t in {0,...,16} {
+\coordinate (a) at ({2*sin(\t*360/16)},{2*cos(\t*360/16)});
+\draw[decorate,decoration=snake](a)--({2*sin((\t+1)*360/16)},{2*cos((\t+1)*360/16)});
+\draw[fill=black](a) circle(0.07);
+\draw[decorate, decoration=snake] (a)--({0.7*sin(\t*360/16)},{0.7*cos(\t*360/16)});
+};
+\end{tikzpicture}\\
+$a=x"i a_0-x"{i-1}_0$: Abstand der Gleichgewichtspositionen\\
+(mit $i=1,...,N$ und $N+1\equiv1$)\\
+$x"i-x_0"i=\eta_i$\\
+$K$: ???
+\subsubsection{ }
+\begin{align*}
+L(\eta,\dot \eta)&=\frac{1}{2}\sum_{i=1}^{N}(\dot{\eta}_i)^2m-\frac{1}{2}\eta^T\kappa\eta\\
+&=\frac{1}{2}\dot{\eta}^TM\eta-\sum_{i=1}^{N+1}(\eta"i\eta"{i-1})^2k
+\end{align*}
+\begin{align*}
+M&=m\cdot \mathbb 1&\kappa&=\begin{pmatrix}
+2k+K&-k&&&-k\\
+-k&2k+K&-k&&\\
+&-k&2k+K&-k&\\
+&&&&\\
+-k&&&&
+\end{pmatrix}
+\end{align*}
+\paragraph*{Modenbestimmung}$r=1,...,N$\\
+\begin{itemize}
+	\item $\eta_r=\Re(C_re^{-i\omega_r t})$
+	\item $\omega_r$: Eigenwerte
+	\item $(-M\omega_r^2+K)l_r=0$ Eigenwertproblem
+\end{itemize}
+\paragraph*{Ansatz} $l_r^l=e^{il\Phi_r}$, da $C"{N+1}=C_r"1$
+\begin{align*}
+	\Rightarrow e^{i(N+1)\Phi_r}&=e^{i\Phi_r}\\
+	N\Phi_r&=2\pi r\\
+	\Phi_r&=\frac{2\pi}{N}r
+\end{align*}
+\begin{align*}
+	0=\left[-\omega_r^2+\frac{k}{m}(2-e^{i\Phi_r}-e^{i\Phi_r})+\frac{K}{m}\right]C_r"l
+\intertext{Wobei gilt:}
+	2-e^{i\Phi_r}-e^{i\Phi_r}&=2(1-\cos\Phi_r)\\
+	&=4\sin^2\left(\frac{\Phi_r}{2}\right)
+\intertext{Sodass}
+	0\leq\omega_r&=\sqrt{\frac{K}{m}+4\frac{k}{M}\sin^2\left(\frac{\Phi_r}{2}\right)}\\
+	&=\sqrt{\frac{K}{m}+4\frac{k}{M}\sin^2\left(\frac{\pi r}{N}\right)}
+\end{align*}
+mit $r=1,...,N$ und $C_r"l=e^{i\frac{2\pi r}{N}l}$.\\
+\\
+Wir betrachten nun $\sin^2\left(\frac{\pi r}{N}\right)$. FÜr $\frac{\pi r}{N}=0$ oder $=\frac{\pi}{2}$ gibt es keine Entartung uns somit nur eine Lösung, sonst $(\frac{\pi r}{N}\in(0,\pi)]\backslash \{\frac{\pi}{2}\})$ gibt es 2 Lösungen.
+\begin{align*}
+\eta"i(t)&=\sum_{i=1}^{N}|A_r|Re\{e^{-i\omega_rt}e^{i\phi_r}e^{i\frac{2\pi r}{N}l}\}\\
+&=\cos\{\omega_r t-\frac{2\pi r}{N}l-\phi_r\}
+\end{align*}
+\begin{bem}
+	\begin{itemize}
+		\item Mode $r$: $\omega_r=\sqrt{\frac{K}{m}}$\\
+		$\rightarrow $ $\eta_{r=N}"l(t)$ ist eine Translation entlang des Rings
+		\item Wellenlänge und Phasengeschwindigkeit\\
+		$\psi_r=\omega_rt-\frac{2\pi r}{N}l-\phi_r$. Für $x_o"1=la$ gilt:
+		\begin{align*}
+		\psi_r&=\omega_rt-\frac{2\pi r}{Na}(la)-\phi_r\\
+		0=d\psi_r&=\omega_r~dt-\frac{2\pi r}{N}+dx_0"l\\
+		v_{ph}&=\frac{dx_0"l}{dt}=\underbrace{\frac{\omega_r}{2\pi r}}_{\nu_r}\underbrace{Na}_{\la}
+		\end{align*}
+		\item Dispersionsrelation: Lösung = Dispersionsrelation+Moden
+		
+	\end{itemize}
+\end{bem}
+%TODO VL 17.11.
+%VL 19.11.2015
+\subsubsection{Der Kontinuierliche Grenzfall}
+Für Gleichgewichtspositionen $x_n$ und ausgelenkte Position $x'_n$ \\gilt $x'_n(t)=x_n+\eta_n(t)$:
+\paragraph*{Ausgangspunkt}
+\[m\ddot{\eta}_l(t)+k(2\eta_l(t)-\eta_{l-1}(t))+K\eta_l=0\]
+$\Leftrightarrow M\ddot\eta+K\eta=0$.\\
+\paragraph*{Kontinuumlimes}beschreibt den Grenzfall $a\rightarrow 0,N\rightarrow \infty$,sodass $Na:=L=konst$ im Fall $(\la\gg a)$: Langwellengrenzfall.\\
+\begin{align*}
+\eta_l(t):=u(x_l,t)&&\text{sodass} &&\ddot\eta_l(t)&=\frac{\partial^2u}{\partial t^2}(x,t)\\
+\end{align*}
+\begin{align*}
+2\eta_l-\eta_{l-1}(t)-\eta_{l+1}&=2u(x_l,t)-u(x_{l-1},t)-u(x_{l+1},t)\\
+\text{Taylor Entwickelung: }&=2u(x_l,t)-\big(-u(x_l,t)-a\frac{\partial u}{\partial x}(x_l,t)+\frac{a^2}{2}\frac{\partial u^2}{\partial x^2}(x_l,t)+O(a^3)\big)\\
+&\quad -\big(u(x_l,t)+a\dfrac{\partial u}{\partial x}(x_l,t)+\frac{a^2}{2}\frac{\partial^2}{\partial x^2}(x_l,t)+O(a^3)\big)\\
+&=-a^2\frac{\partial^2 u}{\partial x^2}(x_l,t)
+\intertext{Einsetzen in die Dgl}
+\frac{1}{\frac{ka^2}{m}}\frac{\partial^2 u}{\partial t^2}(x,t)+\frac{K}{ka^2}u(x,t)=0
+\end{align*}
+Grenzwertbetrachtungen:
+\[\begin{array}{lr}
+v:=\lim\limits_{\substack{a\rightarrow 0\\m\rightarrow 0\\k\rightarrow 0}}\sqrt{\frac{ka^2}{m}}&\kappa^2:=\lim\limits_{\substack{q\rightarrow 0\\K,k\rightarrow 0}}\left(\frac{K}{ka^2}\right)
+\end{array}\]
+Wir erhalten die Klein-Gordon Gleichung
+\[\left(\frac{1}{v^2}-\dfrac{\partial^2}{\partial x^2}+\kappa^2\right)u(x,t)\]
+\subsubsection*{Energie:}
+\[E=\sum_{l=1}^{N}\left(\frac{m}{2}\big(\dot{\eta}_l(t)\big)^2+\frac{k}{2}\big(\eta_l(t)-\eta_{l-1}(t)\big)^2+\frac{K}{2}\big(\eta_l(t)\big)^2\right)\]
+Da $N\rightarrow \infty$ 
+\begin{align*}
+E&=\int_{1}^{N}d\overbrace{la}^{:=x}\left\{\frac{m}{2a}\left(\frac{\partial u}{\partial t}\right)^2+\frac{ka}{2}\left(\frac{\partial u}{\partial x}\right)^2+\frac{K}{2a}u^2\right\}\\
+\intertext{wir definieren $\varrho=\lim\limits_{\substack{a\rightarrow \\m\rightarrow 0}}\frac{m}{a}$}
+&=\frac{1}{2}\int_{0}^{L}dx\left\{\varrho\left(\frac{\partial u}{\partial t}\right)^2+\varrho v^2\left(\frac{\partial u}{\partial x}\right)^2+\kappa^2\varrho v^2u^2\right\}
+\end{align*}
+Für den diskreten Ring gilt also
+\[\eta_l(t)=\sum_{r=-\frac{N-1}{2}}^{\frac{N-1}{2}}A_re^{-i(\omega_Rt-\frac{2\pi}{N}lr)}\]
+mit $A_r\in\C$ und $\omega_r=\sqrt{\frac{K}{m}+\frac{4k}{m}\sin^2\left(\frac{\pi r}{N}\right)}$ für $r=1,...,N$ und $L\rightarrow \infty$.\\
+\subparagraph*{Kontinuumslimes}
+\begin{align*}
+u(x,t)&=\int_{-\frac{N-1}{2}}^{\frac{N-1}{2}}d\left(r\frac{2\pi}{Na}\right)\underbrace{\left(\frac{A_rNa}{2\pi}\right)}_{:=A(k)}e^{-i\omega_rt-r\frac{2\pi}{Na}al}+kompl. Konj\\
+&=\int_{-\infty}^{\infty}dk\quad A(k)e^{-i\omega(k)t}e^{ikx}+kompl. Konj
+\end{align*}
+\subsubsection*{Einige Eigenschaften der Fourier-Transformation (FT)}
+\begin{itemize}
+\item Definition der FT:
+\[\tilde\varphi:=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}dx e^{ikx}\varphi(x)\]
+\item Umkehrtransformation
+\[\varphi(x)\lim\limits_{\epsilon\rightarrow 0_+}\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}dke^{ikx}e^{-\epsilon|k|}\tilde\varphi(k)\]
+%VL 24.11.2015
+\begin{proof}
+	\begin{align*}
+	\varphi(x)&=\lim\limits_{\epsilon\rightarrow 0^+}\frac{1}{2\pi}\int_{-\infty}^{\infty}dk\int_{-\infty}^{\infty}dx'e^{ikx}e^{-\epsilon|k|}e^{-ikx'}\varphi (x')\\
+	&=\lim\limits_{\epsilon->0^+}\int_{-\infty}^{\infty}dx'\underbrace{\left\{\frac{1}{2\pi}\int_{-\infty}^{\infty}dke^{ik(x-x')}e^{-\epsilon|k|}\right\}}_{\substack{:=\frac{1}{\pi}\frac{\epsilon}{(x-x')^2+\epsilon^2}\\\text{(Lorentz-Kurve)}}}\varphi(x')\\
+	&=\lim\limits_{\epsilon\rightarrow 0^+}\int_{-\infty}^{\infty}dx'\underbrace{\frac{1}{\pi}\frac{\epsilon\varphi(x')}{(x-x')^2+\epsilon^2}}_{\substack{\text{Distributionen}\\\text{(uneigentliche}\\\text{Funktionen)}}}
+	\end{align*}
+\end{proof}
+\begin{tikzpicture}
+\draw[thick,->](-1,0)--(3,0)node[above]{$x'$};
+\draw[thick,->](0,-1)--(0,2);
+\draw(1,0)node[below]{x}--(1,2.1)node[above]{f(x')};
+\end{tikzpicture}
+\item Faltungstheorem
+\[(\varphi*\psi)(x):=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}dx'\varphi(x-x')\psi(x')\]
+(Faltung, engl. convolution), $kx=const\Leftrightarrow k=\frac{const}{x}$(komplementäre Variablen)
+\begin{center}
+\fbox{$\Leftrightarrow\varphi*\psi=\tilde\varphi\tilde\psi$}
+\end{center}
+\item Parseval'sche Gleichung
+\[\int_{-\infty}^{\infty}dx|\varphi(x)|^2=\int_{-\infty}^{\infty}dk|\varphi(k)|^2\]
+\end{itemize}
+\subsubsection*{Elementare Eigenschaften von stetigen Funktionalen un Distributionen}
+Gegeben sei ein stetiges,lineares Funktional über den Funktionenraum \textfrak{F}.\\
+$l:\textfrak{F}\rightarrow \C$, $l(c1\varphi_1+c_2\varphi_2)=c_1l(\varphi_1)+c_2l(\varphi_2)$ (Linearität) für $c_1,c_2\in\C$ und $\varphi_1,\varphi_2\in\textfrak{F}$.\\
+Funktionen $\varphi$ werden auch Testfunktionen genannt
+\begin{itemize}
+\item \textfrak{D}: Raum komplexer, unendlich oft differenzierbarer Funktionen mit kompaktem Träger
+\item \textfrak{C}: Raum unendlich oft differenzierbarer komplexer Funktionen die im Unendlichen stärker abnehmen als jede noch so hohe Potenz (streben gegen Null)
+\end{itemize}
+\begin{itemize}
+\item Um Stetigkeit zu garantierne muss \textfrak{F} zuem topologischen Raum mit Hilfe der Funktionennorm $\norm{\varphi}$ gemacht werden.
+\item Beispiele: stetiges Funktional\\
+\begin{itemize}
+\item $l(\varphi):=\int_{-\infty}^{\infty}f(x)\varphi(x)dx$ für $f(x)$ stetig.\\
+$l$ heißt auch regulär.
+\item $l(\varphi):=\varphi(X=0)$ Dirac-Funktional\\
+$f(x)$ ist dann die Dirac-(Delta)-Funktion $f(x):=\delta(x)$
+\item Zu jedem stetigen linearen FUnktional über \textfrak{D} oder \textfrak{C} existiert eine FOlge $f_n$ stetiger Funktional-Kerne mit
+\[l(\varphi)=\lim\limits_{n\rightarrow \infty}\int_{-\infty}^{\infty}dxf_n(x)\varphi(x):=\int_{-\infty}^{\infty}f(x)\varphi(x)dx\quad\text{für bel $\varphi\in\textfrak{D}$ oder $\textfrak{C}$}\]
+$\Rightarrow$ $f$ nennt man Distribution.
+\end{itemize}
+\end{itemize}
+\paragraph*{Eigenschaften von $\delta(x)$}
+\begin{itemize}
+\item $\int_{-\infty}^{\infty}dx\delta(x-x_0)\varphi(x)=\varphi(x_0)$
+\item Es gilt: Im Limes $n\rightarrow \infty$
+\begin{itemize}
+\item $f_n(c):=ne^{-n^2\pi x^2}\rightarrow \delta(x)$, denn
+\[\lim\limits_{n\rightarrow \infty}\int_{-\infty}^{\infty}f_n(x)\varphi(x)dx=\lim\limits_{n\rightarrow \infty}\frac{n}{n\sqrt \pi}\int_{-\infty}^{\infty}due^{-u^2}\varphi(u\frac{n}{n\sqrt \pi})=\frac{1}{\sqrt \pi}\varphi(0)\int_{-\infty}^{\infty}due^{-u^2}=\frac{1}{\sqrt{\pi}}\varphi(0)\sqrt{\pi}=\varphi(0)\]
+\item $f_(x):=\frac{n}{\pi}\left(\frac{\sin(nx)}{xn}\right)^2\rightarrow \delta(x)$
+\item $f_n(x):=\frac{1}{\pi}\frac{\frac{1}{n}}{x^2+\left(\frac{1}{n}\right)^2}\rightarrow \delta(x)$
+\item $f_n(x):=\frac{1}{\pi}\frac{\sin(nx)}{x}\rightarrow \delta x$
+\end{itemize}
+\item Definition $l'(\varphi):=-l(\varphi')$ für alle Testfunktionen aus \textfrak{F}
+\[l'=\int_{-\infty}^{\infty}dxf'(x)\varphi(x)=\left[f(x)\varphi(x)\right]_{-\infty}^{\infty}-\int_{-\infty}^{\infty}dxf(x)\varphi'(x)\]
+$\Rightarrow$ Jede Distribution auf \textfrak{C} lässt sich als Distributionsableitung endlicher Ordnung einer stetigen Fkt. darstellen.
+\item Beispiel: sei $\alpha(x):=\begin{cases}
+0&x<0\\
+x&x\ge0
+\end{cases}$\\
+Im Distributionssinn gilt:
+\[\alpha'(x)=\theta(x)=\begin{cases}
+0&x<0\\1&x>0
+\end{cases}\]
+\item Es gilt
+\begin{itemize}
+\item $x\delta(x)=0$
+\item $\delta(-x)=\delta(x)$
+\item $\delta(g(x))=\sum_l\frac{1}{|g(x)|\delta(x-x_l)}$, mit stetigem $g$,$g(x_l)=0$ und $g'(x_l)\neq 0$.
+\item $\delta(ax)=\frac{1}{|a|}\delta(x)$
+\item $\tilde{\delta k}=\frac{1}{\sqrt{2\pi}}$
+\item $\delta(x-x_0)=\frac{1}{2\pi}\int_{-\infty}^{\infty}dk\quad e^{ik(x-x_0)}\cdot 1$ (Fourier-Transformation über 1)
+\end{itemize}
+\end{itemize}
+\paragraph*{Bestimmung der Amplituden $A(k)$ aus den Anfangsbedingungen}
+\begin{align*}
+U(x,0)&=\int_{-\infty}^{\infty}dk(A(k)e^{ikx}+A^*(k)e^{ikx}):=F(x)\\
+\frac{\partial U}{\partial t}(x,0)=\int_{-\infty}^{\infty}dx\left\{A(k)(-i\omega(k))^{ikx}\right\}+A^*(k)i\omega(k)e^{-ikx}:=G(x)\\
+A(k)&=\frac{i\omega(k)\tilde F(k)-\tilde G(k)}{2i\omega(k\sqrt{2\pi})}
+\end{align*}
+%VL 26.11.2015? oder so
+\paragraph*{Bestimmung der Lösungen für Randbedingungen}z.B. (W) für $x\in[0,L]$ mit $0=u(x=0,t)$ und $u(x=L,t)=0$ vorgegeben für alle $t$.\\
+\[\left(\frac{1}{v^2}\frac{\partial ^2}{\partial t^2}-\frac{\partial^2}{\partial x^2}+\kappa^2\right)u(x,t)=0\tag{W}\]
+zusätzliche Anfangsbedingungen:
+\[u(x,0),\frac{\partial u}{\partial t}(x,0)\text{ für }x\in[0,L]\]
+Fouriertransformation:
+\[u(x,t)=\int_{-\infty}^{\infty}dk\underset{\in\C}{A(k)}e^{ikx}e^{-i\omega(k)t}+k.k.\]
+Randbedingung:
+\begin{align*}
+0=u(x=0,t)&=\int_{-\infty}^{\infty}dkA(k)e^{-i\omega(k)t}+k.k.\\
+0=u(x=L,t)&=\int_{-\infty}^{\infty}dkA(k)e^{-i\omega(k)t}e^{ikL}+k.k.\\
+0&=\int_{-\infty}^{\infty}dkA(k)e^{-i\omega(k)t}\underbrace{(1+e^{ikL})}_{=0}+k.k.
+\end{align*}
+$1+e^{ikl}=0\Rightarrow kL=n\pi,n\in\Z\Rightarrow k_n=\frac{\pi}{L}n$\\
+$\Rightarrow A(k)=A_n\delta(k-\frac{pi}{L}n)$
+\[\Rightarrow\quad u(x,t)=\sum_{n=-\infty}^{\infty}A_ne^{-i\omega(k_n)t+ik_nx}+k.k.\quad\text{mit $k_n=\frac{n\pi}{L}$}\]
+zusätzlich:
+\begin{align*}
+u(x=0,L)&=0\\
+&=\sum_{n=1}^{\infty}(A_n+A_{-n})e^{i\omega(k_n)t}+A_0ee^{-i\omega(k=0)t}+k.k.\\
+\end{align*}
+$\Rightarrow $ $A_n+A_{-n}=0$ und $A_0=0$.
+\begin{align*}
+u(x,t)&=\sum_{n=\infty}^{\infty}A_ne^{-i\omega (k_n)t}e^{i\frac{k_n\pi}{L}x}+\sum_{n=-\infty}^{\infty}A_n^*e^{i\omega(k_n)t}e^{-i\frac{n\pi}{L}x}\\
+&=\sum_{n=1}^{\infty}\underbrace{\left(A_ne^{i\frac{n\pi}{L}x}+A_{-n}e^{i\frac{n\pi}{L}x}\right)}_{=A_n\cdot2 i\sin\left(\frac{n\pi}{L}x\right)-A_n}e^{-i\omega(k_n)t}+k.k\\
+&=\sum_{n=1}^{\infty}2|A_n|\sin\left(\frac{n\pi}{L}x\right)\cdot 2\Re\{e^{-i\omega(k_n)t+i\phi_n}i\}\\
+&=\sum_{n=1}^{\infty}4|A_n|\sin\left(\frac{\pi n}{L}x\right)\sin(\omega(k_n)t-\phi_n)
+\intertext{$\sin\left(\frac{\pi n}{L}x\right)$ bilden dabie ein vollständiges UFnktionensystem für stetige Funktionen $f$ im Intervall $[0,L)$ mit $f(x=0)=f(x=L)=0$ (sogar orthogonals Funktionensystem)}
+\end{align*}
+Es gilt
+\[\int_{0}^{L}\left(\sqrt{\frac{2}{L}}\sin\left(\frac{n\pi}{L}x\right)\right)\left(\sqrt{\frac{2}{L}}\sin\left(\frac{m\pi}{L}x\right)\right)=\delta_{nm}\]
+d.h. $v=\sum_ia_ie_i$, $w=\sum_i b_ie_i$, $(v,w)=\sum_ia_ib_i$. Somit
+\begin{align*}
+\int_{0}^{L}\left(\sqrt{\frac{2}{L}}\sin\left(\frac{m\pi}{L}x\right)\right)u(x,0)=\sum_{n=1}^{\infty}4|A_n|\delta_{nm}=-4|A_m|\sin\varphi_m\\
+\dif{u}{t}(x,0)=\sum_{n=1}^{\infty}4|A_n|\sin\left(\frac{n\pi}{L}x\right)\omega(k_n)\cos(\omega(k_n)t-\varphi_n)
+\end{align*}
+???, das heißt Linear-Kombination von allgemeiner homogene und partikulärer Lösung.\\
+$\rightarrow $???
+$\rightarrow $ ???
+
+\subsection[Erzwungene Schwingungen]{Erzwungene Schwingungen und Greensche Funktionen}
+\begin{enumerate}
+\item Transformation auf Normalkoordinaten $\rightarrow $ ungekoppelte erzwungenen Schwingungen
+\item $\ddot Q(t)+\omega^2Q(t)=\textfrak{F}(t)$ linear \underline{inhomogen}
+\item Allgemeine Lösung
+\[Q(t)=\underbrace{Aq_1(t)+Bq_2(t)}_{\substack{\text{Lösung der}\\\text{homogenen Gleichung}}}+\underbrace{Q_p(t)}_{\substack{\text{partikuläre}\\\text{Lösung}}}\]
+\item Konstruktion von $Q_p(t)$:\\
+Idee: $\textfrak{F}(t)=\int_{-\infty}^{\infty}dt'\delta(t-t')\textfrak{F}(t')$
+\[\textfrak{L}G(t,t')=\frac{\partial^2}{\partial t^2}G(t,t')+\omega^2G(t,t')=\delta(t-t')\]
+\[Q_p(t)=\int_{-\infty}^{\infty}dt'G(t,t')\textfrak{F}(t')\text{ denn }\textfrak{L}Q_p(t)=\int_{-\infty}^{\infty}\textfrak{L}G(t,t')\textfrak{F(t')}=\textfrak{F}(t')\]
+\end{enumerate}
+\subsubsection{Lösung von DGL mit Hilfe von Integraltransformationen (Fourier, Laplace)}
+$y''(x)-2y'(x)+y(x)=x^3e^x$; $y(0)=y'(0)=0$; $y(x)=f=f(x)$
+Laplace-Transformation $L(y)=F(p)=\int_{0}^{\infty}dx f(x)e^{-px}$, $p>0$
+
+\begin{mth}zur Lösung
+	\begin{enumerate}
+	\item Transformiere die DGL mit Hilfe von L und erhalten eine rein algebraische Gl. für $F(p)$ bzgl. $p$.
+	\item Löse die algebraischen Gl. nach $F(p)$ auf
+	\item Suche die inverse Transformation von $F(p)$, $y(x)=L^{-1}\big(L(y)\big)$
+	\item [$\Rightarrow$] Laplace Transformation ist linear
+	$L(y'')-2L(y')+L(y)=L(x^3e^x)$\\
+	\begin{align*}
+	L(y')=\int_{-\infty}^{\infty}dx\frac{dy}{dx}e^{-p x}&=\left[ye^{-px}\right]_0^\infty-\int_{0}^{\infty}dx ye^{-px}(-p)\\
+	&=-y(0)+p\int_{0}^{\infty}dx ye^{-px}\\
+	&=-y(0)+pL(y)=pL(y)-y(0)
+	\end{align*}
+	\end{enumerate}
+\end{mth}
+Analog:
+\begin{align*}
+L(y'')&=p^2 L(y)-py(0)-y'(0)\\
+L(x^3e^{x})&=\int_{0}^{\infty}x^2x^2e^{-x(p-1)}dx=\dfrac{6}{(p-1)^4},\quad p-1>0
+\intertext{$\Rightarrow$ Eingesetzt in Gl 1}
+(p^2-2p+1)L(y)&=\frac{6}{(p-1)^4}\\
+L(y)&=\frac{6}{(p-1)^4(p^2-2p+1)}
+\end{align*}
+\subsection{Erzwungene Schwingungen und Greensche Fkt.}
+Schwingungsgleichung
+\[M\ddot{\nu}(t)+K\nu(t)=F(t)\]
+Normalkoordinaten $Q(t)$ Einführen
+\[\ddot Q(t)+kQ=F(t)\]
+\[F(t)=O^TM^{-1/2}F(t)\]
+\[F(t)=AQ_1(t)+BQ_2(t)+Q_p(t)\]
+\paragraph*{Konstruktion von $Q_P(t)$ auf $F(t)$}
+Def. Eigenschaften der Greenschen Funktion $G(t,t')$
+\[\frac{\partial^2}{\partial t^2}G(t,t')+kG(t,t')=\delta(t-t')\]
+Für $Q(t)$ gilt
+\[Q_p(t)=\int_{-\infty}^{\infty}dt'G(t,t')F(t')\]
+\begin{proof}
+	\[\ddot Q_p(t)+kQ_p(t)=\int_{-\infty}^{\infty}dt'\underbrace{\left\{\ddot G(t,t')+kG(t,t')\right\}}_{:=\delta(t-t')}F(t')=F(t)\]
+\end{proof}
+Es gilt:
+\begin{itemize}
+\item $G_{ret}(t,t')=\frac{1}{\sqrt k}\sin(\sqrt k(t-t'))\theta(t-t')$ (retardiert)
+\item $G_{av}(t,t')=\frac{1}{\sqrt k}\sin(\sqrt k(t'-t))\theta(t'-t)$ (avanciert)
+	\end{itemize}
+\begin{proof}
+	 Für $G_{ret}(t,t')$ und $k>0$
+	$t>t'$: $G_{ret}(t,t')=A\sin(\sqrt{k}(t-t'))+B\cos(\sqrt k(t-t'))$ (Ansatz)\\
+	$t<t'$: $G_{ret}(t,t')=0$\\
+	Übergangsbedingung für $t=t'$: Sei $\epsilon>0$\\
+	Integration von $(2)$ nach $t$
+	\[\int_{t'-\epsilon}^{t'+\epsilon}dt\left\{\frac{\partial^2}{\partial t^2}G_{ret}(t,t')+kG_{ret}(t,t')\right\}=\int_{t'-\epsilon}^{t'+\epsilon}dt\delta(t-t')\]
+	Im Limes $\epsilon\rightarrow 0$
+	\[\frac{\partial}{\partial t}G_{ret}(t'+\epsilon,t')-\frac{\partial}{\partial t}G_{ret}(t'-\epsilon,t')=1\]
+	Weper Stetigkeit:
+	\[\lim\limits_{\epsilon\rightarrow 0}\frac{\partial}{\partial t}G_{ret}(t'+\epsilon,t')=0\]
+	$\Rightarrow $ $B=0$, $A\frac{1}{\sqrt k}$
+	\\
+	\begin{itemize}
+	\item[$\Rightarrow $] Eine Partikuläre Lösung der DGL ist gegeben durch
+	\[Q_p(t)=\int_{-\infty}^{t}dt'F(t')\frac{1}{\sqrt k}\sin(\sqrt k(t-t'))\]
+	Spezialfall $F(t)=F_0\theta(t')\theta(T-t')\sin\Omega
+	t'$ 
+	\item [$\Rightarrow$] Eingesetzt in Gl 5
+	\[Q_p(t\ge T>0)=\frac{-F_0}{2\sqrt k}\left\{\frac{\sin[(\Omega-\sqrt k)T+\sqrt k t]-\sin(\sqrt k t)}{\Omega-\sqrt k}-\frac{\sin[(\Omega+\sqrt k)T-\sqrt k t]t\sin\sqrt k t}{Omega+\sqrt k}\right\}\]
+	mit $\sin\al\sin\beta=\frac{-1}{2}(\cos(\al-\beta)-\cos(\al-\beta)
+	)$
+	\[\xrightarrow[\Omega\rightarrow \sqrt k]{\null}-\frac{F_0T}{2\sqrt k}\cos\sqrt k t\quad\text{resonante Anregung}\]
+	\end{itemize}
+\end{proof}
+\subsubsection{Konstruktion Greenscher Funktionen für DGL: I) Anfangswertprobleme}
+\paragraph*{Beispiel} $\ddot y(t)+\omega^2y(t)=f(t)$, $y(0=\dot y(0)=0)$, $t>0$\\
+Sowie $\ddot G(t,t')+\omega^2 G(t,t')=\delta(t-t')$, $G(0,t')=\dot G(0,t')=0$
+Durch Multiplikation mit $f(t')$ und integrieren über $t'$:
+\[\int_{0}^{\infty}dt'\left(\frac{\partial^2}{\partial t^2}+\omega^2\right)G(t,t')f(t')=\int_{0}^{\infty}dt'\delta(t-t')f(t')\]
+Ergibt
+\[\left(\frac{\partial^2}{\partial t^2}+\omega^2\right)\int_{0}^{\infty}G(t,t')f(t')=f(t)\]
+Transformieren mit Hilfe der Laplace Transformation bzg. p
+\[G(p,t')=\frac{e^{-pt'}}{p^2+\omega^2},\quad\text{p>0}\]
+\[G(t,t')=\frac{\sin(\omega(t-t'))}{\omega}\theta(t-t')\]
+\paragraph*{Fazit}
+\begin{enumerate}
+\item Formuliere 6 mit Hilfe von $G(t,t')$ in 7
+\item Löse 7 mciht Laplace Trasnfomration
+\item Trasnformiere G(p,t') zurück zu $G(t,t')$
+\item Interpretiere $y(t)=\int_{-\infty}^{\infty}dt'G(t,t')f(t')$ und erhalte $y(t)$ für ein bestimmtes $f'(t)$.
+\end{enumerate}
+\subsubsection{Konstruktion Greenscher Funktionen für DGL: II) Randwertprobleme}
+\begin{enumerate}
+\item Jede DGL hat die Form $\textfrak{D}y(x)=f(x)$.\\
+Bringe jede DGL 2. Ordnung in die sog. Sturm-Lioville Form
+\[\frac{d}{dx}(p(x)y'(x))+a(x)a(x)=f(x)\]
+Wobei $p(x)>0$ und $a(x)$ stetig, reell
+\item Löse die homogene DGL
+\[y_n(x)c_1y_1(x)+c_2y_2(x)\]
+\item $y_{ges}=y_n(z)+\int_{a}^{b}dx G(x,z)f(x)$
+\[G(x,z):=c_1 y_1(x)+c_2y_2(x)+\begin{cases}
+\frac{y_1(x)y_2(z)}{p(z)\omega(z)}&\text{für $a<x<z$}\\
+\frac{y_1(z)y_2(x)}{p(z)\omega(z)}&\text{für $a<x<b$}
+\end{cases}\]
+mir $\omega(z)=y_1(z)y'_2(z)-y'_1(z)y_2(z)$ (Wronski Determinante)
+\end{enumerate}
+\begin{enumerate}
+\item $p(x)=1$
+\item Homogene DGL: $ y''=0$
+\item $G(x,z)=c_1+c_2x+\begin{cases}
+z,&\text{für }0<x<z\\
+x,&\text{für }z<x<1\\
+\end{cases}$
+Bestimme $a_1,c_2$ aus Randbedingungen
+\[\left.\begin{array}{rl}
+G(0,z)&=0\\
+G(1,z)&=0
+\end{array}\right\}\Rightarrow
+\begin{array}{lr}
+c_1&=-z\\
+c_2&=z-1
+\end{array}\Rightarrow G(x,y)=
+\begin{cases}
+x(z-1)&\text{, für }0<x<z\\
+z(x-1)&\text{, für }z<x<1
+\end{cases}\]
+\[\Rightarrow y_P(z)=\]
+%TODO
+\emph{Hier fehlt was!}
+\end{enumerate}
+\section{Hamiltonsche Mechanik}
+\subsubsection*{Motivation: Lagrange-Formulierung}
+\begin{enumerate}
+\item Grundlegende Variablen $q,q\dot q,t$
+\item Lagrange Funktion $L(q,\dot q,t)$
+\item $\delta\int_{t_0}^{t_1}dt\quad L\big(q(t),\dot q(t),t\big)=0$ (Hamilton Prinzip)
+\end{enumerate}
+\begin{itemize}
+\item[$\Rightarrow$]$ \frac{d}{dt}\frac{\partial L}{\partial \dot q_j}=\frac{\partial L}{\partial q_j}$ mit $j=1,...,f$\\
+\item[$\Rightarrow$]$ \frac{\partial L}{\partial q_{j_0}}=0$ $\Rightarrow$ $\frac{\partial L}{\partial q_{j_0}}:=p_{j_0}$ ist Erhaltungsgröße
+\item[$\Rightarrow$]Suche nach einer alternativen Formulierung der Lagrange-Menchanik im bezug auf $q,p$ statt $q$ und $\dot q$.
+\end{itemize}\subsection{Legendre Transformation}
+Ersetze $f(x)$ durch $g(p)$ mit $P:=\frac{\partial f}{\partial x}$\\
+Ziel: FInde eine eindeutige Zuordnung $f(x)\leftrightarrow g(p)$ (Bijektivität)\\
+\begin{itemize}
+\item[$\Rightarrow$] Übergang von $L(q,\dot q,t)$ zur Hamilton Funktion $H(P:=\frac{\partial L}{\partial\dot q},q,t)$
+\end{itemize}
+Gegeben sei $f(x)$ konvex, $f''(x)>0$\\
+\[F(x,p):=px-f(x)\]
+Es gilt:
+\begin{itemize}
+\item $\left.\frac{\partial F}{\partial x}\right|_P=p-\frac{df}{dx}$
+\item $\left.\frac{\partial^2F}{\partial x^2}\right|_P=-\frac{d^2f}{dx^2}<0$, da $f''(x)>0$
+\end{itemize}
+\begin{itemize}
+\item [$\Rightarrow$] $\max F(x,p)=g(p):=F\big(x(P),P\big)$ mit $P=\frac{\partial f}{\partial x}$
+\item [$\Rightarrow$] d.h. durch die Abbildungsvorschrift $f(x)\rightarrow g(p):=px(p)-f(x(p))$ mit $p:=\frac{\partial f}{\partial x}\rightarrow x(p)$ lässt sich jeder konvexen Funktion $f(x)$ eine Legendre-Trasnformierte $g(p)$ zuordnen.\\
+\end{itemize}
+Es gilt:
+\begin{itemize}
+\item $\frac{dg}{dp}=x(p)+p\frac{dx}{dp}-\frac{df}{dx}\frac{dx}{dp}=x(p)$
+\item $\frac{d^2g}{dp^2}=\frac{dx}{dp}=\left[\frac{d^2 f}{dx^2}\right]^{-1}>0$ $\rightarrow g(p)$ ist auch konvex
+\item Die Legendre Transformation ist involutiv, d.h. die Legendre Transformation von $g(p)$ ist wieder $f(x)$\\
+\underline{Beweis:} $\max G(x,p)=p(x)x-g(p(x)):=p(x)x-\{p(x)x-f(x)\}=f(x)$
+\item $-g(P(x))$ ist die Ordinate $\Psi$ des Punktes $x=0=x_0$ der Tangente an die Kurve $f(x)$ an der Stelle $x_0$
+\[\left.\frac{df}{dx}\right|_{x_0}=\frac{f(x_0)-\Psi}{x_0-0}\Leftrightarrow -\Psi=x_0\left.\frac{df}{dx}\right|_{x_0}-f(x_0)\equiv g(p(x_0))\]
+\item Für $f(x)$ von mehreren Unbekannten $x_j$, $j=1,...,d$ gilt:
+\[g(p)=\sum_{j=1}^{d}p_jx_j(p)-f(x(p))\text{ mit }p_j:=\frac{\partial f}{\partial x^j}\rightarrow x_j(p_j)\]
+$\frac{\partial^2 f}{\partial x_j\partial x_i}>0$ (positiv definit)\\
+Analog gilt für die Umkehrung:\begin{align*}
+f(x)&=\sum_{j=1}^{d}p_j(x)x_j-g\big(p(x)\big)\\
+x_j&=\frac{\partial q}{\partial p_j}p\rightarrow p_j(x_j)\\
+\frac{\partial ^2 q}{\partial p_j\partial p_j}&=\left[\frac{\partial ^2 f}{\partial x_j\partial x_j}\right]^{-1}>0
+\end{align*}
+\item Youngsche Ungleichung
+\[F(x,p):=\sum_{j=1}^{d}p_jx_j-f(x)\leq g(p)\equiv F\big(x(p),p\big)\equiv\max_x F(x,p),\text{ für }\frac{\partial^2 f}{\partial x^2}\]
+\begin{figure*}[t]
+\begin{tikzpicture}
+\draw[->](0,0)--(2,0)node[below]{$x(t)$};
+\draw[->](0,0)--(0,2)node[left]{$p(t)$};
+\draw[variable=\x,domain=0:1,samples=500] plot ({\x * cos( 20*\x r)+1},{\x * sin(20*\x r)+1});
+\end{tikzpicture}
+\title{Phasenraum-Darstellung}
+\end{figure*}
+\item $dg=\sum_{i=1}^{d}\left\{dx_ip_i+x_idp_i-\frac{\partial f}{\partial x_i}dx_i\right\}=\sum_{i=1}^{d}p_idp_i\Leftrightarrow \frac{\partial g}{\partial p_i}=x_i$\\
+$df=\sum_{i=1}^{d}\left\{dx_ip_i+x_idp_i-\frac{\partial g}{\partial p_i}dp_i\right\}=\sum_{i=1}^{d}p_idp_i\Leftrightarrow \frac{\partial F}{\partial x_i}=p_i$
+\item Die Legendre-Funtion (engl. Hemiltonian) mit $p_i=\frac{\partial L}{\partial\dot q_j}(q,\dot q,t)\rightarrow \dot q(q,p,t)$ für $\frac{\partial^2L}{\partial \dot q_i\dot q_j}>0$
+\item[$\Rightarrow$] $\frac{\partial L}{\partial q_{j_0}}=0$ $\rightarrow $ $\frac{\partial H}{\partial q_{j_0}}=0$ (zyklische Koordinaten)
+\end{itemize}
+% TODO Beispiel hier?
+%VL 8.12.2015
+\subsection{Die Hamiltonschen Bewegungsgleichungen}
+Es gilt:
+\[\frac{d}{dt}\left(\frac{\partial L}{\partial\dot q_i}\right)=\frac{\partial L}{\partial q_i}\quad\text{mit Anfangsbedingungen}\]
+Es gilt:
+\[\begin{array}{rl}
+\dot q_j(t)&=\frac{\partial H}{\partial p_j}(p,q,t)\\
+\dot p_j(t)&=-\frac{\partial H}{\partial q_j}(p,q,t)
+\end{array}\rightarrow \text{$(p(t),q(t))$ für gegebenen Anfangsbedingungen $(p(t_0),q(t_0))$}\]
+Hamiltonsche Bewegungsgleichungen
+\begin{itemize}
+\item $\dif{H}{q_j}=-\dif{L}{q_j} a$
+\item $\dif{H}{t}=-\dif{L}{t}$
+\item $\frac{dH}{dt}\big(p(t),q(t),t\big)=\dif{H}{t}\big(p(t),q(t),t\big)$\\
+Lösung der Hamilton-Bewegungsgleichung\\
+$\Rightarrow$ für $\dif{H}{t}(p,q,t)=0\Rightarrow H\big(p(t),q(t),t\big)$ ist Erhaltungsgröße (Energie)
+\end{itemize}
+\begin{proof}
+Freiheitsgrade $f=:H(p,q,t)=\sum_{j=1}^{f}\left[q_j\dot q_j(q,p,t)\right]-L\big(q,\dot q(q,p,t),t\big)$
+\begin{align*}
+dH(p,q,t)|_p&=\sum_{j=1}^{f}\left.\left(\dif{H}{p_j}dp_j+\dif{H}{q_j}dq_j+\dif{H}{t}dt\right)\right|_P\\
+\frac{df}{dx}(x)\equiv f'(x)&\equiv\sum_{j=1}^{f}\left.\left( dp_j\dot q_j+p_jd\do q_j-\dif{L}{q_j}-\dif{L}{\dot q_j}d\dot q_j-\dif{L}{t}dt\right)\right|_T
+\intertext{mit $\left(p_j-\dif{L}{\dot q_j}\right)d\dot q_j=0$}
+\Leftrightarrow \dot q_j=\dif{H}{p_j}
+\intertext{Es folgt daraus dass}
+\dif{H}{q_j}=-\dif{L}{q_j}\quad\text{Hamilton I}\\
+\dif{H}{t}=-\dif{L}{t}\quad\text{Hamilton II}
+\intertext{Weiterhin}
+\frac{dH}{dt}&=\sum_{j=1}^{f}\left(\dif{H}{p_j}\underset{\dot p_j}{=-\dif{H}{q_j}}+\dif{H}{q_j}\underset{\dot q_j}{=\dif{H}{p_j}}\right)+\dif{H}{t}=\dif{H}{t}
+\end{align*}
+\end{proof}
+Es gilt: Sei $q_1$ Zyklische Koordinate\\
+$\dif{L}{q_1}=0=-\dif{H}{q_1}$ $\Rightarrow$ $p_1$ Erhaltungsgröße: $H(p_1=c,p_2,...,p_f)$\\
+%TODO
+\subsection{Das modifizierte Hamiltonsche Prinzip}
+Wenn $p=\dif{L}{\dot q_j}(q,\dot q,t)$ (lokal) bijektiv ist
+\begin{align*}
+S:&=\int_{t_0}^{t_1}\left\{\sum_{j=1}^{f}p_jdq_i-H(q,p,t)dt\right\}\\
+&=\int_{t_0}^{t_1}dt\left\{\sum_{j=1}^{f}p_j(t)\dot q_j(t)-H(p(t),q(t),t)\right\}\le\int_{t_0}^{t_1}dtL\big(q(t),\dot q(t),t\big)\quad\text{Youngsche Ungleichung}
+\end{align*}
+%VL 10.12.2015
+\begin{align*}
+\delta S[\gamma]=\delta \int_{t_0}^{t_1}dt\left\{\sum_{j=1}^{f}p_j(t)\dot q_j(t)-H(p(t),q(t),t)\right\}=0
+\end{align*}
+Wobei der Weg $\gamma:t\mapsto(p(t),q(t))$. \\
+Es gilt: Die Variation ist gleich 0:
+\[\delta q(t_0)=\delta q(t_1)=0\]
+bzw. $p(t_0),p(t_1)$ beliebig
+\begin{proof}
+betrachte virtuelle Verrückung $\big(\delta p(t_1),\delta q(t_1)\big)$\begin{align*}
+\delta S[\gamma]&=\int_{t_0}^{t_1}dt\left\{\sum_{j=1}^{f}\left(\delta p_j(t)\dot q_j(t)+\underbrace{p_j(t)\delta\dot q_j(t)}_{=\frac{d}{dt}\left(p_j(t)\delta q_j(t)-\delta q_j(t)p_j(t)q_j(t)\right)}-\dif{H}{p_j}\delta p_j(t)-\dif{H}{q_j}\delta q_j(t)\right)\right\}\\
+&=\left.\sum_{j=1}^{f}p_j\delta q_j(t)\right|_{t_0}^{t_1}+\int_{t_0}^{t_1}dt\left\{\sum_{j=1}^{f}\delta q_j(t)\left(\dot q_j(t)-\dif{H}{p_j}\right)+\delta q_j(t)\left(-\dot p_j(t)-\dif{H}{q_j}\right)\right\}\underset{\text{da $\delta q(t_0)=\delta q(t_1)=0$}}{\overset{!}{=}}0\\
+&\Leftrightarrow\\
+&\dot q_j=\dif{H}{q_j},\quad \dot p_j=-\dif{H}{q_j}
+\end{align*}
+\end{proof}
+\subsection{Phasenraum, Zustände, physikalische Variable}
+\paragraph*{Ausgangspunkt} $H(p,q,t)$ kodiert mechanisches System\\
+Raum $=\{(p,q,t)\}$ Phasenraum\\
+$\widetilde{\text{Raum}}:=\{(p,q,t)\}$ erweiterter Phasenraum
+\[\begin{array}{c}
+\dot q_j=\dif{H}{p_j}\\
+\dot p_j=\dif{H}{p_j}
+\end{array}\Leftrightarrow\dot z^k=\sum_{l=1}^{2f}S_{kl}\dif{H}{z_l}=V_k(z)\]
+\[V_k=\sum_{j=1}^{2f}\overset{\substack{\text{konvar.}\\\text{Tenstor}\\\text{2. Stufe}\\\text{ }}}{S_{kl}}\underset{\substack{\text{konvariantes}\\\text{Vektorfeld}}}{\dif{H}{z_l}}\text{kontravariantes Vektorfeld}\]
+\subparagraph*{Trajektorien} $\dot z_k(t)=\sum_{l=1}^{2f}S_{kl}\dif{H}{z_l}(z)$ Hamiltonsche Bewegungsgleichungen
+\subparagraph*{Zustand}(rein) $z=(p,q)$ charakterisier das mechanische System Vollständig
+\subparagraph*{Physikalische Variable} Funjtion über dem Phasenraum (z.B. $H(z(t),t)$)
+\subparagraph*{Physikalische Variable} (Zustandsgröße, physikalische Variable) $H(z_0,t_0)$
+\subparagraph*{gemischte Zustande}Charakterisierung durch Wahrscheinlichkeitsdichteverteilung
+\[P(z,t)\ge 0\quad \int dz P(z,t_0)=1\]
+\[\langle F\rangle_{P(t_0)}=\int dz P(z,t_0)F(z,t_0)\]
+\subsubsection*{Zeitliche Entwicklung und Poisson Klammern:}
+Sie $F(p,q,t)$ eine Physikalische Variable\\
+\[\dot q_l=\{q_l,H\}=\dif{H}{p_l}\quad\dot p_l=\{p_l,H\}=\dif{H}{q_l}\]
+\begin{align*}
+\frac{dF}{dt}\big(p(t),q(t),t\big)&\underset{\text{H-B-Gl}}{=}\sum_{l=1}^{f}\left\{\dif{F}{p_l}\dot p_l+\dif{F}{q_l}\dot q_l\right\}+\dif{F}{t}\big(p(t),q(t),t\big)\\
+&=\quad\dif{F}{t}\big(p(t),q(t),t\big)+\{F,H\}
+\intertext{wobei $\{F,G\}=\sum_{l=1}^{f}\left(\dif{F}{q_l}\dif{G}{p_l}-\dif{F}{p_l}\dif{G}{q_l}\right)$} 
+&=\sum_{k=1}^{f}\left(\dif{F}{q_l}\dif{H}{p_l}-\dif{F}{p_l}\dif{H}{q_l}\right)
+\end{align*}
+%VL 15.12.2015
+Neue Struktur: Über die Menge der physikalischen Variablen $\{F(z)\}$ ist eine algebraische Struktur definiert
+\begin{itemize}
+\item gewöhnliche Multiplikation $(FG)(z):=F(z)G(z)$ ist kommutativ
+\item Poisson-Klammern $\{F,G\}:=R(z)(:=F\circ G)$ ist nicht kommutativ
+\end{itemize}
+\paragraph*{Eigenschaften der Poisson-Klammern}
+\begin{itemize}
+\item $\{F,c\}=0$ für $\dif{c}{p_i}=\dif{c}{q_i}=0$ für alle $i=1,...,f$
+\item $\{F,\al G_1+\beta G_2 \}=\al\{F,G_1\}+\beta\{F,G_2\}$ für $\al,\beta\in\R$
+\item $\{F,G\}=-\{G,F\}\Rightarrow \{F,F\}=0$ antikommutativ
+\item $\{F,G_1G_2\}=\{F,G_1\}G_2+G_1\{F,G_2\}$ (Produktregel) 
+\item $\{F,\{G_1,G_2\}\}+\{G_1,\{G_2,F\}\}+\{G_2,\{F,G_1\}\}$ 
+\end{itemize}
+$\rightarrow $\underline{Quantenmechanik}: Heisenberg: $p,q$ sind Matrizen $\rightarrow$ lineare Vektorraum Transformationen.
+\[\{F,G\}\rightarrow [\hat F,\hat G]:=\hat F\hat G-\hat G\hat F\]
+\paragraph*{Beispiel:} Poisson-Klammer-Strukturen $a,b\in\R^3$
+\begin{align*}
+\vec a\times\vec b&:=\{\vec a,\vec b\}&\vec a\times(\vec b\times\vec c)+\vec b\times(\vec c\times\vec a)+\vec c\times(\vec a\times \vec b)&=0
+\end{align*}
+\paragraph*{Entwickelung}
+\begin{align*}
+F(p(t),q(t))&=F\big(p(t),q(t)\big)+(t-t_0)\underbrace{\left.\frac{dF}{dt}\right|t_0}_{=-\{H,F\}_{t_0}}+\frac{1}{2}(t-t_0)^2\underbrace{\left.\frac{d^2F}{dt^2}\right|_{t_0}}_{(-1)^2\{H,\{H,F\}_{t_0}}+...\\
+&=\sum_{n=0}^{\infty}\frac{(-1)^n(t-t_0)^n}{n!}\{\underbrace{H\{H\{...\{H,F}_{\text{n-mal}}\}...\}|_{t_0}
+\end{align*}
+\subsubsection{Erhaltungsgrößen}
+\begin{align*}
+=\overset{!}{=}\frac{dF}{dt}\big(p(t),q(t),t\big)=\{F,H\}+\dif{F}{t}
+\end{align*}
+Es gilt der  Poissonsche Satz: Seien $F_1$ und $F_2$ Erhaltungsgrößen: $\Rightarrow$ $\{F,G\}$ist Erhaltungsgröße
+\begin{proof}
+\begin{align*}
+\frac{d}{dt}\{F_1,F_2\}&=\{\{F_1,F_2\},H\}&+&&\dif{\null}{t}\{F_1,F_2\}\\
+&=-\{H,\{F_1,F_2\}\}&+&&\{\dif{F_1}{t},F_2\}+\{F_1,\dif{F_2}{t}\}\\
+\text{Mit Jacobi-Id} &=\{F_1,\{F_2,H\}\}+\{F_2,\{H,F_1\}\}&+&&\{\dif{F_1}{t},F_2\}+\{F_1,\dif{F_2}{t}\}\\
+&=\{F_1,\underbrace{\{F_2,H\}+\dif{F_2}{t}}_{=0}\}&+&&\{F_2,\underbrace{\underbrace{\{H,F_1\}}_{=-\{F_1,H\}}-\dif{F_1}{t}}_{=0}\}\\
+&=0
+\end{align*}
+\end{proof}
+\subsubsection*{Erhaltungsgröße eines dreien nicht relativistischen Massepunkts}
+Zusammenhänge:
+\begin{align*}
+\{q_i,p_k\}&=\delta_{ik}\\
+\{q_i,q_k\}&=\{p_i,p_k\}=0
+\end{align*}
+\[H=\sum_{i=1}^{3}\frac{p_ip_i}{2m}\]
+\begin{enumerate}
+\item Impulserhaltung
+\[\dot p_i=\{p_i,H\}=\frac{1}{2m}\sum_{k=1}^{3}\{p_i,p_k,p_k\}=\frac{1}{2m}\sum_{k=1}^{3}\underbrace{\{p_i,p_k\}}_{=0}p_k+p_k\underbrace{\{p_i,p_k\}}_{=0}=0\]
+\item Energieerhaltung
+\[\frac{dH}{dt}=\{H,H\}=0\quad\text{da $\dif{H}{t}=0$}\]
+\item Drehimpulserhaltung
+\begin{align*}
+\vec L&=\vec x\times \vec p&L_i=\sum_{l,k=1}^{3}\epsilon_{ilk}x_lp_k
+\end{align*}
+\begin{align*}
+\frac{dL_i}{dt}=\{L_i,H\}=\frac{1}{2m}\sum_{k=1}^{3}\{L_ip_kp_k\}=\frac{1}{m}\sum_{k=1}^{3}\{L_i,p_k\}p_k=\frac{1}{m}\sum_{k,b=1}^{3}\epsilon_{ikb}p_kp_b=0
+\end{align*}
+\end{enumerate}
+7 Erhaltungsgrößen in 6 dim $\Rightarrow$ min 2 sind Abhängig
+%VL 17.12.2015
+%TODO
+\emph{Hier fehlt was!}
+\subsection{Die Poincare-Cartan Invariante}
+erweiterter Phasenraum $\{(p,q,t)\}$,geschlossener Weg $C:\la\in[0,1]\mapsto\big(p(\la),q(\la),t(\la)\big)$.
+\begin{align*}
+I(C)&=\oint_C\left\{\sum_{i=1}^{f}p_1(\la)\frac{dq_i}{d\la}-H\big(p(\la),q(\la),t(\la)\big)\frac{dt}{d\la}\right\}d\la\\
+&=\oint_C\sum_{i=1}^{f}p_idq_i-Hdt\\
+&=I(C')
+\end{align*}
+Ist äquivalent zu
+\begin{align*}
+\dot p_i&=\dif{H}{p_i}&\dot q_i=-\dif{H}{p_i}
+\end{align*}
+\paragraph*{Konsequenz}
+Die Koordinaten $(P,Q,T),K(P,Q,T),S(P,Q,T)$ hängen von $(p,q,t)$ und $H(p,q,t)$ ab, sodass wenn
+\[\sum_{i=1}^{f}p_idq_i-Hdt=\sum_{i=1}^{f}P_idQ_i-KdT+dS\]
+Dann folgt durch die Poincare-Cartan Invariante (P-C-I) und durch $\oint_CdS=0$ die Äquivalenz zwischen
+\[\begin{array}{rcl}
+\frac{dq_i}{dt}&=\dot q_i&=\dif{H}{p_i}\\
+\frac{dp_i}{dt}&=\dot p_i&=\dif{H}{q_i}
+\end{array}\Leftrightarrow\begin{array}{rl}
+\frac{dQ_i}{dT}&=\dif{K}{P_i}\\
+\frac{dP_i}{dT}&=-\dif{K}{Q_i}
+\end{array}\]
+\paragraph*{Beweisidee}betrachte eine beliebige (glatte) Abbildung $s\in[0,...)$ und $\big(P(p,q,t),Q(p,q,t),T(p,q,t)\big)$ und $\tilde H(P,Q,T):=H\big(p(P,Q,T),q(P,Q,T),t(P,Q,T)\big)$. Wir betrachten die Reihenentwicklungen
+\begin{align*}
+P_i&=p_i+s\dot P+O(s^2)\\
+Q_i&=q_i+s\dot Q+O(s^2)\\
+T&=t+s\dot T+O(s^2)
+\end{align*}
+Durch einsetzen diese in die PCI
+\begin{align*}
+I(C')&=\oint_{C'}\sum_{i=1}^{f}P_i~dQ_i-\tilde H~dT\\
+&=\oint\sum_{i=1}^{f}(p_q+s\dot P_i)(dq_i+sd\dot Q_i)-\left(H+\sum_{i=1}^{f}\left(\dif{H}{p_i}s\dot P_i+\dif{H}{q}s\dot Q_i\right)+\dif{H}{t}s\dot T\right)\left(dt+sd\dot T\right)+O(s^2)\\
+&=\left(\oint_{C'}\sum_{i=1}^{f}p_i~dq_i-H~dt\right)\\&\quad+s\oint_{C'}\left\{\sum_{i=1}^{f}\left(\dot P_i~dq_o+p_i~d\dot Q_i-\dot Q_i~dp_i-\dif{H}{p_i}\dot P_i~dt-\dif{H}{p_i}\dot Q_i~dt-\dif{H}{t}\dot Tdt\right)-Hd\dot T\right\}+O(s^2)
+\intertext{wobei $p_i~d\dot Q_i=d(p_i\dot Q_i)-\dot Q_i~dp_i$ und $Hd\dot T=d(H\dot T)-\dot TdH$}
+\intertext{Durch Ordnen der Summe}
+&=\oint_{C'}\left(\sum_{i=1}^{f}p_i~dq_i-H~dt\right)+\underbrace{\oint_{C'}d(p_iQ_i)-d(\tilde H\dot T)}_{=0}\\
+&\quad+s\underbrace{\oint\sum_{i=1}^{f}\left\{\dot P_i\left(dq_i-\dif{H}{p_i}dt\right)+\dot Q_i\left(-dp_i-\dif{H}{q_i}dt\right)+\dot T\left(-\dif{H}{t}+d\tilde H\right)\right\}}_{=\tilde{I}}+O(s^2)\\
+\end{align*}
+%VL 12.01.2016
+Fall 1: Gelte für die Kurve, dass $dt\equiv\frac{dt}{d\la}d\la=0$
+\begin{align*}
+\tilde I=\oint_C\sum_{i=1}^{f}(\dot P_i+\dot T\dif{dH}{dq_i})dq_i+(-\dot Q_i+\dot T\dif{H}{p_i})dp_i\overset{!}{=}0
+\end{align*}
+Ist äquivalent zu
+\begin{align*}
+\frac{dp_i}{dt}\equiv\frac{\left.\frac{dP}{ds}\right|_{s=0}}{\left.\frac{dT}{ds}\right|_{s=0}}=\frac{\dot P_i}{\dot T}=-\dif{H}{q_i}&&\frac{\dot Q_i}{\dot T}=\dif{H}{p_i}=\frac{dq_i}{dt}
+\end{align*}
+\subsection{Kanonische Transformationen} %4.6
+Sei $z$ die ... 
+\begin{align*}
+z_i=(p,q)\\
+\dot z_i&=\sum_{k=1}^{2f}S_{ik}\dif{H}{z_k}=\{z_i,H\}
+\end{align*}
+und gebe es eine Transformation $Z(z)$, sodass
+\[Z(z)\mapsto \dot{Z}_I\tilde{S}"{ik}\dif{\tilde{H}}{Z_k}=\{Z_i,\tilde H\}\]
+\begin{align*}
+\tilde S_{ik}=\sum_{a,b=1}^{2f}\dif{Z_i}{z_a}A_{ab}\dif{Z_k}{z_b}
+\tilde{H}(Z:=H(z(Z)))
+\end{align*}
+Wenn $S_{ik}=\tilde S_{ik}$, dann herrscht formale ``Gleichheit'' der Hamiltonschen Bewegungsgleichungen.\\
+\\
+Kanonische Transformationen (erhalten die Poissonklammern) und es gilt $S_{ik}=\{z_i,z_k\}$
+\paragraph*{Eigenschaften kanonischer Transformationen:} $z\leftrightarrow Z$ ist kanonisch $\Leftrightarrow$
+\begin{enumerate}
+	\item $\int_{G'}\sum_{i,k=1}^{2f}S_{ik}^{-1}~dZ_idZ_k=\int_{G}\sum_{i,k=1}^{2f}S^{-1}_{ik}dz_idz_k$
+	für alle $G(G')$ im Phasenraum
+	\begin{proof}[Beweisidee]
+		Sei $z\leftrightarrow Z$ beliebig:
+		\begin{align*}
+		\int_{_G}\sum_{i,k=1}^{2f}S_{ik}~dz_i~dz_k&=\int_{G'}\sum_{i,k=1}^{2f}\tilde{S}_{ik}~dZ_i~dZ_k\\
+		&=\int_{G'}\sum_{i,k=1}^{2f}S_{ik}~dZ_i~dZ_k
+		\end{align*}
+	\end{proof}
+	\item $\oint_{\partial G}\sum_{i=1}^{f}p_i~dq_i=\oint_{\partial G'}\sum_{i=1}^{f}P_i~dQ_i$ für alle $\partial G(\partial G')$
+	\begin{proof}[Beweisidee]
+		\begin{align*}
+		\int_G\sum_{i,k=1}^{2f}S_{ik}\dif{z_i}{u}\dif{z_k}{v}~du~dv&=\sum_{i=1}^{f}\int ~du~dv\left(\dif{p_i}{u}\dif{q_i}{v}-\dif{p_i}{v}\dif{q_i}{u}\right)\\
+		\intertext{Wir wählen $u_<\le u\le u_>$ und $v_<\le v\le v_>$}
+		&=\sum_{i=1}^{f}\left\{\int dv~p_i\left.\dif{q_i}{v}\right|_{u_<}^{u_>}
+		-\int du~dv~p_i\dif{^2q_i}{u\partial v}\right.\\
+		&\left.\quad-\int du~dv~p_i\left.\dif{^2q_i}{u\partial v}\right|_{v_<}^{v_>}
+		+\int du~dv~p_i\dif{^2q_i}{u\partial v}\right\}\\
+		&=\sum_{i=1}^{f}\oint p_i~dq_i
+		\end{align*}
+	\end{proof}
+	\item Aus (2) folgt:\\
+	Wenn $\sum_{i=1}^{f}p_i~dq_i=\sum_{i=1}^{f}P_i~dQ_i+d\tilde{S}$ für die erzeugende Funktion einer kanonischen Transformation $\tilde{S}(P,Q)=S\big(p(P,Q),q(P,Q)\big)$, \\
+	dann gilt $z\leftrightarrow Z$ ist kanonisch.
+	\begin{proof} Es existiert eine erzeugende Funktion kanonischer Transformationen $S(P,Q,t)=S\big(P(p,q,t),Q(p,q,t),t\big)$ sodass:
+		\begin{align*}
+		\sum_{i=1}^{f}p_i~dq_i&=\sum_{i=1}^{f}\left(P_i~dQ_i+\dif{S}{P_i}dP_i+\dif{S}{Q_i}dQ_i\right)\\
+		\oint_{\partial G}\sum_{i=1}^{f}p_i~dq_i
+		&\equiv\oint_{\partial G}\sum_{i=1}^{f}P_i~dQ_i+
+		\underbrace{\oint_{\partial G'}\sum_{i=1}^{f}\left(\dif{S}{P_i}dP_i+\dif{S}{Q_i}dQ_i\right)}_{=0}
+		\end{align*}
+		Daraus folgt, dass
+		\begin{align*}
+		I(c)&:=\oint_C\sum_{i=1}^{f}p_i~dq_i-H(p,q,t)dt\\
+		&=\oint_{C'}\sum_{i=1}^{f}P_i~dQ_i-(\underbrace{\overbrace{H\big(p(P,Q,t),q(P,Q,t),t\big)}^{:=\tilde{H}(P,Q,t)}+\dif{S}{t}}_{=K(P,Q,t)})dt\\
+		&\quad+\underbrace{\oint_C\sum_{i=1}^{f}\left(\dif{S}{P_i}dP_i+\dif{S}{Q_i}dQ_i\right)+\dif{S}{t}dt}_{=0}
+		\end{align*}
+		%TODO (in VL 14.01.2015)
+	\end{proof}
+\end{enumerate}
+\begin{bem}Es gilt:\\
+	Hamilton-Dynamik mit $\big(p,q;H(p,q,t)\big)$ $\Leftrightarrow$ Hamilton-Dynamik mit $\big(P,Q;k(P,Q,t)\big)$\\
+	$(p,q)\leftrightarrow(P,Q)$ mit $K(P,Q,t)=H\big(p(P,Q,t),q(P,Q,t)+\dif{\tilde S}{t}(P,Q,q)\big)$ ist kanonisch (Newtonsche Zeilt $t$ wir nicht Tranformiert)
+\end{bem}
+\subsubsection*{Verbindung zur Poincare-Cartan Invariante}
+Sei eine kanonische Transformation $z\leftrightarrow Z$ bzw $(p,q,t)\leftrightarrow(P,Q,T)$ gegeben, dann gilt
+\[\oint_C\sum_{i=1}^{f}p_i~dq_i-H~dt=\oint_{C'}\sum_{i=1}^{f}P_i~dQ_i-\tilde{H}~dt+d\tilde{S}\]
+und
+\[\sum_{i=1}^{f}p_i~dq_i=\sum_{i=1}^{f}\left(P_i~dQ_i+\dif{\tilde S}{P_i}dP_i+\dif{\tilde S}{Q_i}dQ_i\right)\]
+sodass \fbox{$H=\tilde{H}+\dif{\tilde S}{t}$}
+%VL 14.01.2016
+\subsubsection{Erzeugende Funktionen und kanonische Transformationen} %4.6.1
+Ausgangspunkt: kanonische Transformation $(p,Q)\leftrightarrow(P,Q)$ mit erzeugender Funktion $\tilde S(P,Q,t)\equiv S(p,q,t)$.\\
+Lokal ist $\det\dif{(P,Q)}{(p,q)}\neq 0$. Existiert eine Transformationsformel?\\
+\\
+Sei $(p,q)\leftrightarrow (P,Q)\leftrightarrow(q,Q)$. Daraus definieren wir $S_2(q,Q,t):=\tilde S(P(q,Q,t),Q,t)$.
+\[\sum_{i=1}^{f}\left\{p_i~dq_i-P_i~dQ_i-\dif{S_2}{q_i}dq_i-\dif{S_2}{Q_i}dQ_i\right\}=0\]
+$(q,Q)$ sind Koordinaten. Daraus folgt $dq_i,dQ_i$ sind linaer unabhängig:
+\[p_i=\dif{S_2}{q_i}(q,Q,t)\quad\quad P_i=-\dif{S_2}{Q_i}(q,Q,t)\]
+Wahl $(p,q)\leftrightarrow(P,Q)$ ist nicht immer möglich (zB. id: $q_i=Q_i$, $p_i=P_i$)
+%TODO
+%VL 19.01.2016
+\subsubsection{Kontinuierliche kanonsche Transformationen} %4.6.2
+Sei $g_\epsilon(q,p)\rightarrow (P,Q)$ stetig aus den Einheitstransformationen erzeugbar, also erzeugt aus
+\[S_3(P,q,t,\epsilon)=\sum_{i=1}^{f}P_iq_i+\epsilon F(P,q,t,\epsilon)\]
+Für die erzeugende Funktion $F(p,q,t)$ gilt
+\begin{align*}
+\frac{dp_i}{d\epsilon}&=-\dif{F}{q_i}&\frac{dq_i}{d\epsilon}&=\dif{F}{p_i}
+\end{align*}
+\begin{align*}
+g_\epsilon:&&p_i&=\dif{S_3}{q_i}=P_i+\epsilon\dif{F}{q_i}(P,q,t,\epsilon)\\
+&&\Rightarrow &\frac{dp_i}{d\epsilon}=\left.\frac{P_i-p_i}{\epsilon}\right|_{\epsilon=0}=-\dif{F}{q_i}(P,q,t,\epsilon=0)=-\dif{F}{q_i}(p,q,t,\epsilon=0)\\
+&&Q_i&=\dif{S_3}{P_i}=q_i+\epsilon\dif{F}{qPi}(P,q,t,\epsilon)\\
+&&\Rightarrow &\frac{dq_i}{d\epsilon}=\left.\frac{Q_i-q_i}{\epsilon}\right|_{\epsilon=0}=-\dif{F}{P_i}(P,q,t,\epsilon=0)=-\dif{F}{p_i}(p,q,t,\epsilon=0)
+\end{align*}
+\begin{bem}
+	Einene Speziallfall der Erzeugenden Funktion stellt die Zeitliche Entwickelung dar:\\
+	Wenn $\epsilon\rightarrow t$ dann ist $F\rightarrow H$ einen kontinuierliche Kanonische Transformation.
+\end{bem}
+\subsubsection{Symmetrietransformationen}
+\paragraph*{Definition einer Symmetrietransformation}
+\[\xymatrix{
+	z=(p,q)\ar[r]^{h_t}_{H}\ar[d]_{g_\epsilon}^{F}& (p_t,q_t)\ar[d]_{g_\epsilon}^{F}\\
+	z_\epsilon=\big(P(\epsilon),Q(\epsilon)\big)\ar[r]^{H}_{h_t}&\big(P_t(\epsilon),Q_t(\epsilon)\big)
+}
+\Leftrightarrow\{F,H\}=0\]
+Sei $F(p,q)$ explizit Zeitunabhängig $\Rightarrow\frac{dF}{dt}=\{F,H\}=0$
+\begin{proof}
+	\begin{align*}
+	h_t\big(g_\epsilon(z)\big)=M_1\\
+	h_t\big(h_t(z)\big)=M_2\\
+	\end{align*}
+	Durch verwenden der Jacobi Identität:
+	\[M_1-M_2=\epsilon t\{z,\{F,H\}\}+O(\epsilon^2,t^2,\epsilon t)\]
+\end{proof}
+\paragraph{Beispiele:} freie Teilchen mit $H(p,q,t))\frac{\vec p^22}{2m}$\\
+Erhaltungsgröße $\overset{?}{\Rightarrow}$ Symmetrietransformation\\
+\[\{H,p_i\}=0\quad\Rightarrow\quad F_{i_0}(p,q,t)\equiv p_{i_0}\]
+\begin{align*}
+\frac{d\vec p}{d\epsilon}&=\vec e_{i_0}\times\vec p\\
+\frac{d\vec x}{d\epsilon}&=\vec e_{i_0}\times\vec{x}\\
+\end{align*}
+\begin{align*}
+\frac{dq_i}{d\epsilon}&=\dif{F_{i_0}}{p_i}=\delta_{ii_0}\\
+\frac{dp_i}{d\epsilon}&=-\dif{F_{i_0}}{q_i}=0\\
+\end{align*}
+%TODO
+%Nachtrag: VL 11.020.2016
+\subsubsection{Hamilton-Jakobische Differentialgleichung}
+Es gilt: nicht partielle DGL 1. Ordnung $\leftrightarrow$ Hamiltonisches System von gewöhnlichen DGLs\\
+kanonische Transformation in ein Hamilton System: $(p,q)\leftrightarrow(P,Q)$.\\
+Es existier eine erzeugende Funktion $S(P,Q,p,q,t)$, sodass
+\begin{align*}
+p&=\dif{S}{q}&Q&=\dif{S}{P}&P&=\dif{S}{Q}
+\end{align*}
+\begin{align*}
+\begin{array}{rl}
+\dot{q}&=\dif{H}{p}\\
+\dot q&=-\dif{H}{q}
+\end{array}
+\overset{S}{\leftrightarrow}
+\begin{array}{rl}
+\dot{Q}&=\dif{K}{P}\\
+\dot P&=-\dif{K}{P}
+\end{array}
+\end{align*}
+Es folgt die H-J-DGl:
+\[K=0=H(\dif{S}{q},q,t)+\dif{S}{t}\]
+\begin{exm}
+	Der Freie Massenpunkt:
+	\[H(\vec p,\vec x,t)=\frac{\vec p^2}{2M}\]
+	H-J-DGl:
+	\[H(\dif{S}{x_i},x_j,t)+\dif{S}{t}=K=\frac{1}{2}M(\vec{\nabla}_{\vec x}S)^2+\dif{S}{t}\overset{!}{=}0\]
+	Damit das problme eindeutig gelöst werden kann nehemn wir an, dass $S(\vec P,\vec x,t=0)$ vorgegeben ist.\\
+	Nun suchen wir eine Lösung mit dem Separationsansatz: $S(\vec P,\vec x,t)=W(\vec P,\vec x)+\eta t$.\\
+	Es ergibt sich eine reduziertes Problem:
+	\[\frac{1}{2M}(\vec \nabla_{\vec x}S)^2+\eta =0\]
+	Es folgt, als mögliche Lösung $W(\vec P,\vec x)=\vec P\vec x$, sodass $\eta=-\frac{\vec P^2}{2M}$
+	\[S(\vec P,\vec x,t)=\vec P\vec x-\frac{\vec P^2}{2M}t\]
+	erfüllt die H-J-DGl mit $S=\vec P\vec x$, sodass
+	\begin{align*}
+	p_i&=\dif{S}{x_i}=P_i\\
+	Q_i&=\dif{S}{P_i}=x_i-\frac{P_i}{M}t\\
+	x_i&=Q_i+\frac{P_i}{M}\\
+	p_i&=P_i
+	\end{align*}
+	%TODO
+\end{exm}
+\paragraph*{Hamilton gl zu H-J-DGl}
+Löse die Hamiltonsche Bewegunggelichung mit vorgegebenenm $S_0(\vec x)$
+\subsubsection{Auf den Spuren von Erwin Schrödinger}
+Schrödinger Gleichungen: Punktquant im äußeren Potenzial
+\[\left\{-\frac{\hbar^2}{2M}\Delta_{\vec x}+V(\vec x,t)\right\}\Psi(\vec x,t)=i\hbar\dif{\Psi}{t}(\vec x,t)\]
+Kurzwellenasymptotik $\hbar\rightarrow 0$ für kleine Wellenlängen
+\begin{align*}
+\Psi(\vec x,t)&=Ae^{\frac{i}{\hbar}S(\vec x,t)}\\
+(\vec \nabla\Psi)(\vec x,t)&=\frac{i}{\hbar}(\vec{\nabla}S)\Psi(\vec c,t)\\
+(\vec \nabla\Psi)(\vec x,t)&=\frac{i}{\hbar}(\Delta S)\Psi(\vec x,t)+(\frac{i}{\hbar}\vec{\nabla}S)^2\Psi(\vec x,t)\\
+|(\vec\nabla S)^2|&\gg|\hbar\Delta S|
+\end{align*}
+Also folgt für kleine Wellenlängen
+\[\frac{1}{2M}(\vec{\nabla}_{\vec x}S)^2+V(\vec x,t)=-\dif{S}{t}\]
+Die allgemeine Lösung ist $\Psi(x,t=0)=Ae^{\frac{i}{\hbar}S_0(x)}:=\phi(x)$.\\
+Mit der H-J-DGl bauen wir $A$ zu $A(\vec x,t)$ aus, sodass
+\[\Psi(Q,t)=\sum_j\phi(q_0"j)\frac{1}{\det(\dif{Q}{q_0})_j}e^{\frac{i}{\hbar}S_j(Q,t)-\frac{i}{2}\pi\mu j}\]
+Wobei $\mu$ den sog. Morse Index bezeichnet.
+\paragraph*{Grenzwert $\hbar$ gegen 0}
+%TODO...?
+%Nachtrage Ende
+\section{Der starre Körper}
+\subsection{Der starre Körper als Mechanisches Vielteilchensystem}
+\paragraph*{Definition} Zwangsbedingungen: $|\vec{x}"i-\vec y"j|=C_{ij}$ $i,j\in\{1,...,N\}$
+\begin{itemize}
+	\item zeitunabhängig für alle Massepunkte
+	\item Holonom
+\end{itemize}
+\begin{bem}
+	\begin{itemize}
+		\item Es gibt keine innere Dynamik
+		\item kontinuierliche starre Körper durch kontinuums Limes\\
+		Abstände bleiben im Körperfesten Bezugsystem Konstant.\\
+		$3+3(N-3)=3N-6$ unabhängige Zwangsbedingungen.
+		\item $N$ Massenpunkte $\rightarrow $ $3N$ Koordinaten für die Positionierung.\\
+		Die Anzahl der Freien Parameter ist jedoch $3N-(3N-6)=6$ unabhängig von $N$
+	\end{itemize}
+\end{bem}
+\subsection{Lagrangesche Bewegungsgleichungen 1. Art:}
+\[S[\gamma]=\int_{t_0}^{t_1}dt\left\{\frac{m_i}{2}\dot{\vec{x}}_i^2(t)+\vec{F}_i(t)\cdot\vec x_i(t)+\sum_{l,m\in I}\la_{lm}(t)\big(|\vec{x}_l(t)-\vec{x}_x(t)|-c_{lm}\big)\right\}\]
+\paragraph*{Bewegunsgleichungen}
+\[\frac{d}{dt}m_i\dot{\vec{x}}_i(t)
+	=\vec{F}_i(t)+\underbrace{\sum_{i,m\in I}\la_{im}(t)\frac{\vec x_I(t)
+		-\vec x_m(t)}{|\vec x_i(t)-\vec x_m(t)|}
+	-\sum_{l,i\in I}
+	\frac{
+		\vec x_l(t)-\vec x_i(t)}
+	{|\vec x_l(t)-\vec x_i(t)|}}_{=\vec{Z}_i(t)}\]
+\begin{itemize}
+\item %TODO
+\end{itemize}
+%VL 22.01.2016
+\paragraph*{Kontaktbedingungen}
+\begin{itemize}
+	\item Gleiten: Zwangskraft steht orthogonal auf der Kontaktfläche
+	\item Rollen: verschwindende Relativgeschwindigkeit 
+\end{itemize}
+\subsection{Lagrange Methode 2. Art}
+\begin{tikzpicture}
+\coordinate (O) at (0,0,0);
+\coordinate (B) at (1,2,2);
+\draw[thick,->] (O)--(B)node[right]{$B$};
+\draw[fill=black](O) circle (0.05);
+\draw[fill=black](B) circle (0.05);
+\draw[->] (O)--(2,0,0) node[below] {$\vec n_2$};
+\draw[->] (O)--(0,2,0) node[above] {$\vec n_3$};
+\draw[->] (O)--(0,0,2) node[right] {$\vec n_1$};
+\draw[->] (B)--($(B)+(0,1,1)$) node [left]{$\vec e_1$};
+\draw[->] (B)--($(B)+(1,0,1)$) node[below] {$\vec e_2$};
+\draw[->] (B)--($(B)+(1,1,0)$) node[above] {$\vec e_3$};
+\draw (B) circle (1);
+\end{tikzpicture}
+\begin{itemize}
+	\item 6 Freiheitsgrade
+	\item Bezugssystem B im starren Körper $B\leftrightarrow\vec R(t)$\\
+	entspricht der Position des Körpers
+	\item $\{\vec e_1,\vec e_2,\vec e_3\}$ charakterisiert eien Körperfestes Orthonormalsystem \\
+	$\Rightarrow\quad \vec x"i(t)=\vec R(t)+\sum_{r=1}^{3}b_r"i\vec e_r$\\
+	\item Die Transformation $\{\vec e_1,\vec e_2,\vec e_3\}\leftrightarrow\{\vec n_1,\vec n_2,\vec n_3\}$ ist von 3 Parametern abhängig und eine Drehung.
+	\item $\vec e_l=\sum_{r=1}^{3}\vec n_rD_{rl}(\vec \varphi(t))$. 
+\end{itemize}
+\paragraph*{Drehungen}Eine Drehung wir beschrieben, indem mit $|\vec{\varphi}|=\varphi$
+\[D(\vec{\varphi}\vec x)=(\cos\varphi)\vec x+\sin\varphi\frac{\vec{\varphi}}{\varphi}\times\vec x+(1-\cos\varphi)\frac{\vec{\varphi}}{\varphi}(\frac{\vec{\varphi}}{\varphi}\cdot \vec x)\]
+Sodass allgemein für $D(\varphi)$ gilt:
+\[D(\vec{\varphi})=\cos\varphi\cdot\mathbb{1}+\sin\varphi\frac{\vec\varphi}{\varphi}+(1-\cos\varphi)\frac{\vec{\varphi}}{\varphi}\times\frac{\vec{\varphi}}{\varphi}\]
+Charakteristische Eigenschaften: 
+\begin{itemize}
+	\item $D^{-1}(\vec \varphi)=D^T(\vec{\varphi})=D(-\varphi)$
+	\item $\dot{\vec e}_l(t)=\sum_{r=1}^{3}\vec n_r\dot D_{rl}(\vec{\varphi})=\dot{\vec{\varphi}}\times\vec e_l:=\vec\omega$
+\end{itemize}
+\paragraph*{Parametrisierung durch Euler Winkel} $\vec{\al}\leftrightarrow(\varphi\theta,\psi)$\\
+Wir zerlegen also in 3 Drehungen
+\begin{itemize}
+	\item $\{\vec n_i\}\overset{D"1}{\rightarrow }\{\vec{n_j}'\}$
+	\item $\{\vec n_i'\}\overset{D"2}{\rightarrow }\{\vec{n_j}''\}$
+	\item $\{\vec n_i''\}\overset{D"3}{\rightarrow }\{\vec e_l\}$
+\end{itemize}
+%TODO
+\[D_{rl}(\varphi,\theta,\psi)=\begin{pmatrix}
+\cos\varphi\cos\theta\cos\psi-\sin\varphi\sin\psi&
+-\cos\varphi\sin\psi-\sin\varphi\cos\theta\cos\psi&
+\sin\varphi\sin\theta\\
+\sin\varphi\cos\psi+\cos\varphi\cos\theta\sin\psi&
+-\sin\varphi\sin\psi+\cos\varphi\cos\theta\cos\psi&
+-\cos\varphi\sin\theta\\
+\sin\theta\sin\psi&
+\sin\theta\cos\varphi&
+\cos\theta
+\end{pmatrix}\]
+\subsubsection{Lagrange Funktion}
+\[L(\vec R,\dot{\vec{R}},\vec{\Omega})=\sum_{i=1}^{N}\frac{m_i}{\dot{\vec x}}_i^2\]
+Weiterhin gilt:
+\begin{align*}
+\vec x"i(t)=\vec R(t)+\sum_{r=1}^{3}b_r"i\vec e_r(t)
+\dot{\vec x}"i(t)=\dot{\vec R}(t)+\sum_{r=1}^{3}b_r"i\underbrace{\dot{\vec{e}}_r(t)}_{=\vec \Omega(t)\times \vec e_r(t)}
+\end{align*}
+Sodass:
+\begin{align*}
+\sum_{i=1}^{N}\frac{m_i}{\dot{\vec x}}_i^2&=\frac{M}{2}\dot{\vec R}^2+(\dot{\vec{R}}\times\vec{\Omega})\cdot(\vec X_s-\vec R)M+\frac{1}{2}\sum_{k,l=1}^{3}\underbrace{(\vec{\Omega}\vec e_k)I_{kl}(\vec{\Omega}\vec e_l)}_{:=\Omega\cdot(I\vec\Omega)}
+\end{align*}
+Der sog Trägheisttensor $I$ wird definiert als
+\[I:=\sum_{l,k=1}^{3}I_{kl}\vec{e}_k\times\vec e_l\]
+Wobei $I_{kl}$ definiert ist als
+\[I_{kl}=\sum_{i=1}^{N}m_i\left(\sum_{r=1}^{3}(b_r"i)^2\delta_{kl}-b_k"ib_l"i\right)\]
+in körperfester Orthonormalbasis, zeitunabhängig. $I$ ist also nur abhängig von der Wahl von $\vec R$ und $\{\vec e_i\}$.\\
+Die Trägheitsmatrix/ der Trägheitstensor kodiert die Struktur des Starren Körpers.
+\paragraph*{Steinersche Satz}Für $I$ mit Bezugspunkt $\vec R$ und $I'$ mit Bp. $\vec R+\vec a$ gilt:
+\[I_{kl}'=I_{kl}+M\left(\delta kl(\vec a)^2-(\vec a\vec e_k)(\vec a\vec e_l)\right)\]
+%TODO VL 26.01.2016
+%VL 28.01.2016
+\subsection{Der freie starre Körper}
+\begin{defn}
+	Ein starrer Körper heißt \textbf{frei}, wenn nur die Zwangskräfte wirken.
+\end{defn}
+\begin{defn}
+	Ein freier starrer Körper heißt \textbf{Kreisel}, wenn nur ein Punkt fest ist.
+\end{defn}
+\subsubsection{Erhaltungsgrößen}
+\[L=\sum_{i=1}^{N}m"i\frac{{\dot{\vec{x}}"i}^2}{2}+\underbrace{\sum_{i,j}\la_{ij}\left(|\vec x"i-\vec x"j|-C_{ij}\right)}_{L_z}\]
+\paragraph*{Translationen im Ort}
+\begin{align*}
+\vec {x"i}'&=\vec x"i+\epsilon\vec a\\
+t'&=t\\
+L'&=L\\
+\intertext{Es folgt dass}
+\vec{P}_i&=\sum_{i=1}^{N}m_i\dot{\vec{x}}"i=M\dot{\vec X}_S\\
+E&=\sum_{j=1}^{3}\sum_{i=1}^{N}a_jm_i\dot{\vec x}_j"i=\vec a\vec P
+\intertext{Sodass}
+\dot{\vec P}&=0
+\end{align*}
+\paragraph*{Translation in der Zeit}
+Sei $\phi=1$,$\psi_i=0$, $L=L'$. Dann
+\[E=-\sum_{i=1}^{N}m_i\left(\frac{{\dot{\vec{x}}"i}^2}{2}-{\dot{\vec{x}}"i}^2\right)=\sum_{i=1}^{N}\frac{m_i}{2}{\dot{\vec{x}}"i}^2\]
+\paragraph*{Veränderung der Geschwindigkeit}
+Sei $\vec {x"i}'=\vec x"i+\epsilon\vec{v}t$. Wir bezeichnen $\vec v t$ als $\vec\psi$. Sei zusätzlich $t'=t$.
+\[L'=\frac{1}{2}\sum_{i=1}^{N}m_i(\dot{\vec{x}}"i+\epsilon\vec v)^2+L_z=L+\epsilon\left(\sum_{i=1}^{N}m_i\dot{\vec x}"i\right)\]
+%TODO
+%VL 02.02.2016
+\subsubsection{Dynamik des asymmetrischen starren Körpers}
+wähle $\vec R=\vec X_s=\vec O$. und $I_{11}<I_{22}<I_{33}$
+\begin{mth}
+	Erhaltungsgrößen:
+	\[\begin{array}{rl}
+	E_{rot}&=\frac{1}{2}(\vec \Omega I\vec \Omega)=\sum_{i=1}^{3}\vec I_{ii}\vec{\Omega}_{ii}
+	\end{array}\]
+\end{mth}
+%TODO
+\subsubsection{Dynamik des freien Symmetrischen Kreisels}
+%TODO
+%VL 04.020.2016
+\subsection[Der starre Körper im homogenen Schwerefeld]{Der starre Körper im homogenen Schwerefeld/unter dem Einfluss äußerer Kräfte}
+\subsubsection{Rotation um eine raumfeste Drehachse mit konstanter Winkelgeschwindigkeit}
+\paragraph{Problemstellung}Betrachte eine einfache Bewegung eines starren Körpers mit $\vec\Omega(t)=\vec{\Omega}_0\Rightarrow\dot{\Omega}(t)=\ddot{\Omega}(t)=...=0$.\\
+Welche Kräfte sind zur Aufrechterhaltung der Bewegung erforderlich? (ohne Kräfte möglich?)\\
+Sei $\{\vec e_j\}$ ein körperfestes Orthonormalsystem. Dann
+\begin{align*}
+\vec x"i&=\vec R(t)+\sum_{j=1}^{3}b_j"i\vec e_j\\
+\dot{\vec x}"i(t)&=\dot{\vec R}(t)+\sum_{j=1}^{3}b_j"i
+\vec{\Omega}_0\times\vec e_j(t)\\
+\ddot{\vec x}"i(t)&=m_i\ddot{\vec R}(t)+\sum_{j=1}^{3}m_ij_j"i\vec{\Omega}_0\times(\vec{\Omega}_0\times\vec{e}_j(t))
+\end{align*}
+Es folgt für die Gesamtkraft
+\begin{align*}
+\sum_{i=1}^{n}m_i\ddot{\vec x}_i&=M\ddot{\vec R}(t)+\vec{\Omega}_0\times\left(\sum_{j=1}^{N}\sum_{j=1}^{3}m_ib_j"i\vec e_j(t)\right)\\
+&=M\ddot{\vec R}(t)+\vec{\Omega}_0\times(\vec{\Omega}_o\times(\vec x_s-\vec R))
+\intertext{o.B.d.A: Sei $\vec R$ auf der Drehachse $\Rightarrow\dot{\vec{R}}=\ddot{\vec R}=0$}
+&=\vec{\Omega_0}\times(\vec{\Omega_0}\times(\vec x_s-\vec R))M\quad\text{Unwucht erster Art}
+\end{align*}
+\subparagraph*{Drehimpulsbilanz} $\vec R(t)=\vec x_s$
+\begin{align*}
+\vec L&=M\vec x_s\times\vec x_s+I\vec{\Omega}\\
+\frac{d\vec L}{dt}&=M\vec x_s\times\ddot{\vec x}_s+\sum_{k=1}^{3}\vec{\Omega}_0\times\vec e_k(t)I_{kl}(\vec \Omega_0)_{l}=\vec N
+\end{align*}
+Sei die Unwucht 1. Art beseitigt ($\vec x_s$ auf Drehachse $\Leftrightarrow\ddot{\vec x}_s=0\Rightarrow\frac{d\vec P}{dt}=0$)\\
+Dann ist
+\begin{align*}
+\vec N&=\vec\Omega_0\times \vec L_{rel}&\vec L_{rel}&=I\vec{\Omega}_0\\
+\frac{d\vec L}{dt}&=0\Rightarrow \vec{\Omega}_0\parallel\vec L_{rel}&\vec L_{rel}&=I\vec{\Omega}_0=\alpha\vec\Omega_0
+\end{align*}
+Ist also eine Drehung um eine Hauptträgheitsachse
+\subsubsection{Der schwere Kreisel}
+Ein Kreisel im homogene Schwerefeld($V(\vec x"i)=-m_i\vec g\vec x"i$).\\
+Lagrange Methode 2. Art:
+\begin{align*}
+L&=\frac{M}{2}\dot{\vec{x}}_s^2+\dfrac{1}{2}(\vec{\Omega},I\vec{\Omega})-\sum_{i=1}^{N}V(\vec x"i)+\text{Zwbedg}
+\intertext{Entlang der Hauptträgheistachsen}
+&(\vec{\Omega},I\vec{\Omega})=\sum_{j=1}^{3}\Omega_j I_{jj}\Omega_j
+\end{align*}
+verwende Eulerwinkel $(\varphi,\theta,\psi)$
+\[L=\frac{1}{2}(I_{11}]M{b_3"P}^2)(\dot\theta^2+\dot\varphi^2\sin^2\theta^2)+I_{33}(\dot{\psi}^2+\dot{\varphi}^2\cos^2\theta+2\dot\varphi\dot{\psi}\cos\theta)+Mgb_3"P\cos\theta-Mg\cos\theta-Mg\vec n_3\vec C
+\]
+Es folgt:
+\begin{align*}
+\dif{L}{\varphi}&=0&\dif{L}{\dot{\varphi}}&=(I_{11}+M{b_3"P}^2)\sin^2\theta\dot \varphi+I_{33}\cos^2\theta\dot \varphi+I_{33}\dot \psi \cos\theta&&:=A=\vec L\vec n_3\\
+\dif{L}{\psi}&=0&\dif{L}{\dot{\psi}}&=I_{33}(\dot \psi +\dot{\varphi}\cos\theta)&&:=B=\vec L\vec e_3\\
+\dif{L}{t}&=0&\sum_{j=1}^{3}&\dif{L}{\dot q_j}\dot q_j-L&&:=E=L_2-L_1
+\end{align*}
+Einsetzen der Erhaltungsgrößen in $L$:
+\begin{align*}
+\dot{\psi}&=\frac{B}{I_{33}}-\dot{\varphi}\cos\theta&
+\dot\varphi&=\frac{A-B\cos\theta}{\sin^2\theta[I_{11}+{b_3"P}^2]}
+\end{align*}
+\begin{align*}
+E&=\frac{1}{2}(I_{11}+M{b_3"P}^2\dot{\theta}^2+U_{eff}(\theta))\\
+U_{eff}(\theta)&=\frac{(A-B\cos\theta)^2}{2(I_{11}+M{b_3"P}^2)\sin^2\theta}+\frac{B^2}{2I_{33}}-Mgb_3"P\cos\theta
+\end{align*}
+%VL 09.20.2016
+\paragraph*{...}
+\begin{itemize}
+	\item $\theta(t)=\theta_0$, $\dot{\varphi}=\dfrac{A-B\cos\theta_0}{\sin^2\theta_0I'_{11}}$:\\
+	reine Präzessionsbewegung, keine Nutation
+	\item $U_{eff}(\theta)=U_{eff}(\theta_0)+\dfrac{1}{2}(\theta-\theta_0)^2U_{eff}''(\theta_0)+O\big((\theta-\theta_0)^3\big)$,\\
+	$E=\frac{1}{2}I'_{11}\dot\theta^2+\frac{1}{2}(\theta-\theta_0)^2U_{eff}''(\theta_0)\rightarrow $ harmonische Schwingung um $\theta_0$
+\end{itemize}
+\paragraph*{Spezialfall $\theta\approx0$} Gibt es eine Beewgung mit $\theta(t)=0$?\\
+Existiert nur für spezielle Werte von $A,B$.\\
+Sei $A=B,|\theta|\ll 1$
+\[U_{eff}(\theta)\rightarrow \frac{(A-B(1-\frac{\theta}{2}))}{2I'_{11}\theta^2}+\frac{B^2}{2I_{33}}-Mgb_3"P(1-\frac{\theta^2}{2})+O(\theta^3)
+=\left(\frac{B^2}{2I_{11}'}\frac{1}{4}+Mgb_3"P\frac{1}{2}\right)\theta^2+\frac{B^2}{2I_{33}}-Mgb_3"P\]
+Es ergibt sich eien Harmonsiche Schwingung mit $\omega>0$:\\
+$\omega^2:=\frac{\frac{B^2}{8I_{11}'}+\frac{Mg}{2}b_3"P}{\frac{1}{2}I_{11}'}$, $B=\vec L\vec n_3=\vec L\cdot \vec e_3$\\
+Eine instaile Dynamik für $\omega^2<0$ mit $b_3"P=-|b_3"P|$:\\
+$\frac{B^2}{8I_{11}'}<\frac{Mg}{2}|b_3"P|$
+\end{document}
