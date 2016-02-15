@@ -231,7 +231,7 @@ Aus $\vec L_{rel}\cdot \vec r=0$ folgt, dass die Bewegung in einer Ebene stattfi
 \end{figure}
 
 %VL 20.10.2015
-\begin{wrapfigure}{l}{5cm}
+\begin{figure}[b]
 	\begin{tikzpicture}[scale=0.8]
 		\coordinate (0) at (0,0) node[left] at (0) {$0$};
 		\coordinate (E0) at (-0.15,-2) node[left] at (E0) {$E_0$};
@@ -246,8 +246,7 @@ Aus $\vec L_{rel}\cdot \vec r=0$ folgt, dass die Bewegung in einer Ebene stattfi
 		\draw plot[domain=0:6.5,smooth] ({0.6*\x},{1.5*(3-(\x+1.3)^2))/(e^(1.1*\x)});
 	\end{tikzpicture}
 	\caption{Energieschema}
-	\vspace{-1.7cm}
-\end{wrapfigure}
+\end{figure}
 
 
 \begin{defn}
@@ -359,7 +358,7 @@ und den Newton-Gleichungen:
 		&\quad+\sum_{i=1}^{N}\delta\vec x_i(t)\vec{\nabla}_{x_i}V+\sum_{i=1}^{N}\delta\dot{\vec{x}}_i(t)\vec{\nabla}_{\vec x_i}V+O(\norm{h}^2)\\
 		\Rightarrow \delta\vec{x}_i(t)\vec{\nabla}_{\vec x_i}V_i&=\frac{d}{dt}\left(\Delta x_i\vec{\nabla}_{\dot{\vec{x}}_i}V\right)-\delta x_i(t)\frac{d}{dt}\left(\vec{\nabla}_{x_i}V\right)\\
 		\Rightarrow \delta\int_{t_1}^{t_2}dtV(\{x(t)\},\{\dot x(t)\},t)&=\int_{t_1}^{t_2}dt\sum_{i=1}^{N}\left(\delta\vec x_i()\cdot\left[\vec{\nabla}_{\vec x_i}V-\frac{d}{dt}\vec{\nabla}_{\dot{\vec{x}}_i}V\right]+\underbrace{\frac{d}{dt}\left[\delta\vec x_i(t)\cdot\nabla_{\vec x_i}V\right]}_{\delta\vec x_i(t_1)=\delta\vec x_i(t_2)=0}\right)\\
-		&=-\int_{t_1}^{t_2}dt\quad\vec F_i(t)\cdot\Delta x_i(t)
+		&=-\int_{t_1}^{t_2}dt\quad\vec F_i(t)\cdot\Delta x_i(t)\\
 		&\equiv -\delta\int_{t_1}^{t2}dt\quad\vec F_i(t)\cdot \vec x_i(t)\qedhere
 	\end{align*}
 \end{proof}
@@ -460,7 +459,13 @@ Es ergibt sich eine Erhaltungsgröße $E$ der Form
 	Es folgt:
 	\[\dfrac{dQ_{\epsilon}}{dT\epsilon}(T_\epsilon)=\underbrace{\dfrac{dq^m}{dt}}_{:=\dot q^m}+\epsilon\dfrac{d\psi^m}{dt}(q(t),\dot q(t),t)+O(\epsilon)\]
 	Aus $\tau_\epsilon$ Symmetrie:
-	\[\int_{T_1}^{T_2}dT\epsilon L(Q_\epsilon(T_\epsilon),\dfrac{dQ_\epsilon}{dT\epsilon}(T_\epsilon),T_\epsilon)=\int_{t_1}^{t_2}dt\underbrace{L\left(\left\{q^m+\epsilon\psi^m\right\}\dot q^m+\epsilon\dfrac{d\psi^m}{dt},t\right)}_{=L(q(t),\dot q(t),t)+\epsilon\left\{\sum_m \psi^m\dfrac{\partial L}{\partial q^m}+\sum_m\dfrac{d\psi^m}{dt}\dfrac{\partial L}{\partial\dot q ^m}\right\}+O(\epsilon^2)}=^!\int_{t_1}^{t_2}dtL(q(t),\dot q(t),t)\]
+	\begin{align*}
+		\int_{T_1}^{T_2}dT\epsilon L(Q_\epsilon(T_\epsilon),\dfrac{dQ_\epsilon}{dT\epsilon}(T_\epsilon),T_\epsilon)
+		&=\int_{t_1}^{t_2}dt
+		\underbrace{L\left(\left\{q^m+\epsilon\psi^m\right\}\dot q^m+\epsilon\dfrac{d\psi^m}{dt},t\right)}_{\substack{
+			=L(q(t),\dot q(t),t)\\+\epsilon\left\{\sum_m \psi^m\dfrac{\partial L}{\partial q^m}+\sum_m\dfrac{d\psi^m}{dt}\dfrac{\partial L}{\partial\dot q ^m}\right\}\\+O(\epsilon^2)}}\\
+		&\overset{!}{=}\int_{t_1}^{t_2}dtL(q(t),\dot q(t),t)
+	\end{align*}
 	mit $f_\epsilon(q,t)=0$
 	\[0=\sum_m\left(\psi^m\dfrac{\partial L}{\partial q^m}+\dfrac{d\psi^m}{dt}\dfrac{\partial L}{ \partial \dot q^m}\right)=\sum_m\psi^m\left(\underbrace{\dfrac{\partial L}{\partial q^m}-\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot q^m}\right)}_{=0\text{für} \gamma \text{Lsg}} \right)+\dfrac{d}{dt}\sum_m\left(\psi^m\dfrac{\partial L}{\partial \dot q^m}\right)\]
 	Es folgt
@@ -468,7 +473,7 @@ Es ergibt sich eine Erhaltungsgröße $E$ der Form
 	\item Sei $Q_\epsilon^m=q^m$, $T_\epsilon=t+\epsilon$\\
 	$\rightarrow \dfrac{dQ_\epsilon^m}{dT_\epsilon}=\dfrac{dq^m}{dt}\equiv \dot q^m$
 	\begin{align*}
-		\int_{t_1}^{t_2}dT_\epsilon L(Q_\epsilon(T_\epsilon),\dfrac{dQ_\epsilon}{dT_\epsilon}(T_\epsilon),T_\epsilon)&=\int_{t_1}^{t_2}dt\underbrace{L(q(t),\dot q(t),t+\epsilon)}=^!\int_{t_1}^{t_2}dt L(q(t),\dot q(t),t)\\
+		\int_{t_1}^{t_2}dT_\epsilon L(Q_\epsilon(T_\epsilon),\dfrac{dQ_\epsilon}{dT_\epsilon}(T_\epsilon),T_\epsilon)&=\int_{t_1}^{t_2}dt\underbrace{L(q(t),\dot q(t),t+\epsilon)}\overset{!}{=}\int_{t_1}^{t_2}dt L(q(t),\dot q(t),t)\\
 		&=L(q(t),\dot q(t),t)+\epsilon\dfrac{\partial L}{\partial t}+O(\epsilon^2)
 	\end{align*}
 	Aus $\tau_\epsilon$-Symmetrie: $\dfrac{\partial L}{\partial t}=0$
@@ -629,8 +634,8 @@ Für holone Zwangsbedingungen:
 	\begin{align*}
 		\Rightarrow&\left.\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot q_j}\right)\right|_\gamma=\left.\dfrac{\partial L}{\partial q_j}+\sum_{k=1}^{s}\la_k(t)\dfrac{\partial F}{\partial q_j}\right|_\gamma\\
 		\Rightarrow&F_k=0\\
-		\Rightarrow E:=\left.\sum_{j}\dot q_j-L\right|_\gamma\quad\text{Ist Erhaltungsgröße}
 	\end{align*}
+	\[\Rightarrow E:=\left.\sum_{j}\dot q_j-L\right|_\gamma\quad\text{Ist Erhaltungsgröße}\]
 \end{proof}
 
 \begin{exm}
@@ -681,12 +686,16 @@ Wir setzen auch voraus:
 Beschreibt z.B. nicht: Gase, Schmelzende Körper,...
 \subsection{Lineare Schwingungen um Gleichgewichtskonfigurationen}
 
-\paragraph*{Gleichgewichtskonfigurationen}: $\{q_{\alpha(0)}(t)$Zeigungabhängig,$\alpha=1,...,f\}$\\
-oder: $\dot q_{\alpha(0)}(t)=\ddot{q}_{\alpha(0)}=\dddot{q}_{\al(0)=...=0}$\\
-Es gilt: $\left.\frac{\partial U}{\partial q_\al}\right|_{q_{(0)}}=0$
+\begin{defn}
+	In \emph{Gleichgewichtskonfiguration} gilt:\\
+	$\{q_{\alpha(0)}(t)$ ist Zeitungabhängig, $\alpha=1,...,f\}$\\
+	\\
+	Äquivalent dazu ist $\dot q_{\alpha(0)}(t)=\ddot{q}_{\alpha(0)}=\dddot{q}_{\al(0)=...=0}$\\
+\end{defn}
+Es gilt für generalisierte Kräfte, dass $\left.\frac{\partial U}{\partial q_\al}\right|_{q_{(0)}}=0$
 
-
-\subparagraph*{Beweisidee}: Euler-Lagrange und Bedingugngen für Gleichgewicht.
+\begin{proof}[Beweisidee]
+	Euler-Lagrange und Bedingugngen für Gleichgewicht.
 \begin{align*}
 	\frac{\partial L}{\partial \dot q_\al}&=\frac{1}{2}\sum_{\beta=1}^{f}g_{\al\beta}(q)\dot q_\beta+\frac{1}{2}\sum_{\beta=1}^{f}\dot q_\beta g_{\beta\al}(q)&\text{da }g_{\al\beta}=g_{\beta \al}\\
 	&=\sum_{\beta=1}^{f}g_{\al\beta}(q)\dot q_\beta\\
@@ -701,6 +710,7 @@ $q_\al(t)=q_{\al(0)}+\eta_\al(t)$, $\eta_\al(t)$ klein
 $M$ Massenmatrix, symmetrisch positiv definit\\
 $K$ Kopplungsmatrix, symmetrisch positiv definit
 
+\end{proof}
 \subsection{Dynamik kleiner Schwingungen -- Normalkoordinaten}:
 \[L(\eta\dot\eta)=\dfrac{1}{2}\dot\eta M\dot \eta-\frac{1}{2}\eta^TK\eta\]
 mit $M>0,M=M^t$ und $K>0,K=K^T$, sodass
@@ -727,8 +737,9 @@ da $Q=O^TM^{\frac{1}{2}}\eta$, $O^TO=OO^T=1$
 
 
 \subsubsection{Modell eines lineare dreiatomigen Moleküls}
-\begin{figure}[h]
-	\begin{tikzpicture}[scale=0.7]
+\begin{figure}[hc]
+	\begin{center}
+		\begin{tikzpicture}[scale=0.7]
 		\draw[decorate,decoration=snake](-3,0)--(3,0);
 		\draw[fill=black](0,0)circle(0.4);
 		\node at(0,-0.3)[below]{$\vec x_2$}; 
@@ -741,6 +752,9 @@ da $Q=O^TM^{\frac{1}{2}}\eta$, $O^TO=OO^T=1$
 		\node at(1.5,0)[below]{$k$};
 		\node at(1.5,0)[above]{$l_0$};
 	\end{tikzpicture}
+	\end{center}
+	\caption{Lineares dreatomiges Modekül}
+	\label{fig:lin3at}
 \end{figure}
 
 \begin{align*}
@@ -785,15 +799,19 @@ Es folgt, dass $\dot Q=O^TM^{1/2}\dot{\eta}=\frac{1}{2}\dot Q^T\dot Q-\frac{1}{2
 \newpage
 \subsection{Dynamische Vielteilchensysteme: Der schwingende Ring} %3.3
 \begin{figure}[h]
+	\begin{center}
 	\begin{tikzpicture}
-	\draw (0,0) circle (2);
-	\foreach \t in {0,...,16} {
-	\coordinate (a) at ({2*sin(\t*360/16)},{2*cos(\t*360/16)});
-	\draw[decorate,decoration=snake](a)--({2*sin((\t+1)*360/16)},{2*cos((\t+1)*360/16)});
-	\draw[fill=black](a) circle(0.07);
-	\draw[decorate, decoration=snake] (a)--({0.7*sin(\t*360/16)},{0.7*cos(\t*360/16)});
-	};
+		\draw (0,0) circle (2);
+		\foreach \t in {0,...,16} {
+		\coordinate (a) at ({2*sin(\t*360/16)},{2*cos(\t*360/16)});
+		\draw[decorate,decoration=snake](a)--({2*sin((\t+1)*360/16)},{2*cos((\t+1)*360/16)});
+		\draw[fill=black](a) circle(0.07);
+		\draw[decorate, decoration=snake] (a)--({0.7*sin(\t*360/16)},{0.7*cos(\t*360/16)});
+		};
 	\end{tikzpicture}
+	\end{center}
+	\caption{Schwingender Ring}
+	\label{fig:ring}
 \end{figure}
 $a=x"i a_0-x"{i-1}_0$: Abstand der Gleichgewichtspositionen\\
 (mit $i=1,...,N$ und $N+1\equiv1$)\\
@@ -933,11 +951,15 @@ mit $A_r\in\C$ und $\omega_r=\sqrt{\frac{K}{m}+\frac{4k}{m}\sin^2\left(\frac{\pi
 			\end{align*}
 		\end{proof}
 		\begin{figure}[h]
-			\begin{tikzpicture}
-				\draw[thick,->](-1,0)--(3,0)node[above]{$x'$};
-				\draw[thick,->](0,-1)--(0,2);
+			\begin{center}
+				\begin{tikzpicture}[scale=0.8]
+				\draw[thick,->](-0.3,0)--(3,0)node[above]{$x'$};
+				\draw[thick,->](0,-0.3)--(0,2);
 				\draw(1,0)node[below]{x}--(1,2.1)node[above]{f(x')};
 			\end{tikzpicture}
+			\end{center}
+			\caption{$\delta$-Funktion}
+			\label{fig:delta}
 		\end{figure}
 	\item Faltungstheorem
 		\[(\varphi*\psi)(x):=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}dx'\varphi(x-x')\psi(x')\]
@@ -978,7 +1000,10 @@ Funktionen $\varphi$ werden auch Testfunktionen genannt
 	\item Es gilt: Im Limes $n\rightarrow \infty$
 \begin{itemize}
 	\item $f_n(c):=ne^{-n^2\pi x^2}\rightarrow \delta(x)$, denn
-	\[\lim\limits_{n\rightarrow \infty}\int_{-\infty}^{\infty}f_n(x)\varphi(x)dx=\lim\limits_{n\rightarrow \infty}\frac{n}{n\sqrt \pi}\int_{-\infty}^{\infty}due^{-u^2}\varphi(u\frac{n}{n\sqrt \pi})=\frac{1}{\sqrt \pi}\varphi(0)\int_{-\infty}^{\infty}due^{-u^2}=\frac{1}{\sqrt{\pi}}\varphi(0)\sqrt{\pi}=\varphi(0)\]
+	\begin{align*}
+	\lim\limits_{n\rightarrow \infty}\int_{-\infty}^{\infty}f_n(x)\varphi(x)dx&=\lim\limits_{n\rightarrow \infty}\frac{n}{n\sqrt \pi}\int_{-\infty}^{\infty}due^{-u^2}\varphi(u\frac{n}{n\sqrt \pi})\\
+	&=\frac{1}{\sqrt \pi}\varphi(0)\int_{-\infty}^{\infty}due^{-u^2}=\frac{1}{\sqrt{\pi}}\varphi(0)\sqrt{\pi}=\varphi(0)
+	\end{align*}
 	\item $f_(x):=\frac{n}{\pi}\left(\frac{\sin(nx)}{xn}\right)^2\rightarrow \delta(x)$
 	\item $f_n(x):=\frac{1}{\pi}\frac{\frac{1}{n}}{x^2+\left(\frac{1}{n}\right)^2}\rightarrow \delta(x)$
 	\item $f_n(x):=\frac{1}{\pi}\frac{\sin(nx)}{x}\rightarrow \delta x$
@@ -1008,7 +1033,7 @@ Funktionen $\varphi$ werden auch Testfunktionen genannt
 \paragraph*{Bestimmung der Amplituden $A(k)$ aus den Anfangsbedingungen}
 \begin{align*}
 	U(x,0)&=\int_{-\infty}^{\infty}dk(A(k)e^{ikx}+A^*(k)e^{ikx}):=F(x)\\
-	\frac{\partial U}{\partial t}(x,0)=\int_{-\infty}^{\infty}dx\left\{A(k)(-i\omega(k))^{ikx}\right\}+A^*(k)i\omega(k)e^{-ikx}:=G(x)\\
+	\frac{\partial U}{\partial t}(x,0)&=\int_{-\infty}^{\infty}dx\left\{A(k)(-i\omega(k))^{ikx}\right\}+A^*(k)i\omega(k)e^{-ikx}:=G(x)\\
 	A(k)&=\frac{i\omega(k)\tilde F(k)-\tilde G(k)}{2i\omega(k\sqrt{2\pi})}
 \end{align*}
 
@@ -1208,7 +1233,7 @@ Transformieren mit Hilfe der Laplace Transformation bzg. p
 		\emph{Hier fehlt was!}
 \end{enumerate}
 
-
+\newpage
 
 \section{Hamiltonsche Mechanik}
 
@@ -1262,12 +1287,15 @@ Es gilt:
 	\item Youngsche Ungleichung
 		\[F(x,p):=\sum_{j=1}^{d}p_jx_j-f(x)\leq g(p)\equiv F\big(x(p),p\big)\equiv\max_x F(x,p),\text{ für }\frac{\partial^2 f}{\partial x^2}\]
 		\begin{figure*}[t]
+			\begin{center}
 			\begin{tikzpicture}
 				\draw[->](0,0)--(2,0)node[below]{$x(t)$};
 				\draw[->](0,0)--(0,2)node[left]{$p(t)$};
 				\draw[variable=\x,domain=0:1,samples=500] plot ({\x * cos( 20*\x r)+1},{\x * sin(20*\x r)+1});
 			\end{tikzpicture}
-		\title{Phasenraum-Darstellung}
+			\end{center}
+			\caption{Phasenraum-Darstellung}
+			\label{fig:phase}
 		\end{figure*}
 	\item $dg=\sum_{i=1}^{d}\left\{dx_ip_i+x_idp_i-\frac{\partial f}{\partial x_i}dx_i\right\}=\sum_{i=1}^{d}p_idp_i\Leftrightarrow \frac{\partial g}{\partial p_i}=x_i$\\
 		$df=\sum_{i=1}^{d}\left\{dx_ip_i+x_idp_i-\frac{\partial g}{\partial p_i}dp_i\right\}=\sum_{i=1}^{d}p_idp_i\Leftrightarrow \frac{\partial F}{\partial x_i}=p_i$
@@ -1339,7 +1367,7 @@ bzw. $p(t_0),p(t_1)$ beliebig
 		\delta S[\gamma]&=\int_{t_0}^{t_1}dt\left\{\sum_{j=1}^{f}\left(\delta p_j(t)\dot q_j(t)+\underbrace{p_j(t)\delta\dot q_j(t)}_{=\frac{d}{dt}\left(p_j(t)\delta q_j(t)-\delta q_j(t)p_j(t)q_j(t)\right)}-\dif{H}{p_j}\delta p_j(t)-\dif{H}{q_j}\delta q_j(t)\right)\right\}\\
 		&=\left.\sum_{j=1}^{f}p_j\delta q_j(t)\right|_{t_0}^{t_1}+\int_{t_0}^{t_1}dt\left\{\sum_{j=1}^{f}\delta q_j(t)\left(\dot q_j(t)-\dif{H}{p_j}\right)+\delta q_j(t)\left(-\dot p_j(t)-\dif{H}{q_j}\right)\right\}\underset{\text{da $\delta q(t_0)=\delta q(t_1)=0$}}{\overset{!}{=}}0\\
 		&\Leftrightarrow\\
-		&\dot q_j=\dif{H}{q_j},\quad \dot p_j=-\dif{H}{q_j}
+		&\dot q_j=\dif{H}{q_j},\quad \dot p_j=-\dif{H}{q_j}\qedhere
 	\end{align*}
 \end{proof}
 
@@ -1708,7 +1736,7 @@ Wobei $\mu$ den sog. Morse Index bezeichnet.
 %Nachtrage Ende
 
 
-
+\newpage
 
 \section{Der starre Körper}
 \subsection{Der starre Körper als Mechanisches Vielteilchensystem}
@@ -1755,20 +1783,26 @@ Wobei $\mu$ den sog. Morse Index bezeichnet.
 
 
 \subsection{Lagrange Methode 2. Art}
-\begin{tikzpicture}
-	\coordinate (O) at (0,0,0);
-	\coordinate (B) at (1,2,2);
-	\draw[thick,->] (O)--(B)node[right]{$B$};
-	\draw[fill=black](O) circle (0.05);
-	\draw[fill=black](B) circle (0.05);
-	\draw[->] (O)--(2,0,0) node[below] {$\vec n_2$};
-	\draw[->] (O)--(0,2,0) node[above] {$\vec n_3$};
-	\draw[->] (O)--(0,0,2) node[right] {$\vec n_1$};
-	\draw[->] (B)--($(B)+(0,1,1)$) node [left]{$\vec e_1$};
-	\draw[->] (B)--($(B)+(1,0,1)$) node[below] {$\vec e_2$};
-	\draw[->] (B)--($(B)+(1,1,0)$) node[above] {$\vec e_3$};
-	\draw (B) circle (1);
-\end{tikzpicture}
+\begin{figure}[h]
+	\begin{center}
+	\begin{tikzpicture}
+		\coordinate (O) at (0,0,0);
+		\coordinate (B) at (1,2,2);
+		\draw[thick,->] (O)--(B)node[right]{$B$};
+		\draw[fill=black](O) circle (0.05);
+		\draw[fill=black](B) circle (0.05);
+		\draw[->] (O)--(2,0,0) node[below] {$\vec n_2$};
+		\draw[->] (O)--(0,2,0) node[above] {$\vec n_3$};
+		\draw[->] (O)--(0,0,2) node[right] {$\vec n_1$};
+		\draw[->] (B)--($(B)+(0,1,1)$) node [left]{$\vec e_1$};
+		\draw[->] (B)--($(B)+(1,0,1)$) node[below] {$\vec e_2$};
+		\draw[->] (B)--($(B)+(1,1,0)$) node[above] {$\vec e_3$};
+		\draw (B) circle (1);
+	\end{tikzpicture}
+	\end{center}
+	\caption{Freiheitsgrade im starren Körper}
+	\label{fig:starr}
+\end{figure}
 \begin{itemize}
 	\item 6 Freiheitsgrade
 	\item Bezugssystem B im starren Körper $B\leftrightarrow\vec R(t)$\\
@@ -1881,7 +1915,7 @@ wähle $\vec R=\vec X_s=\vec O$. und $I_{11}<I_{22}<I_{33}$
 
 \subsubsection{Dynamik des freien Symmetrischen Kreisels}
 %TODO
-%VL 04.020.2016
+%VL 04.02.2016
 
 \subsection[Der starre Körper im homogenen Schwerefeld]{Der starre Körper im homogenen Schwerefeld/unter dem Einfluss äußerer Kräfte}
 
@@ -1947,7 +1981,7 @@ Einsetzen der Erhaltungsgrößen in $L$:
 \end{align*}
 
 
-%VL 09.20.2016
+%VL 09.02.2016
 \paragraph*{...}
 \begin{itemize}
 	\item $\theta(t)=\theta_0$, $\dot{\varphi}=\dfrac{A-B\cos\theta_0}{\sin^2\theta_0I'_{11}}$:\\
