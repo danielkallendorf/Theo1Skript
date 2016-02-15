@@ -179,15 +179,15 @@ Aus $\vec L_{rel}\cdot \vec r=0$ folgt, dass die Bewegung in einer Ebene stattfi
 		x&=r\cos\varphi&\dot x&=\dot r\cos\varphi-r\sin\varphi\dot{\varphi}\\
 		y&=r\sin\varphi&\dot y&=\dot r\sin\varphi+r\cos\varphi\dot{\varphi}
 	\end{align*}
-	\begin{equation}
+	\begin{equation*}
 		L_{rel}=\mu(x\dot y-\dot xy)=\mu\left[r\cos\varphi\left(\dot r\sin\varphi+r\cos\varphi\dot{\varphi}\right)-\left(\dot r\cos\varphi-r\sin\varphi\dot{\varphi}\right)r\sin\varphi\right]=\mu r^2\dot{\varphi}
-	\end{equation}
+	\end{equation*}
 	Somit erhalten wir
 	\begin{align*}
 		\dot{\varphi}&=\frac{L_{rel}}{\mu r^2}\\
 		\varphi(t)-\varphi_0&=\int_{t_0}^{t}dt'\frac{L_{rel}}{\mu r^2(t')}
 	\end{align*}
-		\item $E_{rel}=\frac{\mu}{2}\dot{\vec r}^2+U(r)$
+		\item Mit $E_{rel}=\frac{\mu}{2}\dot{\vec r}^2+U(r)$
 	\begin{align*}
 		\dot{\vec r}^2&=\dot x^2+\dot y^2=\dot r^2+r^2\dot{\varphi}^2\\
 		E_{rel}&=\frac{\mu}{2}\dot r^2\frac{L_{rel}}{\mu^2r^4}+U(r)\\
@@ -197,67 +197,68 @@ Aus $\vec L_{rel}\cdot \vec r=0$ folgt, dass die Bewegung in einer Ebene stattfi
 	\begin{equation*}
 		t-t_0=\pm\int_{r(t_0)}^{r(t)}dr\sqrt{\frac{\mu}{2}(E_{rel}-U(r))}
 	\end{equation*}
-		mit $+$ für $r(t)>r(t_0)$, $-$ für $r(t)<r(t_0)$, sonst $0$.
+	Wobei $+$ für $r(t)>r(t_0)$, $-$ für $r(t)<r(t_0)$, sonst $0$.
 \end{itemize}
 
+\begin{wrapfigure}{hl}{5cm}
+	\begin{tikzpicture}[scale=0.6]
+	\coordinate (0) at (0,0) node[left] at (0) {$0$};
+	\coordinate (E0) at (-0.15,-2) node[left] at (E0) {$E_0$};
+	\coordinate (E1) at (-0.15,-1) node[left] at (E1) {$E_0'$};
+	\coordinate (E2) at (-0.15,1) node[left] at (E2) {$E_0''$};
+	\draw[thick,->] (-0.15,0)--(4,0) node[right]{$r$};
+	\draw[thick,->] (0)--(0,2) node[left] {$U_{eff}$};
+	\draw[thick] (0)--(0,-2.3);
+	\draw[dashed] (E0)--(4,-2);
+	\draw[dashed] (E1)--(4,-1);
+	\draw[dashed] (E2)--(4,);
+	\draw plot[domain=0:6.5,smooth] ({0.6*\x},{1.5*(3-(\x+1.3)^2))/(e^(1.1*\x)});
+	\end{tikzpicture}
+	\vspace{-0.5cm}
+	\caption{Energieschema}
+	\label{fig:E0}
+\end{wrapfigure}
 
 \subsubsection*{Bestimmung des Orbits}
-\[\dfrac{\dot{\varphi}}{\dot r}=\frac{d\varphi}{dr}=\pm\frac{L_{rel}}{\mu r^2\sqrt{\dfrac{2}{\mu}(E_{rel}-U(r))}}\]
-\[\varphi(r)-\varphi(r_0)=\pm\int_{r_0}^{r}dr'\frac{L_{rel}}{r'^2\sqrt{2\mu(E_{rel}-U(r'))}}\]
-\begin{figure}[bh]
+\begin{align*}
+	\dfrac{\dot{\varphi}}{\dot r}=\frac{d\varphi}{dr}&=\pm\frac{L_{rel}}{\mu r^2\sqrt{\dfrac{2}{\mu}(E_{rel}-U(r))}}\\
+	\varphi(r)-\varphi(r_0&)=\pm\int_{r_0}^{r}dr'\frac{L_{rel}}{r'^2\sqrt{2\mu(E_{rel}-U(r'))}}
+\end{align*}
+Die Lösungen unterschieden sich also je nach dem, wie groß $E_0$ ist. (Siehe Abbildung \ref{fig:E0} und Abbildung \ref{fig:Bahnkurven})
+\begin{figure}[h]
 	\begin{tabular}{|ccc|}
 		\hline&
 		\begin{tikzpicture}[scale=0.5]
-			\coordinate (Z) at (0,0);
-			\draw[fill] (Z) circle(0.1) node[above]{$m_1$};
-			\draw [dashed](Z) circle(3);
-			\draw(Z) ellipse(3 and 1);
-			\draw[rotate around={60:(Z)}] (Z) ellipse (3 and 1);
-			\draw[rotate around={120:(Z)}] (Z) ellipse (3 and 1);
+		\coordinate (Z) at (0,0);
+		\draw[fill] (Z) circle(0.1) node[above]{$m_1$};
+		\draw [dashed](Z) circle(3);
+		\draw(Z) ellipse(3 and 1);
+		\draw[rotate around={60:(Z)}] (Z) ellipse (3 and 1);
+		\draw[rotate around={120:(Z)}] (Z) ellipse (3 and 1);
 		\end{tikzpicture}&
 		\begin{tikzpicture}[scale=0.5];
-			\coordinate (Z) at (0,0);
-			\draw[fill] (Z) circle(0.1) node[above]{$m_1$};
-			\draw[dashed] (Z) circle (1);
-			\draw plot[domain=-1.7:1.4] ({-cosh(\x)+2},{sinh(\x)});
-			\draw[dashed](2,0)--(-1,-3) node[right]{Asymptote};
+		\coordinate (Z) at (0,0);
+		\draw[fill] (Z) circle(0.1) node[above]{$m_1$};
+		\draw[dashed] (Z) circle (1);
+		\draw plot[domain=-1.7:1.4] ({-cosh(\x)+2},{sinh(\x)});
+		\draw[dashed](2,0)--(-1,-3) node[right]{Asymptote};
 		\end{tikzpicture}\\
 		$E_0$ nicht möglich&
 		$E_0'$ gebundene Bewegung&$E_0''$ ungebundene Bewegung\\
 		\hline
 	\end{tabular}
 	\caption{Bahnkurven}
-	\vspace{-1cm}
+	\label{fig:Bahnkurven}
 \end{figure}
 
 %VL 20.10.2015
-\begin{wrapfigure}{l}{5cm}
-	\begin{tikzpicture}[scale=0.8]
-		\coordinate (0) at (0,0) node[left] at (0) {$0$};
-		\coordinate (E0) at (-0.15,-2) node[left] at (E0) {$E_0$};
-		\coordinate (E1) at (-0.15,-1) node[left] at (E1) {$E_0'$};
-		\coordinate (E2) at (-0.15,1) node[left] at (E2) {$E_0''$};
-		\draw[thick,->] (-0.15,0)--(4,0) node[right]{$r$};
-		\draw[thick,->] (0)--(0,2) node[left] {$U_{eff}$};
-		\draw[thick] (0)--(0,-2.3);
-		\draw[dashed] (E0)--(4,-2);
-		\draw[dashed] (E1)--(4,-1);
-		\draw[dashed] (E2)--(4,);
-		\draw plot[domain=0:6.5,smooth] ({0.6*\x},{1.5*(3-(\x+1.3)^2))/(e^(1.1*\x)});
-	\end{tikzpicture}
-	\caption{Energieschema}
-	\vspace{-1.7cm}
-\end{wrapfigure}
-
-
 \begin{defn}
 	Ein \emph{Funktional} ordnet jeder möglichen Bahnkurve eine Zahl zu.\\
 \end{defn}
 Man kann also Funktionale finden, sodass die Extrema auf die Newtonschen Bewegungsgleichungen führen.\\
-Es ergibt sich ein Variationsproblem im $\infty$-dimensionalen Raum der Bahnkurve unendlich vieler Punkte.
-\\
+Es ergibt sich ein Variationsproblem im $\infty$-dimensionalen Raum der Bahnkurve unendlich vieler Punkte.\\\\\\
 
-\newpage
+
 
 
 
@@ -1294,16 +1295,19 @@ Hamiltonsche Bewegungsgleichungen
 		\frac{df}{dx}(x)\equiv f'(x)&\equiv\sum_{j=1}^{f}\left.\left( dp_j\dot q_j+p_jd\do q_j-\dif{L}{q_j}-\dif{L}{\dot q_j}d\dot q_j-\dif{L}{t}dt\right)\right|_T
 		\intertext{mit $\left(p_j-\dif{L}{\dot q_j}\right)d\dot q_j=0$}
 		\Leftrightarrow \dot q_j=\dif{H}{p_j}
-		\intertext{Es folgt daraus dass}
-		\dif{H}{q_j}=-\dif{L}{q_j}\quad\text{Hamilton I}\\
-		\dif{H}{t}=-\dif{L}{t}\quad\text{Hamilton II}
-		\intertext{Weiterhin}
-		\frac{dH}{dt}&=\sum_{j=1}^{f}\left(\dif{H}{p_j}\underset{\dot p_j}{=-\dif{H}{q_j}}+\dif{H}{q_j}\underset{\dot q_j}{=\dif{H}{p_j}}\right)+\dif{H}{t}=\dif{H}{t}
 	\end{align*}
 	
+	\begin{align*}
+		\intertext{Es folgt daraus dass}
+		\dif{H}{q_j}&=-\dif{L}{q_j}&&\text{Hamilton I}&&\\
+		\dif{H}{t}&=-\dif{L}{t}&&\text{Hamilton II}&&
+		\intertext{Weiterhin}
+	\end{align*}
+	
+	\[\frac{dH}{dt}=\sum_{j=1}^{f}\left(\dif{H}{p_j}\underset{\dot p_j}{=-\dif{H}{q_j}}+\dif{H}{q_j}\underset{\dot q_j}{=\dif{H}{p_j}}\right)+\dif{H}{t}=\dif{H}{t}\]
 \end{proof}
 
-Es gilt: Sei $q_1$ Zyklische Koordinate\\
+Es gilt: Sei $q_1$ eine Zyklische Koordinate\\
 $\dif{L}{q_1}=0=-\dif{H}{q_1}$ $\Rightarrow$ $p_1$ Erhaltungsgröße: $H(p_1=c,p_2,...,p_f)$\\
 %TODO
 
