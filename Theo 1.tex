@@ -1674,7 +1674,7 @@ Es gilt: nicht partielle DGL 1. Ordnung $\leftrightarrow$ Hamiltonisches System 
 kanonische Transformation in ein Hamilton System: $(p,q)\leftrightarrow(P,Q)$.\\
 Es existier eine erzeugende Funktion $S(P,Q,p,q,t)$, sodass
 \begin{align*}
-		p&=\dif{S}{q}&Q&=\dif{S}{P}&P&=\dif{S}{Q}
+		p&=\dif{S}{q}&Q&=\dif{S}{P}&P&=-\dif{S}{Q}
 	\end{align*}
 	\begin{align*}
 		\begin{array}{rl}
@@ -1719,22 +1719,32 @@ Schrödinger Gleichungen: Punktquant im äußeren Potenzial
 Kurzwellenasymptotik $\hbar\rightarrow 0$ für kleine Wellenlängen
 \begin{align*}
 	\Psi(\vec x,t)&=Ae^{\frac{i}{\hbar}S(\vec x,t)}\\
-	(\vec \nabla\Psi)(\vec x,t)&=\frac{i}{\hbar}(\vec{\nabla}S)\Psi(\vec c,t)\\
-	(\vec \nabla\Psi)(\vec x,t)&=\frac{i}{\hbar}(\Delta S)\Psi(\vec x,t)+(\frac{i}{\hbar}\vec{\nabla}S)^2\Psi(\vec x,t)\\
+	(\vec \nabla\Psi)(\vec x,t)&=\frac{i}{\hbar}(\vec{\nabla}S)\Psi(\vec x,t)\\
+	(\Delta\Psi)(\vec x,t)&=\frac{i}{\hbar}(\Delta S)\Psi(\vec x,t)+(\frac{i}{\hbar}\vec{\nabla}S)^2\Psi(\vec x,t)\\
 	|(\vec\nabla S)^2|&\gg|\hbar\Delta S|
 \end{align*}
 Also folgt für kleine Wellenlängen
 \[\frac{1}{2M}(\vec{\nabla}_{\vec x}S)^2+V(\vec x,t)=-\dif{S}{t}\]
 Die allgemeine Lösung ist $\Psi(x,t=0)=Ae^{\frac{i}{\hbar}S_0(x)}:=\phi(x)$.\\
 Mit der H-J-DGl bauen wir $A$ zu $A(\vec x,t)$ aus, sodass
-\[\Psi(Q,t)=\sum_j\phi(q_0"j)\frac{1}{\det(\dif{Q}{q_0})_j}e^{\frac{i}{\hbar}S_j(Q,t)-\frac{i}{2}\pi\mu j}\]
+\[\Psi(Q,t)=\sum_j\phi(q_0"j)\frac{1}{sqrt{\det(\dif{Q}{q_0})}_j}e^{\frac{i}{\hbar}S_j(Q,t)-\frac{i}{2}\pi\mu j}\]
 Wobei $\mu$ den sog. Morse Index bezeichnet.
 
+%Morseindex gibt Multiplizitaet in \dif{Q}{q_0} an (TODO genauer recherchieren)
+%SOME NICE PLOTS HERE: P-Q-Phasendiagramm, x-V(x)-Potenzialbeispiel
 
 \paragraph*{Grenzwert $\hbar$ gegen 0}
-%TODO...?
+%TODO...? --> diesen Absatz nochmal ueberarbeiten, wegen schlechter Handschrift 
 %Nachtrage Ende
-
+Schroedingergleichung auf dimensionlosen Einteilen (???) bringen:
+\begin{align*}
+	 \left{-\frac{\hbar}{V_0^2 M q^2} \Delta \underbrace{\frac{\vec x}{q}}_{:=\vec S}
+	 +\frac{V}{V_0}\left(\frac{\vec x}{q}\right)\right}\Psi(\vec x,t)\\
+	=i\underbrace{\left[\frac{\hbar\omega_0}{V_0}\right]}_{:=1/\lambda} \dif{\Psi}{\underbrace{t \omega_0}_{:=\tau}}
+\end{align*}
+wobei $\lambda\gg 1$ dimensionslos ist. Weiter folgt:
+\[\frac{1}{\lambda^2}=\frac{(\hbar\omega_0)}{V_0}^2\overset{!}{=}\frac{\hbar^2}{2mqV_0}\ll 1 \Leftrightarrow \frac{\hbar^2}{2mq}\ll V_0]
+als Bedingung und damit ebenso $\omega^2=\sqrt{V_0/(2mq^2)}$. Damit ist die sogenante Lolemlisierungsenergie (??? furchtbare Handschrift ....) $\frac{\hbar^2}{2mq}$ vernachlässigbar.
 
 \newpage
 
