@@ -711,8 +711,8 @@ $M$ Massenmatrix, symmetrisch positiv definit\\
 $K$ Kopplungsmatrix, symmetrisch positiv definit
 
 \end{proof}
-\subsection{Dynamik kleiner Schwingungen -- Normalkoordinaten}:
-\[L(\eta\dot\eta)=\dfrac{1}{2}\dot\eta M\dot \eta-\frac{1}{2}\eta^TK\eta\]
+\subsection{Dynamik kleiner Schwingungen -- Normalkoordinaten}
+\[L(\eta,\dot\eta)=\dfrac{1}{2}\dot\eta M\dot \eta-\frac{1}{2}\eta^TK\eta\]
 mit $M>0,M=M^t$ und $K>0,K=K^T$, sodass
 \begin{align*}
 	\frac{\partial L}{\partial \dot\eta_\al}&=\sum_{\beta=1}^{f}M_{\al,\beta}\dot\eta_\beta\\
@@ -1325,7 +1325,7 @@ Hamiltonsche Bewegungsgleichungen
 \end{itemize}
 
 \begin{proof}
-	Freiheitsgrade $f=:H(p,q,t)=\sum_{j=1}^{f}\left[q_j\dot q_j(q,p,t)\right]-L\big(q,\dot q(q,p,t),t\big)$
+	Freiheitsgrade $f=:H(p,q,t)=\sum_{j=1}^{f}\left[p_j\dot q_j(q,p,t)\right]-L\big(q,\dot q(q,p,t),t\big)$
 	
 	\begin{align*}
 		dH(p,q,t)|_p&=\sum_{j=1}^{f}\left.\left(\dif{H}{p_j}dp_j+\dif{H}{q_j}dq_j+\dif{H}{t}dt\right)\right|_P\\
