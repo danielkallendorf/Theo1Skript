@@ -713,19 +713,24 @@ $K$ Kopplungsmatrix, symmetrisch positiv definit
 \end{proof}
 \subsection{Dynamik kleiner Schwingungen -- Normalkoordinaten}
 \[L(\eta,\dot\eta)=\dfrac{1}{2}\dot\eta M\dot \eta-\frac{1}{2}\eta^TK\eta\]
-mit $M>0,M=M^t$ und $K>0,K=K^T$, sodass
+mit $M>0,M=M^T$ und $K>0,K=K^T$, sodass
 \begin{align*}
 	\frac{\partial L}{\partial \dot\eta_\al}&=\sum_{\beta=1}^{f}M_{\al,\beta}\dot\eta_\beta\\
 	\frac{\partial L}{\partial \eta_\al}&=-\sum_{\beta=1}^{f}K_{\al,\beta}\eta_\beta\\
 	\frac{d}{dt}\frac{\partial L}{\partial \dot\eta_\al}&=\sum_{\beta=1}^{f}M_{\al,\beta}\ddot\eta_\beta=-\sum_{\beta=1}^{f}K_{\al,\beta}\eta_\beta=\frac{\partial L}{\partial \eta_\al}\\
 \end{align*}
-mit Orthogonalmatrix $O$, $Q=O^TM^{\frac{1}{2}}\mu$, $M^{-\frac{1}{2}}KM^{-\frac{1}{2}}=OKO^T$\\
+mit Orthogonalmatrix $O$, $Q=O^TM^{\frac{1}{2}}\eta$, $M^{-\frac{1}{2}}KM^{-\frac{1}{2}}=OKO^T$\\
 $M^{1/2}_{ij}$ Verändert die Matrix indem wir $M$ diagonalisieren, die Wurzeln der Diagonalelemente Zeihen und danach die Trasnformationsmatrizen wieder einrechnen. Sei $M=SAS^T$ und $B_{ii}=\sqrt{A_{ii}}$, dann def. $M^{1/2}=SBS^T$.
 \[L(Q,\dot Q)=\frac{1}{2}\dot Q^T\dot Q-\frac{1}{2}Q^TKQ=\frac{1}{2}\sum_{i=1}^{f}\dot Q_i\dot Q_i-\frac{1}{2}\sum_{i=1}^{f}Q_iK_iQ_i\]
 
 
 \subparagraph*{Beweisidee}
-\[L(\eta,\dot{\eta})=\frac{1}{2}(M^{\frac{1}{2}}\dot\eta)^T(M^\frac{1}{2}\eta)-\frac{1}{2}\eta^TK\eta=\frac{1}{2}\dot{\ol{Q}}^T\dot{\ol{Q}}-\frac{1}{2}\dot{\ol{Q}}^T\ol{Q}-\dfrac{1}{2}\ol{Q}^TM^{-\frac{1}{2}}KM^{-\frac{1}{2}}\ol Q=\frac{1}{2}\dot Q^T\dot Q-\dfrac{1}{2}Q^TKQ\]
+\begin{align*}
+L(\eta,\dot{\eta})&=\frac{1}{2}\dot\eta^T M\dot\eta-\frac{1}{2}\eta^TK\eta
+&&=\frac{1}{2}(M^{\frac{1}{2}}\dot\eta)^T(M^\frac{1}{2}\eta)-\frac{1}{2}\eta^TK\eta&&\\
+&=\frac{1}{2}\dot{\ol{Q}}^T\dot{\ol{Q}}-\frac{1}{2}\dot{\ol{Q}}^T\ol{Q}-\dfrac{1}{2}\ol{Q}^TM^{-\frac{1}{2}}KM^{-\frac{1}{2}}\ol Q
+&&=\frac{1}{2}\dot Q^T\dot Q-\dfrac{1}{2}Q^TKQ&&
+\end{align*}
 da $Q=O^TM^{\frac{1}{2}}\eta$, $O^TO=OO^T=1$
 
 \subparagraph*{Lösungen}
